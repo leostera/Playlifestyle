@@ -1188,6 +1188,8 @@
       return this;
     },
 
+    // Easily remove this view from the DOM (optionally preserving the DOM element
+    // that held it) and unbind it from any events. This may be a no-op.
     kill: function() {
       this.remove( { preserve_dom: true });
       this.undelegateEvents();
