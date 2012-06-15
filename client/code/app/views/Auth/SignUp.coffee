@@ -11,8 +11,8 @@ class SignUpView extends Backbone.View
     # Class variables
     @views = []    
     if @step isnt 1
-      @views.push require('./Registration').init("#sign-up-1")      
-    @views.push require('./Geolocate').init("#sign-up-2")   
+      @views.push require('/Registration').init("#sign-up-1")      
+    @views.push require('/Geolocate').init("#sign-up-2")   
 
     if @step isnt 1
       @views[0].bind "registration:success", @geolocateShow
