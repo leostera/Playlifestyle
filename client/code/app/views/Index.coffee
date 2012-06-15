@@ -19,7 +19,7 @@ class IndexView extends Backbone.View
     @$el.html @template.render {}
 
     #get the register form
-    @registerView = require('./Sign/Registration').init("#sign-up-form")
+    @registerView = require('./Auth/Registration').init("#sign-up-form")
     #bind to success
     @registerView.bind "registration:success", @redirectToGeoloc
     #render it!
