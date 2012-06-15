@@ -29,6 +29,7 @@ class MainRouter extends Backbone.Router
 
   signout: =>
     # do the logout
+    # , (res) => )
     ss.rpc( "Users.Auth.SignOut", (res) =>
       if res is yes
         @navigate("welcome",true)
@@ -74,10 +75,10 @@ class MainRouter extends Backbone.Router
   ###
 
   # __prepareView( view )
-  __prepareView: (view, options=undefined) =>
+  __prepareView: (view, options=undefined, killMe=yes) =>
     @__killViews()
     @views.push require('../views/'+view).init(options)
-    @views.getLast().killMe = yes
+    @views.getLast().killMe = killMe
     @views.getLast()
 
   # __killViews
