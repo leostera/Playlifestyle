@@ -1,17 +1,13 @@
-class GeolocateView extends Backbone.View
+class GeolocationPartial extends Backbone.View
 
-  initialize: (el) =>
-    # Class variables
-    @template = ss.tmpl['forms-sign-up-2-geoloc']
-    @$el = $(el)
-    @error =
-      location: yes
-    @
+  @template: ss.tmpl['signup-partials-geoloc']
+  @error:
+    location: yes
 
   ###
   #  Rendering and visual effects
   ###
-  render: =>
+  prerender: =>
     # Render the templates
     @$el.html @template.render {}
 
@@ -41,6 +37,9 @@ class GeolocateView extends Backbone.View
     @$('form').hide()
 
     @
+
+  render: =>
+    @.el
 
   hide: =>
     @$('#locate').slideUp()
@@ -119,10 +118,10 @@ class GeolocateView extends Backbone.View
           @__toggleIcons(el, yes)
 
     if @error.location is no
-        @$('#start').removeClass('disabled')
+        @$('#confirm').removeClass('disabled')
         @trigger 'sign-up-proceed'
     else if @$('#start').hasClass('disabled') is no
-      @$('#start').addClass('disabled')
+      @$('#confirm').addClass('disabled')
       @trigger 'sign-up-halt'
 
   ###
@@ -153,6 +152,8 @@ class GeolocateView extends Backbone.View
     'click #decline'  : "decline"
     #validation
     'change input'  : "validateFields"
+    'focus input'   : "validateFields"
+    'blur input'    : "validateFields"
 
-exports.init = (el) ->
-  new GeolocateView(el)
+exports.init = () ->
+  new GeolocationPartial().prerender()

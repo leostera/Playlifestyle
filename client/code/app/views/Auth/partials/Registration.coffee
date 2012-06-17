@@ -1,21 +1,17 @@
-class RegistrationView extends Backbone.View
+class RegistrationPartial extends Backbone.View
 
-  initialize: (el) =>
-    # Class variables
-    @template = ss.tmpl['forms-sign-up-1-basic']
-    @$el = $(el)
-    @error =
-      name: yes
-      email: yes
-      birth: yes
-      hometown: yes
+  template: ss.tmpl['signup-partials-start']
 
-    @
+  error =
+    name: yes
+    email: yes
+    birth: yes
+    hometown: yes
 
   ###
   #  Rendering and visual effects
   ###
-  render: =>
+  prerender: =>
     # Render the templates
     @$el.html @template.render {}
 
@@ -64,12 +60,10 @@ class RegistrationView extends Backbone.View
     # Empty the birthdate
     @$('#birth').val('')
 
-    @trigger 'registration:rendered'
-
     @
-
-  fixDatepicker: =>
-    @$('#birth-select div.ui-datepicker').css('margin-right',"305px").css('float','right')
+  
+  render: =>
+    @.el
 
   disable: =>
     @$('input').attr('disabled','').blur()
@@ -100,89 +94,53 @@ class RegistrationView extends Backbone.View
   submit: (e) =>
     e.preventDefault()
 
-    unless @__hasErrors()
+    @credentials =
+      user: @$('#name').val()
+      hometown: @$('#hometown').val()
+      birth: @$('#birth').val()
+      email: @$('#email').val()
+      time: Date.now()
 
-      @credentials =
-        user: @$('#name').val()
-        hometown: @$('#hometown').val()
-        birth: @$('#birth').val()
-        email: @$('#email').val()
-        time: Date.now()
+    ss.rpc 'Users.Auth.ValidateSignUp', @credentials, (result) =>
+      if result is yes
+        @disable()
+        ss.rpc 'Users.Auth.SignUp', @credentials, (result) =>
+          if result.status is yes
+            @trigger 'registration:success'
+          else
+            @trigger 'registration:failure'
+            @enable()
 
-      @disable()
-      
-      #show loading graph
-
-      ss.rpc 'Users.Auth.SignUp', @credentials, (result) =>
-        console.log result
-        if result.status is yes
-          @trigger 'registration:success'
-        else
-          @trigger 'registration:failure'
-          @enable()
 
   ###
   #  Validations
   ###
   validateFields: (e) =>    
     #cache the element
-    el = @$(e.srcElement)
+    cache_el = @$(e.srcElement)
+    cache_id = cache_el.srcElement?.id
+    cache_val = cache_el.val()
 
-    switch e.srcElement?.id
-      when 'name'
-        name = el.val()
-        #check for only alphabetic+whitespaces instead of not only whitespace
-        if /^[a-zA-Z]{1}[a-zA-Z ]+$/.test name
-          @error.name = no
-          @__toggleIcons(el, no)        
-        else
-          @error.name = yes
-          @__toggleIcons(el, yes)
+    field_data = {   
+      el: cache_el
+      id: cache_id
+      value: cache_val
+    }
 
-      when 'email'
-        email = el.val()
-        #ok here use ^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$
-        if /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$/.test email
-          ss.rpc("Users.Utils.IsEmailAvailable",email, (result) =>
-            if result is yes
-              @error.email = no
-              @__toggleIcons(el, no)
-            else
-              @error.email = yes
-              @__toggleIcons(el, yes)
-            )
-        else
-          @error.email = yes
-          @__toggleIcons(el, yes)
-
-      when 'birth'
-        birth = el.val()
-        # check it's a valid date by parsing it
-        # and that has no
-        unless isNaN Date.parse birth
-          @error.birth = no
-          @__toggleIcons(el, no)
-        else
-          @error.birth = yes
-          @__toggleIcons(el, yes)
-
-      when 'hometown'
-        hometown = el.val()
-        #check for only alphabetic+whitespaces instead of not only whitespace
-        if /^[a-zA-Z ]+$/.test hometown
-          @error.hometown = no
-          @__toggleIcons(el, no)        
-        else
-          @error.hometown = yes
-          @__toggleIcons(el, yes)
+    ss.rpc 'Users.Auth.ValidateField', field_data, (result) =>
+      if result.status is yes
+        @error["#{result.field.id}"] = no
+        @__toggleIcons(result.field.el, no)
+      else
+        @error["#{result.field.id}"] = yes
+        @__toggleIcons(result.field.el, yes)
 
     if @error.hometown is no and @error.email is no \
       and @error.name is no and @error.birth is no
         @$('#start').removeClass('disabled')
-        @trigger 'sign-up-proceed'
+        @trigger 'registration:proceed'
     else if @$('#start').hasClass('disabled') is no
       @$('#start').addClass('disabled')
-      @trigger 'sign-up-halt'
 
   validateOnTimeout: (e) =>
     @timeOut = setTimeout( =>
@@ -219,8 +177,6 @@ class RegistrationView extends Backbone.View
     result = false
     if @error.hometown is yes or @error.email is yes or @error.name is yes or @error.birth is yes
       result = yes
-
-    console.log result    
     result
 
   ###
@@ -235,5 +191,5 @@ class RegistrationView extends Backbone.View
     'blur input'    : "validateNowAndClearTimeouts"
     'keydown #birth' : "ifTabSkipDatepicker"
 
-exports.init = (el) ->
-  new RegistrationView(el)
+exports.init = (options={}) ->
+  new RegistrationPartial(options).prerender()

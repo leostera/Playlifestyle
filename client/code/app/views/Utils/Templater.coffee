@@ -1,6 +1,6 @@
 class UserProfileView extends Backbone.View
 
-  el: '#content'
+  el: '#full'
 
   initialize: (@options) =>
     @template = ss.tmpl[options.template]

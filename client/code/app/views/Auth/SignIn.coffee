@@ -1,37 +1,46 @@
 class SignInView extends Backbone.View
 
-  template: ss.tmpl['forms-sign-in']
+  template: ss.tmpl['signin-base']
 
-  initialize: (el) =>
-    @$el = $ el
-    @
-
+  ###
+  #  Rendering and visual effects
+  ###
   render: =>
-    @$el.html @template.render {}
-    @
+    # Render the views      
+    if @step isnt 1  
+      @$el.append @views[0].render()
+      @views[0].fixDatepicker()
+      @$el.append @views[1].render()
+    else
+      @$el.append @views[0].render()
+      @views[0].show()
 
-  onSubmit: (e) =>
-    e.preventDefault()
 
-    # VALIDATE user and password
-    # show ticks or errors accordingly
-    user = @$('#user').val()
-    pass = @$('#pass').val()
+  geolocateShow: (e) =>
+    if @step isnt 1  
+      @views[0].kill()
+      @views[1].show()
+    else
+      @views[0].show()
 
-    # call the server for a sign in
-    ss.rpc 'Users.Auth.SignIn', {email: user, pass: pass}, (res) ->
-      # if the server returns yes
-      # then show hooray message and redirect to profile
-      # else
-      # the server returned an error message
-      # show it
-      if res.result is yes
-        window.MainRouter.navigate(res.session.name, true)        
-      else
-        window.MainRouter.navigate("welcome", true)        
+  processShow: (e) =>
+    @$('#sign-up-3').fadeIn()
+    
+  finishProcess: (e) =>
+    ss.rpc('Users.Account.IsGeolocated', (result) =>
+        if result.status is yes
+          window.MainRouter.navigate 'tutorial', true
+        else
+          window.MainRouter.navigate 'signup', true
+      )
 
-  events:
-    'click #login' : "onSubmit"    
+  tutorialShow: (e) =>
+    #dasd
 
-exports.init = (el = "#content") ->
-  new SignInView().initialize(el).render()
+  ###
+  #  Events Table
+  ###
+  # events:
+    
+exports.init = (options) ->
+  new SignUpView().initialize(options).render()
