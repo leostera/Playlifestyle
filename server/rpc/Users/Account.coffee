@@ -1,5 +1,6 @@
 exports.actions = (req, res, ss) ->
 
+  req.use 'App.addToRequest'
   req.use 'session'
   req.use "Auth.checkAuthenticated"
   req.use 'debug', 'cyan'  
@@ -9,8 +10,8 @@ exports.actions = (req, res, ss) ->
   SetLocation: (coord={lon: 0, lat: 0}) ->
     #set the location from the user
     #useful for tracking where the user has been
+    UserModel = req.app.models.Account.model
     if req.session?.user?
-      UserModel = require('../../db/Account').model      
       UserModel.update({email: req.session.user.email}, { $set: {located: yes} }, (err, num) =>
         if num is 1
           UserModel.findOne( {email: req.session.user.email}, (err, user) =>

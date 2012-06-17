@@ -1,6 +1,7 @@
 exports.actions = (req, res, ss) ->
 
 # this module does not require auth checks
+  req.use 'App.addToRequest'
   req.use 'session'
   req.use 'debug', 'cyan'  
 
@@ -19,11 +20,7 @@ exports.actions = (req, res, ss) ->
       res {status: no}
 
   SignIn: (creds) ->
-    #check the db for the username and password match
-    #check that the user is not logged in yet
-    #login the session in redis
-    UserModel = require('../../db/Account').model
-    UserModel.findOne {email: creds.email, pass: creds.pass}, (err, user) ->
+    req.app.actions.Users.SignIn(creds, (err, user) ->
       unless err
         req.session.setUserId(creds.username)
         req.session.user = user
@@ -35,6 +32,7 @@ exports.actions = (req, res, ss) ->
         res
           status: no
           error: 'Invalid ID'
+    )
 
   SignOut: ->
     #destroy de session!
@@ -49,62 +47,22 @@ exports.actions = (req, res, ss) ->
     res yes
 
   SignUp: (creds) ->
-    #creds are basically username and password (confirmed)
-    #create the user using the creds
-    #log him in
-    #return his new, unique userId ->
-      #thoughts on this, userId might be XXXYYY
-      #3 letter 3 digit number
-      #ABC123
-      #or 25*25*25*1000 = 15625000 combinations
-
-    @error =
-      user: yes
-      email: yes
-      birth: yes
-      hometown: yes
-
-    #check for only alphabetic+whitespaces instead of not only whitespace
-    if /^[a-zA-Z]{1}[a-zA-Z ]+$/.test creds.user
-      @error.user = no
-    else
-      @error.user = "Invalid username"
-
-    if require("../../utils").IsEmailAvailable(creds.email) is yes
-      @error.email = no
-    else
-      @error.email = "Email already in use"
-
-    # check that is more tan 0 in length (the field)
-    # that it's a valid date by parsing it
-    # and that has no
-    unless isNaN Date.parse creds.birth
-      @error.birth = no
-    else
-      @error.birth = "Invalid birth date"
-
-    #check for only alphabetic+whitespaces instead of not only whitespace
-    if /^[a-zA-Z ]+$/.test creds.hometown
-      @error.hometown = no
-    else
-      @error.hometown = "Invalid city name"
-
-    if @error.user is no and @error.email is no and @error.hometown is no and @error.birth is no
-      UserModel = require('../../db/Account').model
-      newUser = new UserModel
-        name: creds.user
-        email: creds.email
-        hometown: creds.hometown
-        birth: creds.birth
-
-      newUser.save (err) ->
-        console.log "Error: "
-        console.log err
-        req.session.setUserId(newUser.user)
-        req.session.user = newUser
+    req.app.actions.Users.SignUp(creds, (errors, user) ->
+      unless errors
+        req.session.setUserId(user.user)
+        req.session.user = user
         req.session.save()
-        res {status: yes, step: 1, user: newUser}
+        res {status: yes, step: 1, user: user}
+      else
+        res {status: no, errors: errors}
+    )
 
-    else
-      res {status: no, errors: @error}
+  ValidateField: (field_data) ->
+    validator = "NotEmpty"
+    switch field_data?.id
+      when 'name' then validator = "Alphabetic"
+      when 'email' then validator = "Email"
+      when 'date' then validator = "Date"
+      
+    res { result: req.app.utils.Validators["#{validator}"](field_data), field: field_data }
   }
