@@ -2,6 +2,8 @@
 express   = require('express')
 ss        = require('socketstream')
 
+ss.app    = require('./app')
+
 mongoose  = require("mongoose")
 mongoose.connect('mongodb://localhost/play_dev')
 
