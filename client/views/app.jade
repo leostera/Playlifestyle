@@ -1,27 +1,37 @@
 !!! 5
 html
-head
-    //
-       Doc. Info. 
+  head
+    meta(charset="utf-8")
     title Play Canada - Entertainment Lifestyle Network
     meta(name='keywords', content='Play Lifestyle, Play Life Style, Play Canada')
     meta(name='description', description='It\'s your play ground.')
-    
+      
     != SocketStream
-    
-    //
-       Mobile Viewports Compatibility 
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    //
-       Fix HTML5 for earlier versions of IE 
-    //if lt IE 9
-      script(src='src', html5shiv.googlecode.com='html5shiv.googlecode.com', svn='svn')
-      tr
-      | unk/html5.js"
-  //
-     Adjust view to hide URL-bar in mobile-webkit 
+  
   body
-    
-    #content
-
-    #footer.container Play Canada 2010 &copy; All Rights Reserved
+    .container-fluid      
+      .navbar
+        .navbar-inner
+          .container
+            a.btn.btn-navbar.btn-widget(data-toggle='collapse', data-target='.nav-collapse')
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            #nav
+      .row-fluid
+        .span12
+          #head
+            a(href='/')
+              img(src='/images/logo.png')
+      .row-fluid
+        .span2
+          #side
+        .span10
+          #main
+      .row-fluid
+        .span12
+          #full
+      .row-fluid
+        .span12
+          #footer Play Canada 2010 &copy; All Rights Reserved
+    #modals    
