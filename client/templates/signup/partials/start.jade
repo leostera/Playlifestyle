@@ -1,0 +1,40 @@
+form#sign-up-1
+
+  fieldset.control-group
+    h4 It's just easy
+
+  fieldset.control-group
+    #float-right.offset3
+      i.icon-white.icon-remove-sign#error-name
+      i.icon-white.icon-ok-sign#ok-name
+
+    input.input-medium#name(type="text",placeholder="What is your name?")
+
+  fieldset.control-group
+    #float-right.offset3
+      i.icon-white.icon-remove-sign#error-email
+      i.icon-white.icon-ok-sign#ok-email
+
+    input.input-medium#email(type="text",placeholder="What is your email?")
+
+  fieldset.control-group
+    #float-right.offset3
+      i.icon-white.icon-remove-sign#error-birth
+      i.icon-white.icon-ok-sign#ok-birth
+
+    input.input-medium#birth(type="text",placeholder="When is your birthday?")
+    br
+    #birth-select
+
+  fieldset.control-group
+    #float-right.offset3
+      i.icon-white.icon-remove-sign#error-hometown
+      i.icon-white.icon-ok-sign#ok-hometown
+
+    input.input-medium#hometown(type="text",placeholder="Where are you from?")
+
+  fieldset.control-group
+    button.btn.btn-primary#start Start
+
+  p#sign-in-now
+    a(href="/signin") Already a user? Sign in now!
