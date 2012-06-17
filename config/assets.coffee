@@ -3,7 +3,6 @@ module.exports =
     style_in_order: [
       'libs/normalize.css',
       'libs/bootstrap.css',
-      'libs/bootstrap-responsive.css',
       'libs/jquery.ui.css',
       'libs/normalize.css',  
       'app',
