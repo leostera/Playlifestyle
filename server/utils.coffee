@@ -1,1 +1,0 @@
-exports.IsEmailAvailable = (email) -> yes
