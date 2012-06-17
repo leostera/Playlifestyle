@@ -7,6 +7,7 @@ class MainRouter extends Backbone.Router
     'signin'      : 'signin'
     'signout'     : 'signout'
     'tutorial'    : 'tutorial'
+    'p/:partial/:element'  : 'dummy'
     ':username'   : 'profile'
 
   initialize: =>
@@ -24,7 +25,7 @@ class MainRouter extends Backbone.Router
 
   # Login view
   signin: =>
-    @__prepareView('Sign/SignIn')
+    @__prepareView('Auth/SignIn')
     @
 
   signout: =>
@@ -56,7 +57,7 @@ class MainRouter extends Backbone.Router
   signup: =>
     ss.rpc "Users.Auth.Status", (res) =>
       if res.status is no
-        @__prepareView("Sign/SignUp",{ el:"#content", step: res.step} )
+        @__prepareView("Auth/SignUp",{ el:"#content", step: res.step} )
       else
         @__prepareView("Utils/Templater", { template: "generic-message", details: { title: "Can't Login Again", message: "You are already logged in."} })
 
@@ -69,6 +70,10 @@ class MainRouter extends Backbone.Router
       <br /><a href="/"> Home </a>
       """} })
 
+  dummy: (partial,element) =>
+    view = @__prepareView("Auth/partials/#{partial}")
+    console.log view
+    $("##{element}").html view.render()
 
   ###
   Utility functions
@@ -77,9 +82,10 @@ class MainRouter extends Backbone.Router
   # __prepareView( view )
   __prepareView: (view, options=undefined, killMe=yes) =>
     @__killViews()
-    @views.push require('../views/'+view).init(options)
-    @views.getLast().killMe = killMe
-    @views.getLast()
+    view = require('../views/'+view).init(options)
+    view.killMe = killMe
+    @views.push view
+    _.last @views
 
   # __killViews
   ## Takes care of removing all the views and unbinding all events
