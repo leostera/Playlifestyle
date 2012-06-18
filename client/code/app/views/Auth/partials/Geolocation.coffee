@@ -30,6 +30,13 @@ class GeolocationPartial extends Backbone.View
         ###
       minLength: 3
 
+    ss.rpc 'Users.Account.GetLocation', (result) =>
+      if result.status is yes    
+        @$('#location').html("#{result.location.city}, #{result.location.country_name}")
+        @trigger 'geolocation:located'
+      else
+        @trigger 'geolocation:unlocated'
+
     #disable the input box
     @disableFields()
 
@@ -60,25 +67,6 @@ class GeolocationPartial extends Backbone.View
     @$('#location').attr('disabled','')
 
     @
-
-  ###
-  #  Here is where the magic happens
-  ###
-  confirm: (e) =>
-    e.preventDefault()
-
-    unless @canProceed()
-      return
-
-    @disable().hide()
-    
-    #show loading graph
-
-    ss.rpc 'Users.Account.Geolocate', (result) =>
-      if result.status is yes        
-        @trigger 'geolocation:submitted'
-      else
-        @trigger 'geolocation:error'
 
   changeLocation: (e) => @
 
@@ -137,7 +125,7 @@ class GeolocationPartial extends Backbone.View
   ###
   events:
     # magiiiiic
-    'click #change'  : "changeLocation"
+    'click #change' : "changeLocation"
     #validation
     'change input'  : "validateFields"
 

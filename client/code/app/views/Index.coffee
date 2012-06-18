@@ -11,7 +11,8 @@ class IndexView extends Backbone.View
     ss.rpc "Users.Auth.Status", (res) ->
       if res.status is yes
         window.MainRouter.navigate "#{res.user.name}", true      
-      @step = res.step
+      else
+        @step = res.step
     @
 
   render: =>
