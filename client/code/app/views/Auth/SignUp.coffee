@@ -20,8 +20,8 @@ class SignUpView extends Backbone.View
 
     @    
 
-  start: =>
-    @step = 0
+  start: (step) =>
+    @step = step || 0
     @doStep()
 
   doStep: =>    
@@ -29,9 +29,13 @@ class SignUpView extends Backbone.View
       when 0 
         @step_partial = 'Registration'
         @step_event   = 'registration'
+        @url_name     = 'begin'
       when 1 
         @step_partial = 'Geolocation'
         @step_event   = 'geolocation'
+        @url_name     = 'geolocate'
+
+    window.MainRouter.navigate "signup/#{@url_name}", true
 
     @partial = require("./partials/#{@step_partial}").init({
       model: @user      
@@ -80,11 +84,14 @@ class SignUpView extends Backbone.View
     @$('#body').html( @templates.wait.render {}).fadeIn()
 
   hideWait: =>
-    @$('#body').fadeOut().html('').fadeIn()
+    @$('#body').html('')
+
+  unroute: (e) =>    
+    window.MainRouter.navigate ""
 
   events:
-    'click #close': "kill"
+    'click #close': "unroute"
     'click #next' : "next"
     
-exports.init = () ->
-  new SignUpView().render().start()
+exports.init = (step) ->
+  new SignUpView().render().start(step)

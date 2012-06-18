@@ -10,9 +10,8 @@ class IndexView extends Backbone.View
   initialize: =>
     ss.rpc "Users.Auth.Status", (res) ->
       if res.status is yes
-        window.MainRouter.navigate "#{res.user.name}", true
-      else if res.status is no and res.step is 1
-        window.MainRouter.navigate "signup", true
+        window.MainRouter.navigate "#{res.user.name}", true      
+      @step = res.step
     @
 
   render: =>
@@ -25,7 +24,7 @@ class IndexView extends Backbone.View
     @loginPartial = require('./Auth/partials/Login').init()    
     $('#side').html @loginPartial.render()
 
-    @signUpModal = require('./Auth/SignUp').init()
+    @signUpModal = require('./Auth/SignUp').init(@step)
 
     @
 
