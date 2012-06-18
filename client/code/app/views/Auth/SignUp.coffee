@@ -24,23 +24,25 @@ class SignUpView extends Backbone.View
     @step = 0
     @doStep()
 
-  doStep: =>
+  doStep: =>    
     switch @step
       when 0 
-        step_partial = 'Registration'
-        step_event   = 'registration'
+        @step_partial = 'Registration'
+        @step_event   = 'registration'
       when 1 
-        step_partial = 'Geolocation'
-        step_event   = 'geolocation'
+        @step_partial = 'Geolocation'
+        @step_event   = 'geolocation'
 
-    @partial = require("./partials/#{step_partial}").init({
+    console.log @step_event
+
+    @partial = require("./partials/#{@step_partial}").init({
       model: @user      
     })
 
     @$('#body').html @partial.render()
 
-    @partial.on "#{step_event}:proceed", @enableNext
-    @partial.on "#{step_event}:stop", @disableNext
+    @partial.on "#{@step_event}:proceed", @enableNext
+    @partial.on "#{@step_event}:stop", @disableNext
 
     @
 
