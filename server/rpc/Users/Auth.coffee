@@ -1,9 +1,11 @@
+_ = require('underscore')
+
 exports.actions = (req, res, ss) ->
 
 # this module does not require auth checks
   req.use 'App.addToRequest'
   req.use 'session'
-  req.use 'debug', 'cyan'  
+  #req.use 'debug', 'cyan'  
 
   {
 
@@ -47,22 +49,15 @@ exports.actions = (req, res, ss) ->
     res yes
 
   SignUp: (creds) ->
+
     req.app.actions.Users.SignUp(creds, (errors, user) ->
-      unless errors
+      if _.isEmpty errors
         req.session.setUserId(user.user)
         req.session.user = user
         req.session.save()
         res {status: yes, step: 1, user: user}
       else
         res {status: no, errors: errors}
-    )
-
-  ValidateField: (field_data) ->
-    validator = "NotEmpty"
-    switch field_data?.id
-      when 'name' then validator = "Alphabetic"
-      when 'email' then validator = "Email"
-      when 'date' then validator = "Date"
-      
-    res { result: req.app.utils.Validators["#{validator}"](field_data), field: field_data }
+    )  
+    
   }

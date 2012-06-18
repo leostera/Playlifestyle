@@ -1,40 +1,35 @@
-form#sign-up-1
+form.form-horizontal#signup-1
 
-  fieldset.control-group
-    h4 It's just easy
+  .control-group#username-cg
+    label.control-label(for="username") Username
+    .controls      
+      .input-append
+        input(type="text").input-large#username
+        span.add-on#ok
+          i.icon-ok
+        span.add-on#error
+          i.icon-remove
 
-  fieldset.control-group
-    #float-right.offset3
-      i.icon-white.icon-remove-sign#error-name
-      i.icon-white.icon-ok-sign#ok-name
+      p.help-block Any username starting with a letter will do.
 
-    input.input-medium#name(type="text",placeholder="What is your name?")
+  .control-group#email-cg
+    label.control-label(for="email") Email
+    .controls
+      .input-append
+        input(type="text").input-large#email
+        span.add-on#ok
+          i.icon-ok
+        span.add-on#error
+          i.icon-remove
+      p.help-block Please enter a valid email for account activation.
 
-  fieldset.control-group
-    #float-right.offset3
-      i.icon-white.icon-remove-sign#error-email
-      i.icon-white.icon-ok-sign#ok-email
-
-    input.input-medium#email(type="text",placeholder="What is your email?")
-
-  fieldset.control-group
-    #float-right.offset3
-      i.icon-white.icon-remove-sign#error-birth
-      i.icon-white.icon-ok-sign#ok-birth
-
-    input.input-medium#birth(type="text",placeholder="When is your birthday?")
-    br
-    #birth-select
-
-  fieldset.control-group
-    #float-right.offset3
-      i.icon-white.icon-remove-sign#error-hometown
-      i.icon-white.icon-ok-sign#ok-hometown
-
-    input.input-medium#hometown(type="text",placeholder="Where are you from?")
-
-  fieldset.control-group
-    button.btn.btn-primary#start Start
-
-  p#sign-in-now
-    a(href="/signin") Already a user? Sign in now!
+  .control-group#birthday-cg
+    label.control-label(for="birthday") Birthday
+    .controls
+      .input-append
+        input(type="text").input-large#birthday
+        span.add-on#ok
+          i.icon-ok
+        span.add-on#error
+          i.icon-remove
+      p.help-block Only 16+

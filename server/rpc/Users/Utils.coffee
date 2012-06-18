@@ -1,3 +1,5 @@
+_ = require('underscore')
+
 exports.actions = (req, res, ss) ->
 
 # this module does not require auth checks
@@ -6,6 +8,22 @@ exports.actions = (req, res, ss) ->
   req.use 'debug', 'cyan'  
 
   {
-  IsEmailAvailable: (email) ->
-    res(not req.app.utils.Email.isTaken email)
+  ValidateField: (data) ->
+    result =
+      status: no
+      messages: []      
+
+    switch data.id
+      when 'email'
+        result = req.app.utils.Validators.isEmailAvailable(data.value)
+
+      when 'username'
+        result = req.app.utils.Validators.isUsernameAvailable(data.value)
+
+      when 'birthday'
+        result = req.app.utils.Validators.checkDate(data.value)
+
+    _.extend(result, {field_id: data.id})
+
+    res result
   }

@@ -1,6 +1,39 @@
-.modal-header
-  
+.modal
+  @modal-border 18px
+  border-radius @modal-border
 
-  h3
+  .modal-header
 
-.modal-body
+    border-top-left-radius @modal-border - 5px
+    border-top-right-radius @modal-border - 5px
+    border-bottom 0
+
+    //background 0
+    //background-color #dadada
+    background-image url('/images/nav-bg.png')
+    background-position top
+    background-repeat repeat-x
+
+    h3
+      font-family 'Open Sans', helvetica, arial
+      font-size 14px
+      color #4c4008
+      text-transform uppercase
+      font-weight 700
+      text-shadow 1px 1px 0 #ffdd76
+
+  .modal-body
+    #wait
+      text-align center
+
+  .modal-footer 
+    border-bottom-left-radius @modal-border
+    border-bottom-right-radius @modal-border
+    border-top 0
+    background-color #FFFEEE
+
+    h4#steps
+      float center
+      margin-bottom -25px
+    a#next      
+      float right 
