@@ -23,6 +23,9 @@ exports.actions = (req, res, ss) ->
       when 'birthday'
         result = req.app.utils.Validators.checkDate(data.value)
 
+      when 'location'
+        result = req.app.utils.Validators.checkLocation(data.value)
+
     _.extend(result, {field_id: data.id})
 
     res result

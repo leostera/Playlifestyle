@@ -25,6 +25,8 @@ AccountSchema = new mongoose.Schema
     default: no
 
   location:
+    ip: String
+    str: String
     lat: String
     lon: String
 

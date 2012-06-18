@@ -1,13 +1,12 @@
 class MainRouter extends Backbone.Router
 
   routes:
-    ''            : 'index'
-    'welcome'     : 'index'
-    'signup'      : 'signup'
-    'signin'      : 'signin'
-    'signout'     : 'signout'
-    'tutorial'    : 'tutorial'
+    ''             : 'index'
     'p/:partial/:element'  : 'dummy'
+    'signup'       : 'signup'
+    'signup/:step' : 'signup'
+    'signout'     : 'signout'
+    #'tutorial'    : 'tutorial'
     ':username'   : 'profile'
 
   initialize: =>
@@ -20,6 +19,12 @@ class MainRouter extends Backbone.Router
   # Main route
   index: =>
     @__prepareView('Index')
+
+    @
+
+  # Registration route that triggers registration process on the Index view
+  signup: () =>
+    @__prepareView("Index").register()
 
     @
 
@@ -50,16 +55,6 @@ class MainRouter extends Backbone.Router
         @__prepareView('User/Profile', username)
       else
         @__prepareView('Utils/Templater', { template: "generic-message", details: { title: "Access Denied", message: "You are not logged in." } })
-
-    @
-
-  # Registration view
-  signup: =>
-    ss.rpc "Users.Auth.Status", (res) =>
-      if res.status is no
-        @__prepareView("Auth/SignUp",{ el:"#content", step: res.step} )
-      else
-        @__prepareView("Utils/Templater", { template: "generic-message", details: { title: "Can't Login Again", message: "You are already logged in."} })
 
     @
 

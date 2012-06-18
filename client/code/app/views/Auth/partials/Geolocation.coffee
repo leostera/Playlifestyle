@@ -6,20 +6,23 @@ class GeolocationPartial extends Backbone.View
     location: yes
 
   ###
+  #  Model methods
+  ###
+  getModelData: =>
+    @data = 
+      location:
+        str: @$('#location').val()
+
+  ###
   #  Rendering and visual effects
   ###
   prerender: =>
     # Render the templates
     @$el.html @template.render {}
 
-    # jQuery
-
     # Hide the icons!
     @$('span.add-on').hide()
-
-    #disable the input box and continue button
-    @disableFields()
-
+    # Typeahead
     @$('#location').typeahead
       source: ['Calgary', 'Vancouver', 'Tucuman']
         ###
@@ -34,6 +37,25 @@ class GeolocationPartial extends Backbone.View
             response [choices[0]..., choices[1]...]
         ###
       minLength: 3
+
+    ss.rpc 'Users.Account.GetLocation', (result) =>
+      if result.status is yes    
+        ###
+        # This code instantiates a new GoogleMap inside div#map and
+        # centers it in the LatLng retrieved from the server
+        @map = new google.maps.Map
+          document.getElementById('map'), {
+            center: new google.maps.LatLng(result.location.latitude, result.location.longitude)
+            zoom: 1
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        ####
+
+        @$('#location').val("#{result.location.city} (#{result.location.country_code})")
+        @trigger 'geolocation:proceed'
+        #disable the input box
+        @disableFields()
+      else
+        @trigger 'geolocation:stop'   
 
     @
 
@@ -63,24 +85,10 @@ class GeolocationPartial extends Backbone.View
 
     @
 
-  ###
-  #  Here is where the magic happens
-  ###
-  confirm: (e) =>
+  changeLocation: (e) =>
     e.preventDefault()
-
-    unless @canProceed()
-      return
-
-    @disable().hide()
-    
-    #show loading graph
-
-    ss.rpc 'Users.Account.SetLocation', (result) =>
-      if result.status is yes        
-        @trigger 'geolocation:submitted'
-      else
-        @trigger 'geolocation:error'
+    @$('#location').val("")
+    @enableFields()
 
   ###
   #  Validations
@@ -92,16 +100,15 @@ class GeolocationPartial extends Backbone.View
 
     ss.rpc( 'Users.Utils.ValidateField', field_data, (result) =>
 
-      console.log result
-
       @error["#{result.field_id}"] = not result.status
       @__toggleHints(result.field_id, result.messages)
       @__toggleIcons(result.field_id, not result.status)
 
       unless @__hasErrors()
-        @trigger 'registration:proceed'
+        @trigger 'geolocation:proceed'
+        @disableFields()
       else
-        @trigger 'registration:stop'
+        @trigger 'geolocation:stop'
     )
 
   ###
@@ -137,12 +144,9 @@ class GeolocationPartial extends Backbone.View
   ###
   events:
     # magiiiiic
-    'click #confirm'  : "confirm"
-    'click #decline'  : "decline"
+    'click #change' : "changeLocation"
     #validation
     'change input'  : "validateFields"
-    'focus input'   : "validateFields"
-    'blur input'    : "validateFields"
 
 exports.init = () ->
   new GeolocationPartial().prerender()

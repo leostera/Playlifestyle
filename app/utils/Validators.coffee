@@ -5,7 +5,7 @@ _ = require('underscore')
 ###
 checkAlphabetic = module.exports.checkAlphabetic = (string) ->
   #check for only alphabetic+whitespaces instead of not only whitespace
-  status: /^[a-zA-Z]{1}[a-zA-Z ]+$/.test string
+  /^[a-zA-Z]{1}[a-zA-Z ]+$/.test string
 
 checkEmail = module.exports.checkEmail = (email) ->
   #ok here use ^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$
@@ -41,6 +41,25 @@ checkDate = module.exports.checkDate = (date) ->
 
 checkNotEmpty = module.exports.checkNotEmpty = (string) ->
   /^[ ]*/.test string
+
+checkLocation = module.exports.checkLocation = (location) ->
+  # How to check for a location existance by it's name?
+  # Probably asking Google Maps would be way better.
+  #City = require('geoip').City
+  #city_db = module.exports.city_db = new City('./db/GeoLiteCity.dat')
+  #city_db?.lookupSync()
+  result=
+    status: no
+    messages: []
+  
+  if /^[a-zA-Z]{1}[a-zA-Z ]+[,a-zA-Z]{1}[a-zA-Z ]+$/.test location
+    result.status= yes
+    result.messages.push "Valid location."
+  else
+    result.messages.push "Invalid location."
+
+  result
+
 
 ###
 #  Username validations

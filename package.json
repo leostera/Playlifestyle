@@ -1,7 +1,7 @@
 {
   "name": "PlayLifestyle",
   "description": "A real-time lifestyle network",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "Leandro Ostera <leandro@thebackendguys.com>",
   "private": true,
   "engines": { "node": ">= 0.6.19" },
@@ -11,10 +11,15 @@
     "ss-coffee": ">= 0.1.x" ,
     "ss-jade": ">= 0.1.x" ,
     "ss-stylus": ">= 0.1.x",
+
     "mongoose": ">= 2.6.x" ,
     "mongoose-types": ">= 1.0.x",
+
+    "geoip": ">= 0.4.5",
+
     "underscore": ">= 1.3.x"
   },
+
   "devDependencies": {
     "mocha": ">= 0.14.x" ,
     "expect.js": ">= 0.1.x" ,

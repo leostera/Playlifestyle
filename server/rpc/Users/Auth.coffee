@@ -5,7 +5,7 @@ exports.actions = (req, res, ss) ->
 # this module does not require auth checks
   req.use 'App.addToRequest'
   req.use 'session'
-  #req.use 'debug', 'cyan'  
+  req.use 'debug', 'cyan'  
 
   {
 
@@ -13,13 +13,13 @@ exports.actions = (req, res, ss) ->
     #retrieve the current user session state
     #yes for logged in, currently valid
     #false for not logged in or currently not valid
-    if req.session?.user
+    if req.session?.user?
       if req.session.user.located is no
         res {status: no, step: 1}
       else
         res {status: yes, user: req.session.user}
     else
-      res {status: no}
+      res {status: no, step: 0}
 
   SignIn: (creds) ->
     req.app.actions.Users.SignIn(creds, (err, user) ->
