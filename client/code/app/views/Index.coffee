@@ -7,11 +7,11 @@ class IndexView extends Backbone.View
     content: ss.tmpl['index-content-main']
     modals: ss.tmpl['index-modals']
 
-  initialize: =>
+  initialize: (options) =>
     ss.rpc "Users.Auth.Status", (res) ->
       if res.status is yes
         window.MainRouter.navigate "#{res.user.name}", true      
-      else
+      else if res.step is 0 or 1
         @step = res.step
     @
 
@@ -25,17 +25,17 @@ class IndexView extends Backbone.View
     @loginPartial = require('./Auth/partials/Login').init()    
     $('#side').html @loginPartial.render()
 
-    @signUpModal = require('./Auth/SignUp').init(@step)
-
     @
 
-  register: (e) ->
+  register: =>
+    @signUpModal = require('./Auth/SignUp').init(@step)    
+
+  registerFromLink: (e) ->
     e.preventDefault()
-    @signUpModal = require('./Auth/SignUp').init()
-    
+    @register()
 
   events:
-    'click a#register' : "register"
+    'click a#register' : "registerFromLink"
 
-exports.init = ->
-  new IndexView().render()
+exports.init = (options={})->
+  new IndexView(options).render()

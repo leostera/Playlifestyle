@@ -6,6 +6,14 @@ class GeolocationPartial extends Backbone.View
     location: yes
 
   ###
+  #  Model methods
+  ###
+  getModelData: =>
+    @data = 
+      location:
+        str: @$('#location').val()
+
+  ###
   #  Rendering and visual effects
   ###
   prerender: =>
@@ -32,13 +40,22 @@ class GeolocationPartial extends Backbone.View
 
     ss.rpc 'Users.Account.GetLocation', (result) =>
       if result.status is yes    
-        @$('#location').html("#{result.location.city}, #{result.location.country_name}")
-        @trigger 'geolocation:located'
-      else
-        @trigger 'geolocation:unlocated'
+        ###
+        # This code instantiates a new GoogleMap inside div#map and
+        # centers it in the LatLng retrieved from the server
+        @map = new google.maps.Map
+          document.getElementById('map'), {
+            center: new google.maps.LatLng(result.location.latitude, result.location.longitude)
+            zoom: 1
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        ####
 
-    #disable the input box
-    @disableFields()
+        @$('#location').val("#{result.location.city} (#{result.location.country_code})")
+        @trigger 'geolocation:proceed'
+        #disable the input box
+        @disableFields()
+      else
+        @trigger 'geolocation:stop'   
 
     @
 
@@ -68,7 +85,10 @@ class GeolocationPartial extends Backbone.View
 
     @
 
-  changeLocation: (e) => @
+  changeLocation: (e) =>
+    e.preventDefault()
+    @$('#location').val("")
+    @enableFields()
 
   ###
   #  Validations
@@ -80,16 +100,14 @@ class GeolocationPartial extends Backbone.View
 
     ss.rpc( 'Users.Utils.ValidateField', field_data, (result) =>
 
-      console.log result
-
       @error["#{result.field_id}"] = not result.status
       @__toggleHints(result.field_id, result.messages)
       @__toggleIcons(result.field_id, not result.status)
 
       unless @__hasErrors()
-        @trigger 'registration:proceed'
+        @trigger 'geolocation:proceed'
       else
-        @trigger 'registration:stop'
+        @trigger 'geolocation:stop'
     )
 
   ###

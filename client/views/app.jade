@@ -4,8 +4,10 @@ html
     meta(charset="utf-8")
     title Play Canada - Entertainment Lifestyle Network
     meta(name='keywords', content='Play Lifestyle, Play Life Style, Play Canada')
-    meta(name='description', description='It\'s your play ground.')
-      
+    meta(name='description', description='It\'s your play ground.')      
+
+    script(src="http://maps.google.com/maps/api/js?sensor=true")      
+    
     != SocketStream
   
   body
@@ -21,7 +23,7 @@ html
       .row-fluid
         .span12
           #head
-            a(href='/')
+            a(href='/#')
               img(src='/images/logo.png')
       .row-fluid
         .span2

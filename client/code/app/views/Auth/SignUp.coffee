@@ -4,7 +4,7 @@ class SignUpView extends Backbone.View
 
   templates:
     modal: ss.tmpl['signup-modal']
-    wait: ss.tmpl['signup-partials-wait']
+    wait: [ ss.tmpl['signup-partials-wait'], ss.tmpl['signup-partials-finish'] ]
 
   el: "#signup"
 
@@ -20,9 +20,12 @@ class SignUpView extends Backbone.View
 
     @    
 
-  start: (step) =>
-    @step = step || 0
-    @doStep()
+  start: () =>
+    ss.rpc("Users.Auth.Status",(res) =>
+      @step = res.step
+      @changeMessages()
+      @doStep()
+    )    
 
   doStep: =>    
     switch @step
@@ -35,13 +38,11 @@ class SignUpView extends Backbone.View
         @step_event   = 'geolocation'
         @url_name     = 'geolocate'
 
-    window.MainRouter.navigate "signup/#{@url_name}", true
+    window.MainRouter.navigate "signup/#{@url_name}"
 
     @partial = require("./partials/#{@step_partial}").init({
       model: @user      
     })
-
-    console.log @partial.render()
 
     @$('#body').html @partial.render()
 
@@ -50,41 +51,57 @@ class SignUpView extends Backbone.View
 
     @
 
-  enableNext: (e) =>    
-    if @step is 0 then @step += 1
+  enableNext: (e) =>        
     @$('#next').removeClass('disabled')
 
   disableNext: (e) =>
     @$('#next').addClass('disabled')
 
-  next: =>
-    if @step is 0
-      return
+  next: (e)=>
+    e.preventDefault() 
 
     @partial.disableFields().hideForm()
 
     @user.set @partial.getModelData()
 
     @disableNext()
-    @showWait()
+    @showWait(@step)
+
+    console.log @user.attributes
 
     @user.save( (result) =>       
       if result.status is yes
         @partial.off()
         @hideWait()
-        @$('#next span').html("Finish")
-        @$('#steps').html('Step 2/2')
 
-        @doStep()
+        @changeMessages()
+
+        if @step < 2
+          @showWait(@step)
+          @step += 1
+          @doStep()
+        else
+          console.log "now goes the tutorial"
+          @trigger 'registration:completed'
       else
         alert result.messages
     )    
 
-  showWait: (options) =>
-    @$('#body').html( @templates.wait.render {}).fadeIn()
+  showWait: (step) =>
+    if step > 1 then step = 1
+    @$('#body').html( @templates.wait[step].render {}).fadeIn()
 
   hideWait: =>
     @$('#body').html('')
+
+  changeMessages: =>
+    if @step is 1
+      @$('#title').html("Geolocating you...")
+      @$('#next span').html("Finish")
+      @$('#steps').html('Step 2/2')
+    else if @step is 2
+      @$('#next span').html("Start the tutorial")
+      @$('#steps').html('Completed =)')
 
   unroute: (e) =>    
     window.MainRouter.navigate ""
@@ -93,5 +110,5 @@ class SignUpView extends Backbone.View
     'click #close': "unroute"
     'click #next' : "next"
     
-exports.init = (step) ->
-  new SignUpView().render().start(step)
+exports.init = () ->
+  new SignUpView().render().start()
