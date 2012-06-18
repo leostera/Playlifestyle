@@ -11,7 +11,7 @@ exports.actions = (req, res, ss) ->
     #set the location from the user
     #useful for tracking where the user has been
     req.app.actions.Users.Geolocate(req.clientIp, (err, data) =>
-      
+
       UserModel = req.app.models.Account.model
       if req.session?.user?
         UserModel.update({email: req.session.user.email}, { $set: {located: yes} }, (err, num) =>

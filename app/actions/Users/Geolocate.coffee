@@ -1,5 +1,8 @@
 module.exports = (ip, fn) ->
-  geoip = require('geoip')
-  city = new geoip.City('../../../db/GeoLiteCity.dat')
+  city_db?.lookup(ip, (err, data) =>
+    console.log err
+    console.log data
+    fn(err,data)
+  )
 
-  city.lookup(ip, fn)
+city_db = module.exports.city_db = {}
