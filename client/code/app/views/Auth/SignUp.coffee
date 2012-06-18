@@ -67,8 +67,10 @@ class SignUpView extends Backbone.View
     @user.save( (result) => 
       console.log result
       if result.status is yes
+        @partial.off()
         @hideWait()
         @$('#next span').html("Finish")
+        @$('#steps').html('Step 2/2')
         @doStep()
       else
         alert result.messages
