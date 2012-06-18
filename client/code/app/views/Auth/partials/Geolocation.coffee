@@ -74,7 +74,7 @@ class GeolocationPartial extends Backbone.View
     
     #show loading graph
 
-    ss.rpc 'Users.Account.SetLocation', (result) =>
+    ss.rpc 'Users.Account.Geolocate', (result) =>
       if result.status is yes        
         @trigger 'geolocation:submitted'
       else
