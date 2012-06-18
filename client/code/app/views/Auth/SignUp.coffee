@@ -64,8 +64,7 @@ class SignUpView extends Backbone.View
     @disableNext()
     @showWait()
 
-    @user.save( (result) => 
-      console.log result
+    @user.save( (result) =>       
       if result.status is yes
         @partial.off()
         @hideWait()
