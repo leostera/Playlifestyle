@@ -1,11 +1,11 @@
 form.form-horizontal#signup-2
 
-  .control-group#locate
-    canvas#google(width="200px", height="180px")
+  .control-group
+    .controls      
+      div#map(width="200px", height="180px")
 
-  .control-group#relocate
+  .control-group#location-cg
     label.control-label(for="username") Current location
-
     .controls      
       .input-append
         input.input-large#location(type="text",placeholder="Where are you now then?")
@@ -14,7 +14,8 @@ form.form-horizontal#signup-2
         span.add-on#error
           i.icon-remove
             
-      p.help-block Any username starting with a letter will do.    
+      p.help-block Thou we try our best, geolocation isn't perfect yet.
 
   .control-group
-    button.btn.btn-warning#decline Wait a second, that's not me!
+    .controls      
+      button.btn.btn-warning#change Wait a second, that's not me!
