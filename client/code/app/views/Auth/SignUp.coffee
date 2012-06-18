@@ -67,9 +67,7 @@ class SignUpView extends Backbone.View
     @disableNext()
     @showWait(@step)
 
-    console.log @user.attributes
-
-    @user.save( (result) =>       
+    callback = (result) =>       
       if result.status is yes
         @partial.off()
         @hideWait()
@@ -85,7 +83,10 @@ class SignUpView extends Backbone.View
           @trigger 'registration:completed'
       else
         alert result.messages
-    )    
+
+    switch @step
+      when 0 then @user.register(callback)
+      when 1 then @user.locate(callback)
 
   showWait: (step) =>
     if step > 1 then step = 1
