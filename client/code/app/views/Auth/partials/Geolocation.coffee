@@ -12,14 +12,9 @@ class GeolocationPartial extends Backbone.View
     # Render the templates
     @$el.html @template.render {}
 
-    # jQuery
-
     # Hide the icons!
     @$('span.add-on').hide()
-
-    #disable the input box and continue button
-    @disableFields()
-
+    # Typeahead
     @$('#location').typeahead
       source: ['Calgary', 'Vancouver', 'Tucuman']
         ###
@@ -34,6 +29,9 @@ class GeolocationPartial extends Backbone.View
             response [choices[0]..., choices[1]...]
         ###
       minLength: 3
+
+    #disable the input box
+    @disableFields()
 
     @
 
@@ -81,6 +79,8 @@ class GeolocationPartial extends Backbone.View
         @trigger 'geolocation:submitted'
       else
         @trigger 'geolocation:error'
+
+  changeLocation: (e) => @
 
   ###
   #  Validations
@@ -137,12 +137,9 @@ class GeolocationPartial extends Backbone.View
   ###
   events:
     # magiiiiic
-    'click #confirm'  : "confirm"
-    'click #decline'  : "decline"
+    'click #change'  : "changeLocation"
     #validation
     'change input'  : "validateFields"
-    'focus input'   : "validateFields"
-    'blur input'    : "validateFields"
 
 exports.init = () ->
   new GeolocationPartial().prerender()
