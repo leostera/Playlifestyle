@@ -1,19 +1,18 @@
-form#sign-up-2
+form.form-horizontal#signup-2
 
-  fieldset.control-group
-    h3 Geo-Localization
-
-  fieldset.control-group#locate
+  .control-group#locate
     canvas#google(width="600px", height="300px")
 
-  fieldset.control-group#relocate
-    #float-right.offset3
-      i.icon-remove-sign#error-location
-      i.icon-ok-sign#ok-location
+  .control-group#relocate
+    .controls      
+      .input-append
+        input.input-large#location(type="text",placeholder="Where are you now then?")
+        span.add-on#ok
+          i.icon-ok
+        span.add-on#error
+          i.icon-remove
+            
+      p.help-block Any username starting with a letter will do.    
 
-    input.span3#location(type="text",placeholder="Where are you now then?")
-
-  fieldset.control-group
-    button.btn.btn-primary#confirm Continue
-
+  .control-group
     button.btn.btn-warning#decline Wait a second, that's not me!

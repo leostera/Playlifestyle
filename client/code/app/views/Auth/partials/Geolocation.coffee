@@ -1,7 +1,8 @@
 class GeolocationPartial extends Backbone.View
 
-  @template: ss.tmpl['signup-partials-geoloc']
-  @error:
+  template: ss.tmpl['signup-partials-geoloc']
+  
+  error:
     location: yes
 
   ###
@@ -14,10 +15,10 @@ class GeolocationPartial extends Backbone.View
     # jQuery
 
     # Hide the icons!
-    @$('i').css("visibility",'hidden')
+    @$('span.add-on').hide()
 
     #disable the input box and continue button
-    @disable()
+    @disableFields()
 
     @$('#location').typeahead
       source: ['Calgary', 'Vancouver', 'Tucuman']
@@ -34,41 +35,31 @@ class GeolocationPartial extends Backbone.View
         ###
       minLength: 3
 
-    @$('form').hide()
-
     @
 
-  render: =>
-    @.el
+  render: => @.el
 
-  hide: =>
-    @$('#locate').slideUp()
+  hideForm: =>
     @$('form').animate({
         opacity: 1
         opacity: 0
-      }, {
-        duration:1500
-        complete: => @trigger 'geolocation:hidden'
-      })
+      }, 1500)
+    @
 
-  show: =>
-    @$('form').css('opacity','0.0').show().animate({
+  showForm: =>
+    @$('form').animate({
         opacity: 0
         opacity: 1
-      }, {
-        duration:1000
-        complete: => @trigger 'geolocation:shown'
-      })
+      }, 1000)
+    @
 
-  enable: =>
-    @$('#continue').removeClass('disabled')
+  enableFields: =>
     @$('#location').removeAttr('disabled').focus()
 
     @
 
-  disable: =>
+  disableFields: =>
     @$('#location').attr('disabled','')
-    @$('#continue').addClass('disabled')
 
     @
 
@@ -91,57 +82,55 @@ class GeolocationPartial extends Backbone.View
       else
         @trigger 'geolocation:error'
 
-  decline: (e) =>
-    e.preventDefault()
-
-    @enable()
-
-  canProceed: =>
-    not /^(\s)*$/.test @$('#location').val()
-
   ###
   #  Validations
   ###
   validateFields: (e) =>    
-    #cache the element
-    el = @$(e.srcElement)
+    field_data =
+      id: e.srcElement?.id || e.target.id
+      value: $(e.srcElement || e.target).val()
 
-    switch e.srcElement?.id
-      when 'location'
-        location = el.val()
-        #check for only alphabetic+whitespaces instead of not only whitespace
-        if /^[a-zA-Z]{1}[a-zA-Z ]+$/.test location
-          @error.location = no
-          @__toggleIcons(el, no)        
-        else
-          @error.location = yes
-          @__toggleIcons(el, yes)
+    ss.rpc( 'Users.Utils.ValidateField', field_data, (result) =>
 
-    if @error.location is no
-        @$('#confirm').removeClass('disabled')
-        @trigger 'sign-up-proceed'
-    else if @$('#start').hasClass('disabled') is no
-      @$('#confirm').addClass('disabled')
-      @trigger 'sign-up-halt'
+      console.log result
+
+      @error["#{result.field_id}"] = not result.status
+      @__toggleHints(result.field_id, result.messages)
+      @__toggleIcons(result.field_id, not result.status)
+
+      unless @__hasErrors()
+        @trigger 'registration:proceed'
+      else
+        @trigger 'registration:stop'
+    )
 
   ###
   #  Private
   ###
-  __toggleIcons: (el,toggle=yes,error="") =>
-    name = el.attr('id')
-    parent = el.parent()
-    if toggle is yes
-      parent.addClass('error')
-      parent.removeClass('success')
-      el.siblings().find('#error-'+name).css('visibility','visible').text(error)
-      el.siblings().find('#error-'+name).show('fast')
-      el.siblings().find('#ok-'+name).hide('fast')
+  __toggleHints: (id, messages) =>
+    hint = $(".control-group##{id}-cg .controls")
+    hint.find('p.help-block').html("")
+    _.each messages, (msg) =>
+      hint.append("<p class=\'help-block'>#{msg}</p>")
+
+  __toggleIcons: (id, status) =>
+    cg = $(".control-group##{id}-cg")
+    cg.removeClass('error').removeClass('success')
+    if status is yes
+      cg.addClass('error')
+      cg.find('span#error').show('fast')
+      cg.find('span#ok').hide('fast')
     else
-      parent.removeClass('error')
-      parent.addClass('success')
-      el.siblings().find('#error-'+name).hide('fast')
-      el.siblings().find('#ok-'+name).css('visibility','visible').text('')
-      el.siblings().find('#ok-'+name).show('fast')
+      cg.addClass('success')
+      cg.find('span#error').hide('fast')
+      cg.find('span#ok').show('fast')
+
+  __hasErrors: =>
+    result = false
+    _.each @error, (e) =>
+      if e is yes
+        result = yes
+    result
 
   ###
   #  Events Table
