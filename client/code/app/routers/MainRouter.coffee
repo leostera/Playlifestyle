@@ -2,14 +2,12 @@ class MainRouter extends Backbone.Router
 
   routes:
     ''             : 'index'
+    'p/:partial/:element'  : 'dummy'
     'signup'       : 'signup'
     'signup/:step' : 'signup'
-
-    #'signin'      : 'signin'
-    #'signout'     : 'signout'
-    'tutorial'    : 'tutorial'
-    'p/:partial/:element'  : 'dummy'
-    #':username'   : 'profile'
+    'signout'     : 'signout'
+    #'tutorial'    : 'tutorial'
+    ':username'   : 'profile'
 
   initialize: =>
     @views       = []

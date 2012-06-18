@@ -4,7 +4,10 @@ class SignUpView extends Backbone.View
 
   templates:
     modal: ss.tmpl['signup-modal']
-    wait: [ ss.tmpl['signup-partials-wait'], ss.tmpl['signup-partials-finish'] ]
+    wait: [ ss.tmpl['signup-partials-wait'],
+            ss.tmpl['signup-partials-finish'],
+            ss.tmpl['signup-partials-benefits']
+          ]
 
   el: "#signup"
 
@@ -22,9 +25,12 @@ class SignUpView extends Backbone.View
 
   start: () =>
     ss.rpc("Users.Auth.Status",(res) =>
-      @step = res.step
-      @changeMessages()
-      @doStep()
+      if res.status is no
+        @step = res.step
+        @changeMessages()
+        @doStep()
+      else
+        @trigger 'registration:already'
     )    
 
   doStep: =>    
@@ -37,72 +43,84 @@ class SignUpView extends Backbone.View
         @step_partial = 'Geolocation'
         @step_event   = 'geolocation'
         @url_name     = 'geolocate'
+      when 2
+        @step_partial = no
+        @step_event   = no
+        @url_name     = 'finish'                
+        @showWait(@step)
+        @enableNext()
 
     window.MainRouter.navigate "signup/#{@url_name}"
 
-    @partial = require("./partials/#{@step_partial}").init({
-      model: @user      
-    })
+    if _.isString(@step_partial)
+      @partial = require("./partials/#{@step_partial}").init({
+        model: @user      
+        })
 
-    @$('#body').html @partial.render()
+      @$('#body').html @partial.render()
 
-    @partial.on "#{@step_event}:proceed", @enableNext
-    @partial.on "#{@step_event}:stop", @disableNext
+      @partial.on "#{@step_event}:proceed", @enableNext
+      @partial.on "#{@step_event}:stop", @disableNext
 
     @
 
-  enableNext: (e) =>        
+  enableNext: (e) =>
+    @canProceed = yes
     @$('#next').removeClass('disabled')
 
   disableNext: (e) =>
+    @canProceed = no
     @$('#next').addClass('disabled')
 
   next: (e)=>
-    e.preventDefault() 
+    unless @canProceed
+      return
 
-    @partial.disableFields().hideForm()
+    e.preventDefault()
 
-    @user.set @partial.getModelData()
+    if @partial?
 
-    @disableNext()
-    @showWait(@step)
+      @partial.disableFields().hideForm()
+
+      @user.set @partial.getModelData()
+
+    unless @step is 2
+      @disableNext()
+      @showWait(@step)
 
     callback = (result) =>       
       if result.status is yes
-        @partial.off()
+        @partial?.off()
         @hideWait()
-
+        @step += 1
         @changeMessages()
-
-        if @step < 2
-          @showWait(@step)
-          @step += 1
-          @doStep()
-        else
-          console.log "now goes the tutorial"
-          @trigger 'registration:completed'
+        @doStep()       
       else
         alert result.messages
 
     switch @step
       when 0 then @user.register(callback)
       when 1 then @user.locate(callback)
+      when 2 then @trigger 'registration:completed'
 
+  #show the waiting partial in the #body
   showWait: (step) =>
-    if step > 1 then step = 1
     @$('#body').html( @templates.wait[step].render {}).fadeIn()
 
+  #hide the body when it contains a waiting partial
   hideWait: =>
     @$('#body').html('')
 
+  #change the messages according to the registration step
   changeMessages: =>
     if @step is 1
       @$('#title').html("Geolocating you...")
       @$('#next span').html("Finish")
       @$('#steps').html('Step 2/2')
     else if @step is 2
-      @$('#next span').html("Start the tutorial")
-      @$('#steps').html('Completed =)')
+      @$('#title').html("Registration completed")
+      @$('#next span').html("Start the tutorial now!")
+      @$('#steps').html('Registration completed =)')
 
   unroute: (e) =>    
     window.MainRouter.navigate ""

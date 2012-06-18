@@ -7,6 +7,6 @@ class Account extends Backbone.Model
     ss.rpc(@rpc.create, @attributes, fn)
 
   locate: (fn) ->
-    ss.rpc(@rpc.locate, @get 'location' , fn)
+    ss.rpc(@rpc.locate, @get('location'), fn)
     
 exports.model = Account

@@ -106,6 +106,7 @@ class GeolocationPartial extends Backbone.View
 
       unless @__hasErrors()
         @trigger 'geolocation:proceed'
+        @disableFields()
       else
         @trigger 'geolocation:stop'
     )
