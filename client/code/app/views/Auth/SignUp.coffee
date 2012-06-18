@@ -33,11 +33,11 @@ class SignUpView extends Backbone.View
         @step_partial = 'Geolocation'
         @step_event   = 'geolocation'
 
-    console.log @step_event
-
     @partial = require("./partials/#{@step_partial}").init({
       model: @user      
     })
+
+    console.log @partial.render()
 
     @$('#body').html @partial.render()
 
@@ -70,6 +70,7 @@ class SignUpView extends Backbone.View
         @hideWait()
         @$('#next span').html("Finish")
         @$('#steps').html('Step 2/2')
+
         @doStep()
       else
         alert result.messages
@@ -79,7 +80,7 @@ class SignUpView extends Backbone.View
     @$('#body').html( @templates.wait.render {}).fadeIn()
 
   hideWait: =>
-    @$('#body').fadeOut().html('')
+    @$('#body').fadeOut().html('').fadeIn()
 
   events:
     'click #close': "kill"
