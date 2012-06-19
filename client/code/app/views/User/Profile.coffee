@@ -7,12 +7,12 @@ class UserProfileView extends Backbone.View
     side: ss.tmpl['user-content-side']
 
   render: =>
-    $('#nav').html @templates.nav.render {}
-    $('#head').html @templates.head.render {}
-    $('#main').html @templates.main.render {}
-    $('#side').html @templates.side.render {}
+    $('#nav').html @templates.nav.render { user: @model }
+    $('#head').html @templates.head.render { user: @model }
+    $('#main').html @templates.main.render { user: @model }
+    $('#side').html @templates.side.render { user: @model }
     @
 
   
-exports.init = () ->
-  new UserProfileView().render()
+exports.init = (options) ->
+  new UserProfileView(options).render()

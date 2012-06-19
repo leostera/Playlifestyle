@@ -1,7 +1,5 @@
 class IndexView extends Backbone.View
 
-  el: 'body'
-
   template:
     header: ss.tmpl['index-nav']
     content: ss.tmpl['index-content-main']
