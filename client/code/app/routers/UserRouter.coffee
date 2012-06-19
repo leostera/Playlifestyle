@@ -6,12 +6,15 @@ class UserRouter extends Routerious
 
   # Profile view
   profile: (username) =>
-    ss.rpc "Users.Auth.Status", (res) =>
+    ss.rpc "Users.Auth.Status", (res) =>      
       #check the status
       #if authenticated then show profile plus toolbar
       #else just show the profile with limited options
       if res.status is yes
-        @__prepareView('User/Profile', username)
+        if username isnt res.user.username
+          @navigate "users/#{res.user.username}"
+        else
+          @__prepareView('User/Profile', {model: res.user})
       else
         @__prepareView('Utils/Templater', { template: "generic-message", details: { title: "Access Denied", message: "You are not logged in." } })
 

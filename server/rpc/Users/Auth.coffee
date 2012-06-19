@@ -33,7 +33,7 @@ exports.actions = (req, res, ss) ->
       else
         res
           status: no
-          error: 'Invalid ID'
+          error: "Username and password didn't have a match, try again please."
           user: user
     )
 
@@ -41,10 +41,12 @@ exports.actions = (req, res, ss) ->
     #destroy de session!
     #make sure the user is not flagged as logged in in the db
     #make sure the session is marked as not valid anymore in the db
-    delete req.session
-    if req.session?
-      res status:no
-    res status:yes
+    req.session.setUserId()
+    delete req.session.user
+    req.session.save()
+    if _.isUndefined(req.session.user)
+      res status:yes
+    res status:no
 
   SignUp: (creds) ->
 

@@ -24,7 +24,11 @@ class MainRouter extends Routerious
       if res.status is yes
         @navigate("",true)
       else
-        @__prepareView('Utils/Templater', { template: "generic-message", details: { title: "Holy Crap!", message: "We were unable to log you out. Try again please!" } })
+        @__prepareView 'Utils/Templater',
+            template: "generic-message"
+            details:
+              title: "Holy Crap!"
+              message: "We were unable to log you out. Try again please!"
     )
 
     @
