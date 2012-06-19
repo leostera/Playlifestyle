@@ -8,7 +8,7 @@ AccountSchema = new mongoose.Schema
 
   name: String
   
-  pass:
+  password:
     type: String
     default: "1234"
 

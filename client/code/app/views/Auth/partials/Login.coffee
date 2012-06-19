@@ -1,4 +1,4 @@
-class _LoginPartial extends Backbone.View
+class LoginPartial extends Backbone.View
 
   template: ss.tmpl['signin-partials-login']
 
@@ -14,22 +14,18 @@ class _LoginPartial extends Backbone.View
   onSubmit: (e) =>
     e.preventDefault()
 
-    user = @$('#user').val()
-    pass = @$('#pass').val()
+    user = @$('#username').val()
+    pass = @$('#password').val()
 
     # call the server for a sign in
-    ss.rpc 'Users.Auth.SignIn', {user: user, pass: pass}, (res) ->
-      # if the server returns yes
-      # then show hooray message and redirect to profile
-      # else
-      # the server returned an error message
-      # show it
-      if res.result is yes
-        window.MainRouter.navigate(res.session.name, true)        
+    ss.rpc 'Users.Auth.SignIn', {username: user, password: pass}, (res) =>
+      console.log res
+      if res.status is yes
+        window.MainRouter.navigate("users/#{res.user.username}", true)        
       else
-        window.MainRouter.navigate("welcome", true)        
+        @$('#error').html(res.error)
 
   events:
     'click #login' : "onSubmit"    
 
-exports.init = -> new _LoginPartial().prerender()
+exports.init = -> new LoginPartial().prerender()

@@ -1,14 +1,12 @@
 class UserProfileView extends Backbone.View
 
-  el: '#full'
-
   initialize: (@options) =>
     @template = ss.tmpl[options.template]
 
     @
 
   render: =>
-    @$el.html @template.render @options.details
+    $('#main').html @template.render @options.details
     @
 
   

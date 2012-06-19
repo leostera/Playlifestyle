@@ -4,6 +4,7 @@ class SignUpView extends Backbone.View
 
   templates:
     modal: ss.tmpl['signup-modal']
+    profileBtn: ss.tmpl['signup-partials-profilebtn']
     wait: [ ss.tmpl['signup-partials-wait'],
             ss.tmpl['signup-partials-finish'],
             ss.tmpl['signup-partials-benefits']
@@ -120,7 +121,13 @@ class SignUpView extends Backbone.View
     else if @step is 2
       @$('#title').html("Registration completed")
       @$('#next span').html("Start the tutorial now!")
-      @$('#steps').html('Registration completed =)')
+      @$('#steps').html("")
+      @$('#steps').prepend( @templates.profileBtn.render {} )
+      @$('#profile').on('click',(e)=>
+          e.preventDefault()          
+          window.MainRouter.navigate("", true)
+          $('div.modal-backdrop.fade.in').fadeIn().remove()
+        )
 
   unroute: (e) =>    
     window.MainRouter.navigate ""
