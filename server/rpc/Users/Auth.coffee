@@ -22,6 +22,7 @@ exports.actions = (req, res, ss) ->
       res {status: no, step: 0}
 
   SignIn: (creds) ->
+    #sign a user in
     req.app.actions.Users.SignIn(creds, (err, user) ->
       if user
         req.session.setUserId(user.username)
