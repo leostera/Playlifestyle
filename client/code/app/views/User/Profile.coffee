@@ -2,7 +2,7 @@ class UserProfileView extends Backbone.View
 
   template: ss.tmpl['user-profile']
 
-  el: '#content'
+  el: '#side'
 
   initialize: (@username) =>
     @

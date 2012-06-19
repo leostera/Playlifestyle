@@ -7,7 +7,7 @@ class MainRouter extends Backbone.Router
     'signup/:step' : 'signup'
     'signout'     : 'signout'
     #'tutorial'    : 'tutorial'
-    ':username'   : 'profile'
+    'users/:username'   : 'profile'
 
   initialize: =>
     @views       = []
@@ -28,17 +28,12 @@ class MainRouter extends Backbone.Router
 
     @
 
-  # Login view
-  signin: =>
-    @__prepareView('Auth/SignIn')
-    @
-
   signout: =>
     # do the logout
     # , (res) => )
     ss.rpc( "Users.Auth.SignOut", (res) =>
-      if res is yes
-        @navigate("welcome",true)
+      if res.status is yes
+        @navigate("",true)
       else
         @__prepareView('Utils/Templater', { template: "generic-message", details: { title: "Holy Crap!", message: "We were unable to log you out. Try again please!" } })
     )

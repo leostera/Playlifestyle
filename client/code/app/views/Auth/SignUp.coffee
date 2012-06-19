@@ -127,6 +127,7 @@ class SignUpView extends Backbone.View
 
   events:
     'click #close': "unroute"
+    'click div.modal-backdrop.fade.in' : "unroute"
     'click #next' : "next"
     
 exports.init = () ->

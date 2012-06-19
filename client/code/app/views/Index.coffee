@@ -10,9 +10,11 @@ class IndexView extends Backbone.View
   initialize: (options) =>
     ss.rpc "Users.Auth.Status", (res) ->
       if res.status is yes
-        window.MainRouter.navigate "#{res.user.username}", true      
+        @wontSignUp = yes
+        window.MainRouter.navigate "users/#{res.user.username}", true      
       else if res.step is 0 or res.step is 1
         @step = res.step
+        @wontSignUp = no
     @
 
   render: =>
@@ -28,14 +30,17 @@ class IndexView extends Backbone.View
     @
 
   register: =>
-    @signUpModal = require('./Auth/SignUp').init(@step)  
-    @signUpModal.on 'registration:already', (e) =>
-      @signUpModal.kill()
-      window.MainRouter.navigate ''
+    unless @wontSignUp
+      @signUpModal = require('./Auth/SignUp').init(@step)  
+      @signUpModal?.on 'registration:already', (e) =>
+        @signUpModal.kill()
+        window.MainRouter.navigate ''
 
   registerFromLink: (e) ->
     e.preventDefault()
-    @register()
+
+    unless @wontSignUp    
+      @register()
 
   events:
     'click a#register' : "registerFromLink"
