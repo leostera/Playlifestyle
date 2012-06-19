@@ -1,5 +1,28 @@
+#     Routerious.coffee 0.1.0
+
+#     (c) 2010-2012 Leandro Ostera.
+#     Routerious may be freely distributed under the MIT license.
+#     For all details and documentation:
+#     http://github.com/leostera/Routerious
+
+
+#  Routerious
+## ----------
+
+###
+#  Routerious is an extended Backbone.Router that includes utility functions
+#  making it a good choice for a View-Master or Collection-Master Router
+#  or even a mixup of those.
+#
+#  It also includes functionality for Router-wide model handling (such as a
+#  global or router-wide user model or session model)
+### 
+
 class Routerious extends Backbone.Router
 
+  ###
+  Attributes
+  ###
   collections: []
   views: []
   models: []
@@ -28,16 +51,16 @@ class Routerious extends Backbone.Router
 
   # __killCollections
   ## Kills all the collections, just that easy.
-  killCollections: =>
+  __killCollections: =>
     _.forEach collections, (collection) ->
       if collections.killMe is yes
         collection.kill()
         collection.killMe = no
 
-  refetchCollections: =>
+  __refetchCollections: =>
     _.forEach collections, (collection) ->
       collection.fetch()
 
-  refetchModels: =>
+  __refetchModels: =>
     _.forEach models, (model) ->
       model.fetch()
