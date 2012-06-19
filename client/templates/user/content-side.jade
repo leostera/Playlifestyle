@@ -1,0 +1,41 @@
+#page-content.container
+#sidebar
+  //
+     Responsive sidebar-toggle button 
+  a.btn.btn-navbar.btn-navbar-user(data-toggle='collapse', data-target='.sidebar-content')
+    span.icon-user.icon-white
+  .sidebar-content.collapse.in
+    .user-profile.sidebar-block
+      img(src='/images/userpic.gif')
+      a.user-name-link(href='#') {{ user.name }}
+      span.user-location {{ user.location }}
+      a.change-city(href='#') Change City
+    //
+       .user-profile 
+    .friends-list.sidebar-block
+      h3
+        | FRIENDS
+        img(src='/images/ico-collapse.png')
+      span.message You have no friends to display.
+    //
+       .friends-list 
+    .meeting-spots.sidebar-block
+      h3
+        | MY MEETING SPOTS
+        img(src='/images/ico-collapse.png')
+      span.message You have no upcoming events or meeting spots.
+    //
+       .meeting-spots 
+    .activity-feeds.sidebar-block
+      ul
+        li.active
+          a(href='#') USER ACTIVITY
+        li
+          a(href='#') NETWORK ACTIVITY
+      span.message There is no activity to display.
+    //
+       .activity-feeds 
+  //
+     .sidebar-content 
+//
+   #sidebar 
