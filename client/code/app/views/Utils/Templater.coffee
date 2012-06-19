@@ -8,6 +8,8 @@ class UserProfileView extends Backbone.View
     @
 
   render: =>
+    @$('#side').hide()
+    @$('#main').hide()
     @$el.html @template.render @options.details
     @
 

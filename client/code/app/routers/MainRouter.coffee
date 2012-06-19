@@ -18,9 +18,8 @@ class MainRouter extends Routerious
 
     @
 
+  # Ask the server if the user can be logged out
   signout: =>
-    # do the logout
-    # , (res) => )
     ss.rpc( "Users.Auth.SignOut", (res) =>
       if res.status is yes
         @navigate("",true)

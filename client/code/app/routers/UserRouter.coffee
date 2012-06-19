@@ -1,8 +1,8 @@
 class UserRouter extends Routerious
 
   routes:
-    'tutorial'    : 'tutorial'
-    'users/:username'   : 'profile'
+    'tutorial'        : 'tutorial'
+    'users/:username' : 'profile'
 
   # Profile view
   profile: (username) =>
