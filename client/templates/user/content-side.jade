@@ -7,8 +7,8 @@
   .sidebar-content.collapse.in
     .user-profile.sidebar-block
       img(src='/images/userpic.gif')
-      a.user-name-link(href='#') {{ user.name }}
-      span.user-location {{ user.location }}
+      a.user-name-link(href='#') {{ user.username }}
+      span.user-location {{ user.location.str }}
       a.change-city(href='#') Change City
     //
        .user-profile 
