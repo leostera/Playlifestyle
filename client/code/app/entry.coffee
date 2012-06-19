@@ -15,5 +15,4 @@ ss.server.on 'ready', ->
   jQuery ->
 
     # Load app
-    # require('/utils')
     require('/app')

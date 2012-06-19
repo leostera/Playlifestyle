@@ -9,11 +9,7 @@ module.exports =
     ]
 
     code_in_order: [
-      'libs/jquery.js',
-      'libs/jquery.ui.js',
-      'libs/underscore.js',
-      'libs/backbone.js',
-      'libs/bootstrap.js',
+      'libs',      
       'app'
     ]
   }

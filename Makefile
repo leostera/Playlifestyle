@@ -1,2 +1,2 @@
 all:
-	@nodemon -w app -w server run.coffee
+	@nodemon -w app -w config -w server run.coffee
