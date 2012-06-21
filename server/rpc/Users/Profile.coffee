@@ -1,3 +1,5 @@
+_ = require('underscore')
+
 exports.actions = (req, res, ss) ->
 
 # this module is secured against unauthenticated guys
