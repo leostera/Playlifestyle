@@ -2,6 +2,8 @@ class RegistrationPartial extends Backbone.View
 
   template: ss.tmpl['signup-partials-start']
 
+  id: "registrationPartial"
+
   error:
     username: yes
     email: yes
@@ -85,13 +87,13 @@ class RegistrationPartial extends Backbone.View
   #  Private
   ###
   __toggleHints: (id, messages) =>
-    hint = $(".control-group##{id}-cg .controls")
+    hint = @$(".control-group##{id}-cg .controls")
     hint.find('p.help-block').html("")
     _.each messages, (msg) =>
       hint.append("<p class=\'help-block'>#{msg}</p>")
 
   __toggleIcons: (id, status) =>
-    cg = $(".control-group##{id}-cg")
+    cg = @$(".control-group##{id}-cg")
     cg.removeClass('error').removeClass('success')
     if status is yes
       cg.addClass('error')

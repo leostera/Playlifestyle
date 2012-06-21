@@ -23,6 +23,7 @@ class IndexView extends Backbone.View
 
     #get the login partial view and render it
     @loginPartial = require('./Auth/partials/Login').init()    
+    @loginPartial.on 'registration:begin', @register
     $('#side').html @loginPartial.render()
 
     @
@@ -32,7 +33,7 @@ class IndexView extends Backbone.View
       @signUpModal = require('./Auth/SignUp').init(@step)  
       @signUpModal?.on 'registration:already', (e) =>
         @signUpModal.kill()
-        window.MainRouter.navigate ''
+        window.MainRouter.navigate '', true
 
   registerFromLink: (e) ->
     e.preventDefault()
@@ -40,8 +41,13 @@ class IndexView extends Backbone.View
     unless @wontSignUp    
       @register()
 
+  rerouteToIndex: (e) ->
+    e.preventDefault()
+    window.MainRouter.navigate '', true
+
   events:
     'click a#register' : "registerFromLink"
+    'click img#logo'     : "rerouteToIndex"
 
 exports.init = (options={})->
   new IndexView(options).render()

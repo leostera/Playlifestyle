@@ -1,12 +1,24 @@
-form.well#signin
-  h2 Sign in
-  p
-    #error
-  p    
-    input.input-medium#username(type="text",placeholder="jackomaloso")
-  p
-    input.input-medium#password(type="password",placeholder="**********")
-  p
-    button#login.btn Sign in
-  p
-    a#register(href="/signup/begin") Not a user yet? Sign up!
+form#signin
+
+  .control-group#error-cg
+    .controls
+      p
+        #error
+
+  .control-group#username-cg
+    label.control-label(for="username") Username
+    .controls      
+      .input-append
+        input(type="text", placeholder="JackoMaloso").input-medium#username
+
+  .control-group#password-cg
+    label.control-label(for="password") Password
+    .controls
+      .input-append
+        input(type="password").input-medium#password
+
+  .control-group#login-cg
+    .controls
+      button#login.btn Sign in
+      span#separator or
+      button#register.btn Sign up

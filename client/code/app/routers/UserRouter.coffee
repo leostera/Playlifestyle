@@ -10,9 +10,10 @@ class UserRouter extends Routerious
       #check the status
       #if authenticated then show profile plus toolbar
       #else just show the profile with limited options
+      console.log res
       if res.status is yes
         if username isnt res.user.username
-          @navigate "users/#{res.user.username}"
+          @navigate "users/#{res.user.username}", true
         else
           @__prepareView('User/Profile', {model: res.user})
       else
