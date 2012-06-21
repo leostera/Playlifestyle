@@ -3,8 +3,10 @@ class MainRouter extends Routerious
   routes:
     ''             : 'index'
     'signup'       : 'signup'
+    'signup/'       : 'signup'
     'signup/:step' : 'signup'
     'signout'     : 'signout'
+    'signout/'     : 'signout'
 
   # Main route
   index: =>
