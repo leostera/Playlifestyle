@@ -30,7 +30,7 @@ class UserRouter extends Routerious
       console.log res
 
       if res.status is yes
-        @__prepareView('User/Tutorial', {model: res.user})
+        @__prepareView('User/Tutorial')
       else
         @__prepareView("Utils/Templater", { template: "generic-message", details: { title: "Welcome to the tutorial", message: """Unfortunately you are not logged in to enjoy it.
         <br /><a href="/signup"> Don't have an account? Sign up now! </a>

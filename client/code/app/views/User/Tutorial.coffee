@@ -20,14 +20,14 @@ class TutorialView extends Backbone.View
   step: 0
 
   initialize: =>
-    @profile = new @model    
+    @profile = new @model  
   
   render: =>
     $('#full').html @templates.full.render {}
     $('#side').hide()
     $('#main').hide()
     $('#nav').html @templates.nav.render {}
-    @.el
+    @
 
   start: () =>
     ss.rpc("Users.Auth.Status",(res) =>
@@ -35,25 +35,55 @@ class TutorialView extends Backbone.View
         window.MainRouter.navigate '', true
         @kill()
       else
-        @step = 0
+        ss.rpc("Users.Profile.Create", (res) =>
+          @step = 0
+          if res.status is no
+            @profile.set res.status.profile            
+        )
     )    
 
   doStep: =>    
+    #0 Avatar
+    #1 Gender
+    #2 Anniversaries
+    #3 Bio
+    #4 Status
+    #5 Interests
+    #6 Contact
+    #7 Finish
     switch @step
       when 0 
-        @step_partial = 'Registration'
-        @step_event   = 'registration'
-        @url_name     = 'begin'
+        @step_partial = 'Avatar'
+        @step_event   = 'avatar'
+        @url_name     = 'avatar'
       when 1 
-        @step_partial = 'Geolocation'
-        @step_event   = 'geolocation'
-        @url_name     = 'geolocate'
+        @step_partial = 'Gender'
+        @step_event   = 'gender'
+        @url_name     = 'gender'
       when 2
+        @step_partial = 'Gender'
+        @step_event   = 'gender'
+        @url_name     = 'gender'
+      when 3 
+        @step_partial = 'Gender'
+        @step_event   = 'gender'
+        @url_name     = 'gender'
+      when 4 
+        @step_partial = 'Gender'
+        @step_event   = 'gender'
+        @url_name     = 'gender'
+      when 5 
+        @step_partial = 'Gender'
+        @step_event   = 'gender'
+        @url_name     = 'gender'
+      when 6 
+        @step_partial = 'Gender'
+        @step_event   = 'gender'
+        @url_name     = 'gender'                                
+      when 7
         @step_partial = no
         @step_event   = no
         @url_name     = 'finish'                
-        @showWait(@step)
-        @enableNext()
 
     window.MainRouter.navigate "tutorial/#{@url_name}"
 
@@ -111,6 +141,6 @@ class TutorialView extends Backbone.View
   events:
     'click #next' : "next"
   
-exports.init = (options) ->
+exports.init = (options={}) ->
   new TutorialView(options).render().start()
   
