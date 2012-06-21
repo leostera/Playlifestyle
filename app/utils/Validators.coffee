@@ -14,22 +14,20 @@ checkEmail = module.exports.checkEmail = (email) ->
 checkUsername = module.exports.checkUsername = (user) ->
   /^[a-zA-Z]{1}[-_a-zA-Z0-9]+$/.test user
 
-checkDate = module.exports.checkDate = (date) ->
+checkDate = module.exports.checkDate = (date, fn) ->
 
-  console.log date
-
-  result = 
+  result =
     status: no
     messages: []
 
-  splited_date = date.split('/')
+  splited_date = date.value.split('/')
   if splited_date.length is 3
-    date =
-      year: date[2]
-      month: date[0]-1
-      day: date[1]
+    date_obj =
+      year: splited_date[2]
+      month: splited_date[0]-1
+      day: splited_date[1]
 
-    if _.isDate( new Date(date.year, date.month, date.day) )
+    if _.isDate( new Date(date_obj.year, date_obj.month, date_obj.day) )
       result.status= yes
       result.messages.push "Birthday is valid."
       
@@ -37,7 +35,7 @@ checkDate = module.exports.checkDate = (date) ->
     result.status= no
     result.messages.push "Invalid date."
 
-  result
+  fn(result)
 
 checkNotEmpty = module.exports.checkNotEmpty = (string) ->
   /^[ ]*/.test string
@@ -70,31 +68,38 @@ isValidUsername = module.exports.isValidUsername = (user) ->
 isntValidUsername = module.exports.isntValidUsername = (user) ->
   not isValidUsername(user)
 
-isUsernameTaken = module.exports.isTakenUsername = (user) ->
-  require('../models/Account').model.findOne({username: user}, (err, usr) -> )
-  no
+isUsernameTaken = module.exports.isTakenUsername = (user, fn) ->
+  require('../models/Account').model.findOne({username: "#{user}"}, (err, usr) =>
+    result=
+      status: yes
+      messages: []
 
-isntUsernameTaken = module.exports.isntTakenUsername = (user) ->
-  not isUsernameTaken(user)
+    if _.isNull(usr) and _.isNull(err)
+      result.status= no
+      result.messages.push "Perfectly valid and available username."
+    else
+      result.messages.push "Username is taken!"
 
-isUsernameAvailable = module.exports.isUsernameAvailable = (user) ->
+    fn(result)
+  )
+
+isntUsernameTaken = module.exports.isntTakenUsername = (user, fn) ->
+  isUsernameTaken(user, (result) ->
+    result.status = not result.status
+    fn(result)
+  )
+
+isUsernameAvailable = module.exports.isUsernameAvailable = (user, fn) ->
+
   result =
     status: no
     messages: []
 
-  if isValidUsername(user) and isntUsernameTaken(user)
-    result.status = yes
-    result.messages.push "Username valid and available."
-
-  if isntValidUsername(user)
-    result.status = no
+  if isntValidUsername(user.value)
     result.messages.push "Username is not valid."
-
-  if isUsernameTaken(user)
-    result.status = no
-    result.messages.push "Username is not available."
-
-  result
+    fn(result)
+  else
+    isntUsernameTaken(user.value, fn)
 
 ###
 #  Email validations
@@ -105,27 +110,35 @@ isValidEmail = module.exports.isValidEmail = (email) ->
 isntValidEmail = module.exports.isntValidEmail = (email) ->
   not isValidEmail(email)
 
-isEmailTaken = module.exports.isTakenEmail = (email) ->
-  no
+isEmailTaken = module.exports.isTakenEmail = (email, fn) ->
+  require('../models/Account').model.findOne({email: "#{email}"}, (err, usr) =>
+    result=
+      status: yes
+      messages: []
 
-isntEmailTaken = module.exports.isntTakenEmail = (email) ->
-  not isEmailTaken(email)
+    if _.isNull(usr) and _.isNull(err)
+      result.status= no
+      result.messages.push "Yet unused email."
+    else
+      result.messages.push "Email already used!"
 
-isEmailAvailable = module.exports.isEmailAvailable = (email) ->
+    fn(result)
+  )
+
+isntEmailTaken = module.exports.isntTakenEmail = (email, fn) ->
+  isEmailTaken(email, (result) ->
+    result.status = not result.status
+    fn(result)
+  )
+
+isEmailAvailable = module.exports.isEmailAvailable = (email, fn) ->
   result =
     status: no
     messages: []
 
-  if isValidEmail(email) and isntEmailTaken(email)
-    result.status = yes
-    result.messages.push "Email valid and not used yet."
-
-  if isntValidEmail(email)
+  if isntValidEmail(email.value)
     result.status = no
     result.messages.push "Email is not valid."
-
-  if isEmailTaken(email)
-    result.status = no
-    result.messages.push "Email already used."
-
-  result
+    fn(result)
+  else
+     isntEmailTaken(email.value, fn)
