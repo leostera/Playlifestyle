@@ -3,15 +3,16 @@ _ = require('underscore')
 UserModel = require('../models/Account').model
 
 Geolocate = module.exports.Geolocate =  (ip, fn) ->
-  City = require('geoip').City
-  city_db = module.exports.city_db = new City('./db/GeoLiteCity.dat')
-
-  if _.isFunction(fn)
-    city_db?.lookup(ip, (err, data) =>
-      fn(err,data)
-    )
-  else
-    city_db?.lookupSync(ip)
+  #City = require('geoip').City
+  #city_db = module.exports.city_db = new City('./db/GeoLiteCity.dat')
+  #
+  #if _.isFunction(fn)
+  #  city_db?.lookup(ip, (err, data) =>
+  #    fn(err,data)
+  #  )
+  #else
+  #  city_db?.lookupSync(ip)
+  { latitude: 0.03, longitude: 0.30, country_code: 'CA', city: "Calgary" }
 
 SignIn = module.exports.SignIn = (creds, fn) ->  
   UserModel.findOne {username: creds.username, password: creds.password}, (err, doc) ->
