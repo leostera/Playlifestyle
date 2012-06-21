@@ -44,8 +44,8 @@ class GeolocationPartial extends Backbone.View
         # This code instantiates a new GoogleMap inside div#map and
         # centers it in the LatLng retrieved from the server
         success = (position) ->
-          @map = new google.maps.Map
-            document.getElementById('map'), {
+          @map = new google.maps.Map document.getElementById('map'),
+            {
               center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
               zoom: 1
               mapTypeId: google.maps.MapTypeId.ROADMAP
