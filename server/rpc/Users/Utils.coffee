@@ -9,24 +9,22 @@ exports.actions = (req, res, ss) ->
 
   {
   ValidateField: (data) ->
-    result =
-      status: no
-      messages: []      
+
+    callback = (r) ->
+      _.extend r, {field_id: data.id}
+      res r
 
     switch data.id
       when 'email'
-        result = req.app.utils.Validators.isEmailAvailable(data.value)
+        req.app.utils.Validators.isEmailAvailable(data, callback)
 
       when 'username'
-        result = req.app.utils.Validators.isUsernameAvailable(data.value)
+        req.app.utils.Validators.isUsernameAvailable(data, callback)
 
       when 'birthday'
-        result = req.app.utils.Validators.checkDate(data.value)
+        req.app.utils.Validators.checkDate(data, callback)
 
       when 'location'
-        result = req.app.utils.Validators.checkLocation(data.value)
+        req.app.utils.Validators.checkLocation(data, callback)
 
-    _.extend(result, {field_id: data.id})
-
-    res result
   }

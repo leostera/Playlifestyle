@@ -37,6 +37,8 @@ class RegistrationPartial extends Backbone.View
         changeYear: true
         yearRange: 'c-40:c+10'
 
+    $('#ui-datepicker-div').hide()
+
     @
   
   render: => @.el

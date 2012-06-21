@@ -35,19 +35,5 @@ class IndexView extends Backbone.View
         @signUpModal.kill()
         window.MainRouter.navigate '', true
 
-  registerFromLink: (e) ->
-    e.preventDefault()
-
-    unless @wontSignUp    
-      @register()
-
-  rerouteToIndex: (e) ->
-    e.preventDefault()
-    window.MainRouter.navigate '', true
-
-  events:
-    'click a#register' : "registerFromLink"
-    'click img#logo'     : "rerouteToIndex"
-
 exports.init = (options={})->
   new IndexView(options).render()
