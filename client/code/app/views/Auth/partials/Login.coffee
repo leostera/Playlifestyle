@@ -2,14 +2,13 @@ class LoginPartial extends Backbone.View
 
   template: ss.tmpl['signin-partials-login']
 
-  className: "loginPartial"
-
   prerender: =>
     @$el.html @template.render {}    
     if $('body').width() > 980
       @$('#signin').removeClass('form-horizontal')
     else
       @$('#signin').addClass('form-horizontal')
+      @$('#signin').addClass("loginPartial")
 
     @
 
