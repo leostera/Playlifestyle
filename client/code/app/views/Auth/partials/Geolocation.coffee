@@ -41,20 +41,47 @@ class GeolocationPartial extends Backbone.View
     ##
     # This code instantiates a new GoogleMap inside div#map and
     # centers it in the LatLng retrieved from the server        
-    success = (position) ->
+    success = (position) =>
       @map = new google.maps.Map document.getElementById('map'), 
         {
           center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+          zoom: 8
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
-      @$('#location').val("#{result.location.city} (#{result.location.country_code})")
+      geocode(position.coords.latitude, position.coords.longitude)
+      
       @trigger 'geolocation:proceed'
       #disable the input box
       @disableFields()
 
     error = (e) ->
       @trigger 'geolocation:stop'
+
+    geocode = (lat, lng) =>
+      latlng = new google.maps.LatLng(lat, lng)
+      geocoder = new google.maps.Geocoder()
+      geocoder.geocode({'latLng': latlng}, (results, status) =>
+        if status is google.maps.GeocoderStatus.OK
+          if (results[1]) 
+            locality=0
+            for result in results
+              if result.types[0] is 'locality'
+                locality=result
+                console.log(locality)
+                break
+          
+            for addr_cmp in locality.address_components
+              if (addr_cmp.types[0] is "locality")
+                city = addr_cmp
+              if (addr_cmp.types[0] == "administrative_area_level_1")
+                region = addr_cmp
+              if (addr_cmp.types[0] is "country")
+                country = addr_cmp
+
+            location = { city: city.long_name, region: region.long_name, country: country.long_name, country_code: country.short_name }
+            @$('#location').val("#{location.city} (#{location.country_code})")
+        )
 
     navigator.geolocation.getCurrentPosition(success, error, {maximumAge: 75000})
         
