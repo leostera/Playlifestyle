@@ -1,7 +1,7 @@
 # Require Mongoose
 mongoose      = require('mongoose')
-mongooseTypes = require('mongoose-types')
-mongooseTypes.loadTypes(mongoose,'email')
+#mongooseTypes = require('mongoose-types')
+#mongooseTypes.loadTypes(mongoose,'email')
 
 # Define the Schema
 AccountSchema = new mongoose.Schema
@@ -13,7 +13,8 @@ AccountSchema = new mongoose.Schema
     default: "1234"
 
   email:
-    type: mongoose.SchemaTypes.Email
+    #type: mongoose.SchemaTypes.Email
+    type: String
     unique: true
 
   birthdate: Date
@@ -33,7 +34,7 @@ AccountSchema = new mongoose.Schema
   profile: [require('./Profile').schema]
 
 # Plugins
-AccountSchema.plugin(mongooseTypes.useTimestamps)
+# AccountSchema.plugin(mongooseTypes.useTimestamps)
 
 # Define the Model
 mongoose.model('Account', AccountSchema)

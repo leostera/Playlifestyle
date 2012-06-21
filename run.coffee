@@ -1,9 +1,14 @@
 # SocketStream requires
-express   = require('express')
+http      = require('http')
 ss        = require('socketstream')
 
 mongoose  = require("mongoose")
-mongoose.connect('mongodb://localhost/play_dev')
+
+if ss.env == "production"
+  mongoose.connect("mongodb://nodejitsu:6ec8fb06177bf66545b4f9b43afa7126@flame.mongohq.com:27042/nodejitsudb209414754778
+")
+else
+  mongoose.connect('mongodb://localhost/play_dev')
 
 assets    = require('./config/assets')
 
@@ -16,9 +21,12 @@ require('./config/routes')(ss)
 if ss.env == 'production' then ss.client.packAssets()
 
 # Start web server
-server = express.createServer ss.http.middleware
+server = http.Server ss.http.middleware
 
-server.listen 3000
+if ss.env == "production"
+  server.listen 80
+else
+  server.listen 3000
 
 # Start SocketStream server
 ss.start server
