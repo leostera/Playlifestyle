@@ -40,14 +40,18 @@ class GeolocationPartial extends Backbone.View
 
     ss.rpc 'Users.Account.GetLocation', (result) =>
       if result.status is yes    
-        ###
+        ##
         # This code instantiates a new GoogleMap inside div#map and
         # centers it in the LatLng retrieved from the server
-        @map = new google.maps.Map
-          document.getElementById('map'), {
-            center: new google.maps.LatLng(result.location.latitude, result.location.longitude)
-            zoom: 1
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+        success = (position) ->
+          @map = new google.maps.Map
+            document.getElementById('map'), {
+              center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+              zoom: 1
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+
+        navigator.geolocation.getCurrentPosition(success, (e)-> alert e , {maximumAge: 75000})
         ####
 
         @$('#location').val("#{result.location.city} (#{result.location.country_code})")
