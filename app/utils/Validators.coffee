@@ -28,8 +28,17 @@ checkDate = module.exports.checkDate = (date, fn) ->
       day: splited_date[1]
 
     if _.isDate( new Date(date_obj.year, date_obj.month, date_obj.day) )
-      result.status= yes
-      result.messages.push "Birthday is valid."
+
+      if date_obj.year < 1997
+        result.status= yes
+        result.messages.push "Birthday is valid."
+      else
+        result.status= no
+        result.messages.push "You must be at least 16+"
+
+    else
+      result.status= no
+      result.messages.push "That's not even a date."
       
   else
     result.status= no
@@ -58,6 +67,24 @@ checkLocation = module.exports.checkLocation = (location) ->
 
   result
 
+###
+#  Common Database Lookups
+###
+findOne = (model, conditions, fn, messages) ->
+  require("../models/#{model}").model.findOne(conditions, (err, usr) =>
+    result=
+      status: yes
+      messages: []
+
+    if _.isNull(usr) and _.isNull(err)
+      result.status= no
+      result.messages.push messages.success
+    else
+      result.messages.push messages.error
+
+    fn(result)
+  )
+
 
 ###
 #  Username validations
@@ -69,19 +96,13 @@ isntValidUsername = module.exports.isntValidUsername = (user) ->
   not isValidUsername(user)
 
 isUsernameTaken = module.exports.isTakenUsername = (user, fn) ->
-  require('../models/Account').model.findOne({username: "#{user}"}, (err, usr) =>
-    result=
-      status: yes
-      messages: []
-
-    if _.isNull(usr) and _.isNull(err)
-      result.status= no
-      result.messages.push "Perfectly valid and available username."
-    else
-      result.messages.push "Username is taken!"
-
-    fn(result)
-  )
+  findOne('Account',
+    {username: "#{user}"},
+    fn,
+    {
+      success: "Perfectly valid and available username."
+      error: "Username is taken!"
+    })
 
 isntUsernameTaken = module.exports.isntTakenUsername = (user, fn) ->
   isUsernameTaken(user, (result) ->
@@ -111,19 +132,13 @@ isntValidEmail = module.exports.isntValidEmail = (email) ->
   not isValidEmail(email)
 
 isEmailTaken = module.exports.isTakenEmail = (email, fn) ->
-  require('../models/Account').model.findOne({email: "#{email}"}, (err, usr) =>
-    result=
-      status: yes
-      messages: []
-
-    if _.isNull(usr) and _.isNull(err)
-      result.status= no
-      result.messages.push "Yet unused email."
-    else
-      result.messages.push "Email already used!"
-
-    fn(result)
-  )
+  findOne( "Account",
+    {email: "#{email}"},
+    fn,
+    {
+      success: "Yet unused email."
+      error: "Email already used!"
+    })
 
 isntEmailTaken = module.exports.isntTakenEmail = (email, fn) ->
   isEmailTaken(email, (result) ->
