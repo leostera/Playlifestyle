@@ -22,22 +22,7 @@ class GeolocationPartial extends Backbone.View
 
     # Hide the icons!
     @$('span.add-on').hide()
-    # Typeahead
-    @$('#location').typeahead
-      source: ['Calgary', 'Vancouver', 'Tucuman']
-        ###
-        (req, res) =>
-        choices = []
-        ss.rpc("Contents.Cities.ByLocation",{near: req.term}, (resNear) =>
-          choices.push resNear
-
-          ss.rpc("Contents.Cities.ByName",{like: req.term}, (resLike) =>
-            choices.push resLike
-
-            response [choices[0]..., choices[1]...]
-        ###
-      minLength: 3
-
+ 
     ##
     # This code instantiates a new GoogleMap inside div#map and
     # centers it in the LatLng retrieved from the server        
@@ -54,6 +39,23 @@ class GeolocationPartial extends Backbone.View
       @trigger 'geolocation:proceed'
       #disable the input box
       @disableFields()
+
+      @input = document.getElementById("location")
+      @autocomplete = new google.maps.places.Autocomplete(@input)
+      @autocomplete.bindTo("bounds", @map)
+
+      @marker = new google.maps.Marker({map: @map})
+
+      google.maps.event.addListener @autocomplete, "place_changed", =>
+        place = @autocomplete.getPlace();
+
+        if place.geometry.viewport
+          @map.fitBounds(place.geometry.viewport)
+        else
+          @map.setCenter(place.geometry.location)
+          @map.setZoom(15)
+
+        @marker.setPosition(place.geometry.location)
 
     error = (e) ->
       @trigger 'geolocation:stop'
