@@ -123,6 +123,12 @@ class SignUpView extends Backbone.View
       @$('#next span').html("Start the tutorial now!")
       @$('#steps').html("")
       @$('#steps').prepend( @templates.profileBtn.render {} )
+      @$('#next').unbind().on('click',(e)=>
+          e.preventDefault()
+          $('div.modal-backdrop.fade.in').fadeIn().remove()
+          window.MainRouter.navigate("tutorial", true)
+          @kill()          
+        )
       @$('#profile').on('click',(e)=>
           e.preventDefault()          
           window.MainRouter.navigate("", true)
