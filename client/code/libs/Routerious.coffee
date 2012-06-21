@@ -1,4 +1,4 @@
-#     Routerious.coffee 0.1.0
+#     Routerious.coffee 0.1.1
 
 #     (c) 2010-2012 Leandro Ostera.
 #     Routerious may be freely distributed under the MIT license.
@@ -32,10 +32,12 @@ class Routerious extends Backbone.Router
   ###
 
   # __prepareView( view )
-  __prepareView: (view, options=undefined, killMe=yes) =>
+  __prepareView: (viewName, options=undefined, killMe=yes) =>
+    # clean unused views
     @__killViews()
-    view = require('../views/'+view).init(options)
-    view.killMe = killMe
+    # prepare clean view object
+    view = {}
+    _.extend view, require('../views/'+viewName).init(options), {killMe: killMe}
     @views.push view
     _.last @views
 
