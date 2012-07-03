@@ -11,32 +11,21 @@ html
     != SocketStream
   
   body
-    .container-fluid      
-      .navbar
-        .navbar-inner
-          .container
-            a.btn.btn-navbar.btn-widget(data-toggle='collapse', data-target='.nav-collapse')
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
-            #nav
-              a.nav-collapse
-                ul.nav#register
-                  li
-                    a#register(href="#")
-      .row-fluid
-        .span12
-          #head
-            img(src='/images/logo.png')#logo
-      .row-fluid
-        .span2
-          #side
-        .span10
-          #main
-      .row-fluid
-        .span12
-          #full
-      .row-fluid
-        .span12
-          #footer Play Canada 2010 &copy; All Rights Reserved
+    section.row#navigation
+      .twelve.columns.hide-for-small#content Menu        
+      
+    section.row#header
+      .twelve.columns#content
+        img(src='/_images/logo.png')#logo
+
+    section.row#body-splited
+      .three.columns#side
+      .nine.columns#main
+
+    section.row#body
+      .twelve.columns#full
+
+    section.row#footer
+      .twelve.columns.centered#content Play Canada 2010 &copy; All Rights Reserved
+
     #modals    
