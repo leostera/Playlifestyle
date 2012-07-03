@@ -19,7 +19,8 @@ class IndexView extends Backbone.View
     @loginPartial.on 'registration:begin', @register
     @loginPartial.render()
 
-    $('#register').on('click',(e)=>
+    @$('#register').on('click',(e)=>
+        e.preventDefault()
         @register()
       )
 
@@ -27,7 +28,7 @@ class IndexView extends Backbone.View
 
   register: =>
     unless @wontSignUp
-      @signUpModal = require('./Auth/SignUp').init({el: "#register-form"})  
+      @signUpModal = require('./Auth/SignUp').init({el: "modal#register"})  
       @signUpModal?.on 'registration:already', (e) =>
         @signUpModal.kill()
         window.MainRouter.navigate '', true

@@ -18,7 +18,7 @@ class SignUpView extends Backbone.View
   render: =>
     unless @$el.children().length isnt 0
       @$el.append @templates.modal.render {}
-    @$el.reveal({open:true})
+    @$el.modal().show()
 
     @    
 
