@@ -4,7 +4,7 @@ module.exports =
       'libs/normalize.css',
       'libs/jquery.ui.css',
       'libs/foundation.css'
-      #'app',
+      'app',
     ]
 
     code_in_order: [
