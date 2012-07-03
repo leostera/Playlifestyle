@@ -1,6 +1,6 @@
 module.exports =
   {
-    style_in_order: [
+    pc_styles: [
       'libs/normalize.css',
       'libs/bootstrap.css',
       'libs/bootstrap-responsive.css',
@@ -9,7 +9,7 @@ module.exports =
       'libs/helpers.css'
     ]
 
-    code_in_order: [
+    pc_code: [
       'libs/jquery.js',
       'libs/jquery.ui.js',      
       'libs/underscore.js',
@@ -17,6 +17,7 @@ module.exports =
       'libs/bootstrap-transition.js',
       'libs/bootstrap-modal.js',
       'libs/bootstrap-tab.js',
+      'libs/Routerious.coffee',
       'app'
     ]
   }
