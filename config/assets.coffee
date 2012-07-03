@@ -20,5 +20,6 @@ module.exports =
       'libs/jquery.tooltips.js',
       'libs/Routerious.coffee',
       'app'
+      'libs/foundation.js',
     ]
   }

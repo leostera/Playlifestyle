@@ -1,4 +1,5 @@
 db/*
+client/static/assets/*
 node_modules/*
 todos.coffee
 *.sublime-*

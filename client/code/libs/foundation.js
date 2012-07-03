@@ -1,4 +1,4 @@
-jQuery(document).ready(function ($) {
+$(function ($) {
 
   /* Use this js doc for all application specific JS */
 
@@ -24,7 +24,7 @@ jQuery(document).ready(function ($) {
     $(contentLocation).css('display', 'block');
   }
 
-  $('dl.tabs dd a').on('click.fndtn', function (event) {
+  $('dl.tabs dd a').on('click', function (event) {
     activateTab($(this).parent('dd'));
   });
 

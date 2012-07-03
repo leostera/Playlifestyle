@@ -1,24 +1,13 @@
 form#signin
 
-  .control-group#error-cg
-    .controls
+  fieldset.row
+
+    section#errors
+
+    section.eight.column
+      input(type="text", placeholder="JackoMaloso")#username
+      input(type="password",placeholder="**********")#password
+    section.four.column
+      button#login.button Go!
       p
-        #error
-
-  .control-group#username-cg
-    label.control-label(for="username") Username
-    .controls      
-      .input-append
-        input(type="text", placeholder="JackoMaloso").input-medium#username
-
-  .control-group#password-cg
-    label.control-label(for="password") Password
-    .controls
-      .input-append
-        input(type="password").input-medium#password
-
-  .control-group#login-cg
-    .controls
-      button#login.btn Sign in
-      span#separator or
-      button#register.btn Sign up
+        a(href="#") Can't login?

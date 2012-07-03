@@ -2,7 +2,7 @@
 html
   head
     meta(charset="utf-8")
-    title Play Canada - Entertainment Lifestyle Network
+    title Play Lifestyle Network
     meta(name='keywords', content='Play Lifestyle, Play Life Style, Play Canada')
     meta(name='description', description='It\'s your play ground.')      
 
@@ -11,21 +11,17 @@ html
     != SocketStream
   
   body
-    section.row#navigation
-      .twelve.columns.hide-for-small#content Menu        
-      
     section.row#header
-      .twelve.columns#content
-        img(src='/_images/logo.png')#logo
-
-    section.row#body-splited
-      .three.columns#side
-      .nine.columns#main
+      section.four.columns#logo
+        img(src='/_images/logo.png')
+      section.eight.columns#space
+      section.four.columns#login-form
 
     section.row#body
-      .twelve.columns#full
+      section.six.columns.push-six#what-is-play
+      section.six.columns.pull-six#events
 
     section.row#footer
-      .twelve.columns.centered#content Play Canada 2010 &copy; All Rights Reserved
+      .twelve.columns.centered#copy Play Canada 2010 &copy; All Rights Reserved
 
     #modals    
