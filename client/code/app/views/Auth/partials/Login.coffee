@@ -2,18 +2,9 @@ class LoginPartial extends Backbone.View
 
   template: ss.tmpl['signin-partials-login']
 
-  prerender: =>
-    @$el.html @template.render {}    
-    if $('body').width() > 980
-      @$('#signin').removeClass('form-horizontal')
-    else
-      @$('#signin').addClass('form-horizontal')
-      @$('#signin').addClass("loginPartial")
-
-    @
-
   render: =>
-    @.el
+    @$el.html @template.render {}
+    @
 
   onSubmit: (e) =>
     e.preventDefault()
@@ -40,4 +31,4 @@ class LoginPartial extends Backbone.View
     'click #register' : "justPrevent"
 
 
-exports.init = -> new LoginPartial().prerender()
+exports.init = (options={})-> new LoginPartial(options).render()

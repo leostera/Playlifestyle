@@ -1,12 +1,11 @@
 class DevRouter extends Routerious
 
   routes:
-    'p/:partial/:element'  : 'dummy'
+    'p/:element/:view/:partial'  : 'showPartial'
 
-  dummy: (partial,element) =>
-    view = @__prepareView("Auth/partials/#{partial}")
-    console.log view
-    $("##{element}").html view.render()
+  showPartial: (element, view, partial) =>
+    view = @__prepareView("#{view}/partials/#{partial}",{el: element})
+
 
 exports.init = ->
   new DevRouter()

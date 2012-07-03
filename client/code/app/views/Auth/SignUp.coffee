@@ -10,8 +10,6 @@ class SignUpView extends Backbone.View
             ss.tmpl['signup-partials-benefits']
           ]
 
-  el: "#signup"
-
   step: 0
 
   initialize: =>
@@ -20,7 +18,7 @@ class SignUpView extends Backbone.View
   render: =>
     unless @$el.children().length isnt 0
       @$el.append @templates.modal.render {}
-    @$el.modal().show()
+    @$el.reveal({open:true})
 
     @    
 
@@ -142,5 +140,5 @@ class SignUpView extends Backbone.View
     'click #close': "unroute"
     'click #next' : "next"
     
-exports.init = () ->
-  new SignUpView().render().start()
+exports.init = (options={}) ->
+  new SignUpView(options).render().start()

@@ -2,9 +2,9 @@ module.exports =
   {
     pc_styles: [
       'libs/normalize.css',
+      'libs/jquery.ui.css',
       'libs/bootstrap.css',
       'libs/bootstrap-responsive.css',
-      'libs/jquery.ui.css',
       'app',
       'libs/helpers.css'
     ]

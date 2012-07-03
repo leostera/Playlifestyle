@@ -9,21 +9,17 @@ html
     script(src="http://maps.google.com/maps/api/js?libraries=places&sensor=true")      
   
   body
-    section.row-fluid#header
-      section.span4#logo
-        img(src='/images/logo.png')
-      section.span8#space
-      section.span4#login
-        
-    .row-fluid
-      .span2
-        #side
-      .span10
-        #main
-    .row-fluid
-      .span12
-        #full
-    .row-fluid
-      .span12
-        #footer Play Canada 2010 &copy; All Rights Reserved
-    #modals    
+    section.row#header
+      section.four.columns#logo
+        img(src='/_images/logo.png')
+      section.eight.columns.hide-for-small#space
+      section.four.columns#login-form
+
+    section.row#body
+      section.six.columns.push-six.hide-for-small#what-is-play.panel.radius
+      section.six.columns.pull-six#events.panel.radius
+
+    section.row#footer
+      .twelve.columns.centered#copy Play &copy 2012. All Rights Reserved
+
+    section#modals

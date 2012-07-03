@@ -15,6 +15,6 @@ require('./config/routes')(ss)
 ss.client.packAssets()
 # Start web server
 server = http.Server ss.http.middleware
-server.listen 80
+server.listen 4000
 # Start SocketStream server
 ss.start server
