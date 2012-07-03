@@ -57,7 +57,7 @@ class GeolocationPartial extends Backbone.View
 
         @marker.setPosition(place.geometry.location)
 
-    error = (e) ->
+    error = (e) =>
       @trigger 'geolocation:stop'
 
     geocode = (lat, lng) =>
