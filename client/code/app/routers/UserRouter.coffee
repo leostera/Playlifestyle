@@ -2,6 +2,8 @@ class UserRouter extends Routerious
 
   routes:
     'tutorial'        : 'tutorial'
+    'tutorial/'       : 'tutorial'
+    'tutorial/:step'  : 'tutorial'
     'users/:username' : 'profile'
 
   # Profile view
@@ -23,10 +25,17 @@ class UserRouter extends Routerious
 
   # Tutorial View
   tutorial: =>
-    @__prepareView("Utils/Templater", { template: "generic-message", details: { title: "Welcome to the tutorial", message: """This should be the tutorial.
-      <br /><a href="/signout"> Sign out </a>
-      <br /><a href="/"> Home </a>
-      """} })
+    @navigate 'tutorial/begin'
+    ss.rpc "Users.Auth.Status", (res) =>
+      console.log res
+
+      if res.status is yes
+        @__prepareView('User/Tutorial')
+      else
+        @__prepareView("Utils/Templater", { template: "generic-message", details: { title: "Welcome to the tutorial", message: """Unfortunately you are not logged in to enjoy it.
+        <br /><a href="/signup"> Don't have an account? Sign up now! </a>
+        <br /><a href="/"> Back to the home page </a>
+        """} })
 
 exports.init = ->
   new UserRouter()
