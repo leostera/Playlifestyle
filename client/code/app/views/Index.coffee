@@ -13,16 +13,21 @@ class IndexView extends Backbone.View
   render: =>
     $('#events').html ss.tmpl['index-events'].render {}
     $('#what-is-play').html ss.tmpl['index-content'].render {}
+    $('#modals').html ss.tmpl['index-modals'].render {}
     #get the login partial view and render it
     @loginPartial = require('./Auth/partials/Login').init({el: "#login-form"})    
     @loginPartial.on 'registration:begin', @register
     @loginPartial.render()
 
+    $('#register').on('click',(e)=>
+        @register()
+      )
+
     @
 
   register: =>
     unless @wontSignUp
-      @signUpModal = require('./Auth/SignUp').init(@step)  
+      @signUpModal = require('./Auth/SignUp').init({el: "#register-form"})  
       @signUpModal?.on 'registration:already', (e) =>
         @signUpModal.kill()
         window.MainRouter.navigate '', true

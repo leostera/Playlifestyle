@@ -5,10 +5,9 @@ html
     title Play Lifestyle Network
     meta(name='keywords', content='Play Lifestyle, Play Life Style, Play Canada')
     meta(name='description', description='It\'s your play ground.')      
-
-    script(src="http://maps.google.com/maps/api/js?libraries=places&sensor=true")      
     
     != SocketStream
+    script(src="http://maps.google.com/maps/api/js?libraries=places&sensor=true")      
   
   body
     section.row#header
@@ -18,8 +17,10 @@ html
       section.four.columns#login-form
 
     section.row#body
-      section.six.columns.push-six.hide-for-small#what-is-play.panel
-      section.six.columns.pull-six#events.panel
+      section.six.columns.push-six.hide-for-small#what-is-play.panel.radius
+      section.six.columns.pull-six#events.panel.radius
 
     section.row#footer
       .twelve.columns.centered#copy Play &copy 2012. All Rights Reserved
+
+    section#modals
