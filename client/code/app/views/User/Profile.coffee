@@ -1,14 +1,10 @@
 class UserProfileView extends Backbone.View
 
-  templates:
-    nav: ss.tmpl['user-nav']
+  template: sss.tmpl['user-main']
 
   render: =>
-    $('#navbar').html @templates.nav.render { user: @model }
-    $('#header').html('')
-    $('#body').html('')# @templates.main.render { user: @model }
+    $('#body').html @template.render { user: @model }
     @
-
   
 exports.init = (options) ->
   new UserProfileView(options).render()

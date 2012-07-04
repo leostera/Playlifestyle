@@ -34,9 +34,9 @@ class Routerious extends Backbone.Router
   ###
 
   # __prepareView( view )
-  __prepareView: (viewName, options=undefined, killMe=yes) =>
+  __prepareView: (viewName, options={kill_all: yes}, killMe=yes) =>
     # clean unused views
-    @__killViews()
+    if options?.kill_all then @__killViews()
     # prepare clean view object
     view = {}
     _.extend view, require('../views/'+viewName).init(options), {killMe: killMe}

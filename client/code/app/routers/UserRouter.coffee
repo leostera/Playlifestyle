@@ -1,41 +1,26 @@
 class UserRouter extends Routerious
 
   routes:
-    'tutorial'        : 'tutorial'
-    'tutorial/'       : 'tutorial'
-    'tutorial/:step'  : 'tutorial'
     'users/:username' : 'profile'
 
   # Profile view
   profile: (username) =>
-    ss.rpc "Users.Auth.Status", (res) =>      
-      #check the status
-      #if authenticated then show profile plus toolbar
-      #else just show the profile with limited options
-      console.log res
+    ss.rpc "Users.Auth.Status", (res) =>  
+
       if res.status is yes
+        @__preparePage()
         if username isnt res.user.username
-          @navigate "users/#{res.user.username}", true
+          @navigate "users/#{res.user.username}"
         else
           @__prepareView('User/Profile', {model: res.user})
       else
-        @__prepareView('Utils/Templater', { template: "generic-message", details: { title: "Access Denied", message: "You are not logged in." } })
+        @navigate '', true
 
     @
 
-  # Tutorial View
-  tutorial: =>
-    @navigate 'tutorial/begin'
-    ss.rpc "Users.Auth.Status", (res) =>
-      console.log res
-
-      if res.status is yes
-        @__prepareView('User/Tutorial')
-      else
-        @__prepareView("Utils/Templater", { template: "generic-message", details: { title: "Welcome to the tutorial", message: """Unfortunately you are not logged in to enjoy it.
-        <br /><a href="/signup"> Don't have an account? Sign up now! </a>
-        <br /><a href="/"> Back to the home page </a>
-        """} })
+  __preparePage: =>
+    @__prepareView('partials/Nav',{kill_all: no})
+    @__prepareView('partials/Body',{kill_all: no}))
 
 exports.init = ->
   new UserRouter()
