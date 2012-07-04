@@ -89,10 +89,10 @@ class RegistrationPartial extends Backbone.View
   #  Private
   ###
   __toggleHints: (id, messages) =>
-    hint = @$(".control-group##{id}-cg .controls")
-    hint.find('p.help-block').html("")
+    hint = @$(".control-group##{id}-cg")    
     _.each messages, (msg) =>
-      hint.append("<p class=\'help-block'>#{msg}</p>")
+      # there's yet only one message to show
+      hint.find('p.help-block#message').html(msg)
 
   __toggleIcons: (id, status) =>
     cg = @$(".control-group##{id}-cg")

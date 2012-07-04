@@ -1,35 +1,69 @@
 form.form-horizontal#signup-1
 
   .control-group#username-cg
-    label.control-label(for="username") Username
-    .controls      
+    label.control-label.hide-for-small(for="username") Username
+    .controls.hide-for-small
       .input-append
-        input(type="text").input-large#username
+        input(type="text").input-xlarge#username
         span.add-on#ok
           i.icon-ok
         span.add-on#error
           i.icon-remove
 
-      p.help-block Any username starting with a letter will do.
+      p.help-block#message Any username starting with a letter will do.
+      
+    .input-append.show-for-small
+      label(for="username")
+        span Username
+        span.label-icon#ok
+          i.icon-ok
+        span.label-icon#error
+          i.icon-remove
+      input(type="text")#username
+
+      p.help-block.hide-for-small#message Any username starting with a letter will do.
+      
 
   .control-group#email-cg
-    label.control-label(for="email") Email
-    .controls
+    label.control-label.hide-for-small(for="email") Email
+    .controls.hide-for-small
       .input-append
-        input(type="text").input-large#email
+        input(type="text").input-xlarge#email
         span.add-on#ok
           i.icon-ok
         span.add-on#error
           i.icon-remove
-      p.help-block Please enter a valid email for account activation.
+      p.help-block#message Please enter a valid email for account activation.
+
+    .input-append.show-for-small
+      label(for="email")
+        span Email
+        span.label-icon#ok
+          i.icon-ok
+        span.label-icon#error
+          i.icon-remove
+      input(type="text")#email
+
+      p.help-block.hide-for-small#message Valid email for account activation.
 
   .control-group#birthday-cg
-    label.control-label(for="birthday") Birthday
-    .controls
+    label.control-label.hide-for-small(for="birthday") Birthday
+    .controls.hide-for-small
       .input-append
-        input(type="text").input-large#birthday
+        input(type="text").input-xlarge#birthday
         span.add-on#ok
           i.icon-ok
         span.add-on#error
           i.icon-remove
-      p.help-block Only 16+
+      p.help-block#message Only 16+
+
+    .input-append.show-for-small
+      label(for="birthday")
+        span Birthday
+        span.label-icon#ok
+          i.icon-ok
+        span.label-icon#error
+          i.icon-remove
+      input(type="text")#birthday
+
+      p.help-block.hide-for-small#message Only 16+ please :)

@@ -17,9 +17,8 @@ class IndexView extends Backbone.View
     #get the login partial view and render it
     @loginPartial = require('./Auth/partials/Login').init({el: "#login-form"})    
     @loginPartial.on 'registration:begin', @register
-    @loginPartial.render()
 
-    @$('#register').on('click',(e)=>
+    $('#what-is-play #register').on('click',(e)=>
         e.preventDefault()
         @register()
       )

@@ -6,6 +6,7 @@ module.exports = (ss, assets) ->
 	  code: assets.pc_code
 	  tmpl: '*'
 
+  ###
   ss.client.define 'phone',
     view: 'phone.jade'
     css:  assets.phone_style
@@ -17,3 +18,4 @@ module.exports = (ss, assets) ->
     css:  assets.tablet_style
     code: assets.tablet_code
     tmpl: 'tablet/*'
+  ###

@@ -12,3 +12,18 @@ section.row#footer
 section.six.columns.pull-six#events.panel.radius
   width 48%
   margin-right 2%
+
+modal(data-backdrop="static",data-keyboard="false").modal.fade
+  max-height 100%
+  max-width 100%
+
+  input(type="text").input-xlarge
+    max-width 80%
+
+@media (max-width: 767px)
+  modal(data-backdrop="static",data-keyboard="false").modal.fade
+    width 360px    
+    left 75%
+
+    .label-icon
+      display: none
