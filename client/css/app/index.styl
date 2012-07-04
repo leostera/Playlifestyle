@@ -1,7 +1,8 @@
-ul.tabs-content
-  li.active#upcomingTab.hide-for-small
-    overflow-x auto
-    max-height 470px
+section.tab-content
+  section.tab-pane.active
+    .hide-for-small
+      overflow-x auto
+      max-height 470px
 
     article.row
       max-width 90%
@@ -13,12 +14,18 @@ section.six.columns.pull-six#events.panel.radius
   width 48%
   margin-right 2%
 
+section.six.columns.push-six#what-is-play.panel.radius
+  padding-top 12px
+
 modal(data-backdrop="static",data-keyboard="false").modal.fade
   max-height 100%
   max-width 100%
 
   input(type="text").input-xlarge
     max-width 80%
+
+  span.add-on i
+    margin-top 4px
 
 @media (max-width: 767px)
   modal(data-backdrop="static",data-keyboard="false").modal.fade

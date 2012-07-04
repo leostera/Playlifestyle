@@ -1,23 +1,16 @@
-.nav-collapse
-  ul.nav
-    li.home
-      a(href='#')
-        img(src='/images/ico-home.png')
-    li
-      a(href='#') Active
-    li
-      a(href='#') Arts/Photography
-    li
-      a(href='#') Culinary
-    li
-      a(href='#') Fashion
-    li
-      a(href='#') Buzz
-    li
-      a(href='#') Music
-    li
-      a(href='#') Nightlife/Concerts
-    li
-      a(href='#') Sports
-    li
-      a(href='#') Travel
+section.navbar
+  section.navbar-inner
+    section.container(style="width: auto;")      
+     
+      a.brand(href="#") Play
+
+      ul.nav
+        li.active
+          a(href="#") Events
+        li
+          a(href="#") Profile
+        li
+          a(href="#") Settings
+
+      form(action="").navbar-search.pull-right
+        input(type="text", placeholder="Search").search-query.span2

@@ -3,10 +3,17 @@ module.exports =
     pc_styles: [
       'libs/normalize.css',
       'libs/jquery.ui.css',
-      'libs/foundation.css',
-      'libs/bootstrap.css',
-      'libs/bootstrap-responsive.css',
+      'libs/foundation.grid.css',
+      'libs/bootstrap.misc.css',
+      'libs/alerts.css',
+      'libs/modals.css',
+      'libs/orbit.css',
+      'libs/tabs.css',
+      'libs/forms.css',
+      'libs/buttons.css',
+      'libs/navbar.css',
       'app',
+      'libs/utils.css',
       'libs/helpers.css'
     ]
 
