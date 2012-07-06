@@ -10,7 +10,13 @@ class MainRouter extends Routerious
 
   # Main route
   index: =>
-    @__prepareView('Index')
+    ss.rpc( "Users.Auth.Status", (res) =>
+      console.log res
+      if res.status is no
+        @__prepareView('Index')
+      else
+        window.UserRouter.index()
+    )
 
     @
 

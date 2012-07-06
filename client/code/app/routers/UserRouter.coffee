@@ -3,6 +3,10 @@ class UserRouter extends Routerious
   routes:
     'users/:username' : 'profile'
 
+  index: =>
+    @__preparePage()
+    @
+
   # Profile view
   profile: (username) =>
     ss.rpc "Users.Auth.Status", (res) =>  
@@ -20,7 +24,7 @@ class UserRouter extends Routerious
 
   __preparePage: =>
     @__prepareView('partials/Nav',{kill_all: no})
-    @__prepareView('partials/Body',{kill_all: no}))
+    @__prepareView('partials/Body',{kill_all: no})
 
 exports.init = ->
   new UserRouter()

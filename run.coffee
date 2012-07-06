@@ -19,7 +19,8 @@ if ss.env == 'production' then ss.client.packAssets()
 # Start web server
 server = http.Server ss.http.middleware
 
-server.listen 3000
+if ss.env == 'production' then server.listen 4000
+else server.listen 3000
 
 # Start SocketStream server
 ss.start server

@@ -1,6 +1,6 @@
 class UserProfileView extends Backbone.View
 
-  template: sss.tmpl['user-main']
+  template: ss.tmpl['user-main']
 
   render: =>
     $('#body').html @template.render { user: @model }

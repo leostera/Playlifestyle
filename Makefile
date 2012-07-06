@@ -4,4 +4,4 @@ run:
 	@nodemon -w app -w config -w server run.coffee
 
 deploy:
-	@nodemon -w app -w config -w server deploy.coffee
+	@SS_ENV=production nodemon -w app -w config -w server run.coffee

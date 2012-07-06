@@ -2,20 +2,20 @@
 section.navbar-inner
   section.container(style="width: auto;")      
    
-    a.brand(href="#") Play
+    a.brand(href="/") Play
 
     ul.nav
       li.active
-        a(href="#1",data-toggle="tab")
+        a(href="#events",data-toggle="tab")
           i.icon-play.icon-white
       li
-        a(href="#2",data-toggle="tab")
+        a(href="#user",data-toggle="tab")
           i.icon-user.icon-white
       li
-        a(href="#3",data-toggle="tab")
+        a(href="#messages",data-toggle="tab")
           i.icon-comment.icon-white
       li
-        a(href="#4",data-toggle="tab")
+        a(href="#settings",data-toggle="tab")
           i.icon-cog.icon-white
 
       li.divider-vertical#submenu
@@ -30,7 +30,7 @@ section.navbar-inner
 
 
     section.tab-content#submenu
-      section.tab-pane.active#1
+      section.tab-pane.active#events
         ul.nav
           li.active
             a(href="#0") Today
@@ -47,7 +47,7 @@ section.navbar-inner
           li
             a(href="#6") Buzz
 
-      section.tab-pane#2
+      section.tab-pane#user
         ul.nav
           li.active
             a(href="#1") i                
@@ -58,7 +58,7 @@ section.navbar-inner
           li
             a(href="#4") Activity
     
-      section.tab-pane#3
+      section.tab-pane#messages
         ul.nav
           li.active
             a(href="#1") Inbox                
@@ -69,7 +69,7 @@ section.navbar-inner
           li
             a(href="#4") Invitations
 
-      section.tab-pane#4
+      section.tab-pane#settings
         ul.nav
           li.active
             a(href="#1") Privacy                

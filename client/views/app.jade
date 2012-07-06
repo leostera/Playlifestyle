@@ -4,9 +4,7 @@ html
     meta(charset="utf-8")
     title Play Lifestyle Network
     meta(name='keywords', content='Play Lifestyle, Play Life Style, Play Canada')
-    meta(name='description', description='It\'s your play ground.')      
-    != SocketStream
-    script(src="http://maps.google.com/maps/api/js?libraries=places&sensor=true")      
+    meta(name='description', description='It\'s your play ground.')          
   
   body
     nav.navbar
@@ -24,3 +22,6 @@ html
       .twelve.columns.centered#copy Play &copy 2012. All Rights Reserved
 
     section#modals
+
+    != SocketStream
+    script(src="http://maps.google.com/maps/api/js?libraries=places&sensor=true")      
