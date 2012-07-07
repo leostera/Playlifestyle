@@ -1,3 +1,5 @@
+process.env['SS_ENV'] = 'production'
+
 # SocketStream requires
 http      = require('http')
 ss        = require('socketstream')
@@ -11,9 +13,9 @@ require('./config/formatters')(ss)
 require('./config/clients')(ss,assets)
 require('./config/routes')(ss)
 
-ss.client.packAssets()
+# ss.client.packAssets()
 # Start web server
 server = http.Server ss.http.middleware
-server.listen 80
+server.listen 4000
 # Start SocketStream server
 ss.start server
