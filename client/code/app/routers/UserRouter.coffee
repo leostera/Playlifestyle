@@ -1,10 +1,17 @@
 class UserRouter extends Routerious
 
   routes:
-    'users/:username' : 'profile'
+    'events'        : 'events'
+    'events/:event' : 'events'
+
+    'settings' : 'settings'
+
+    'messages' : 'messages'
+
+    'profile'    : 'profile'
 
   index: =>
-    @__preparePage()
+    @__prepareNav()
     @
 
   # Profile view
@@ -12,19 +19,31 @@ class UserRouter extends Routerious
     ss.rpc "Users.Auth.Status", (res) =>  
 
       if res.status is yes
-        @__preparePage()
-        if username isnt res.user.username
-          @navigate "users/#{res.user.username}"
-        else
-          @__prepareView('User/Profile', {model: res.user})
+        @__prepareNav()
+        @__prepareUniqueView('User/Profile')
       else
         @navigate '', true
 
     @
 
-  __preparePage: =>
-    @__prepareView('partials/Nav',{kill_all: no})
-    @__prepareView('partials/Body',{kill_all: no})
+  #Events view
+  events: (e) =>
+    @__prepareNav()
+    console.log "We are at the events"
+
+  #Settings view
+  settings: =>
+    @__prepareNav()
+    console.log "We are at the settings."
+
+  #Messages view
+  messages: =>
+    @__prepareNav()
+    console.log "We are at the Messages."
+
+  __prepareNav: =>
+    @__prepareUniqueView('partials/Nav')
+    
 
 exports.init = ->
   new UserRouter()

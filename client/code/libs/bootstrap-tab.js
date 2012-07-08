@@ -41,7 +41,7 @@
         , $target
 
       if (!selector) {
-        selector = $this.attr('href')
+        selector = "#"+$this.attr('href').toString().split('/')[1]
         selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
       }
 

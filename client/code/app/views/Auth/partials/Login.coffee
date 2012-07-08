@@ -15,7 +15,7 @@ class LoginPartial extends Backbone.View
     # call the server for a sign in
     ss.rpc 'Users.Auth.SignIn', {username: user, password: pass}, (res) =>
       if res.status is yes
-        window.MainRouter.navigate("users/#{res.user.username}", true)        
+        window.MainRouter.navigate("profile", true)        
       else
         @$('#username-cg').addClass('error')
         @$('#error-cg').addClass('error')

@@ -4,18 +4,18 @@ section.navbar-inner
    
     a.brand(href="/") Play
 
-    ul.nav
+    ul.nav#menu
       li.active
-        a(href="#events",data-toggle="tab")
+        a(href="/events",data-toggle="tab")
           i.icon-play.icon-white
       li
-        a(href="#user",data-toggle="tab")
+        a(href="/profile",data-toggle="tab")
           i.icon-user.icon-white
       li
-        a(href="#messages",data-toggle="tab")
+        a(href="/messages",data-toggle="tab")
           i.icon-comment.icon-white
       li
-        a(href="#settings",data-toggle="tab")
+        a(href="/settings",data-toggle="tab")
           i.icon-cog.icon-white
 
       li.divider-vertical#submenu
@@ -47,7 +47,7 @@ section.navbar-inner
           li
             a(href="#6") Buzz
 
-      section.tab-pane#user
+      section.tab-pane#profile
         ul.nav
           li.active
             a(href="#1") Me              
