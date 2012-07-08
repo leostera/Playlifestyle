@@ -26,9 +26,13 @@ class NavView extends Backbone.View
     @$("section.tab-pane.active").removeClass('active')
     @$("section.tab-pane##{routeName}").addClass('active')
 
+  clickBrand: (e) =>
+    e.preventDefault()
+    window.UserRouter.navigate 'events', true
 
   events:
     "click ul.nav#menu li" : "clickMenu" 
+    "click a.brand" : "clickBrand"
 
   
 exports.init = (options) ->

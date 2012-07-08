@@ -2,7 +2,6 @@ class UserRouter extends Routerious
 
   routes:
     'events'        : 'events'
-    'events/:event' : 'events'
 
     'settings' : 'settings'
 
@@ -11,7 +10,8 @@ class UserRouter extends Routerious
     'profile'    : 'profile'
 
   index: =>
-    @__prepareNav()
+    @events()
+
     @
 
   # Profile view
@@ -65,7 +65,7 @@ class UserRouter extends Routerious
   __prepareNav: =>
     @__killViews()
     @__prepareUniqueView('partials/Nav')
-    @views[0].setActive(Backbone.history.fragment)
+    @views[0].setActive(Backbone.history.fragment || 'events')
     
 
 exports.init = ->

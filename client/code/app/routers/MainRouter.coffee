@@ -15,7 +15,7 @@ class MainRouter extends Routerious
       if res.status is no
         @__prepareView('Index')
       else
-        window.UserRouter.index()
+        window.UserRouter.navigate 'events', true
     )
 
     @

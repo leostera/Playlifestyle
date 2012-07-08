@@ -7,6 +7,8 @@ ss        = require('socketstream')
 mongoose  = require("mongoose")
 mongoose.connect("mongodb://nodejitsu:6ec8fb06177bf66545b4f9b43afa7126@flame.mongohq.com:27042/nodejitsudb209414754778")
 
+# activte redis!
+
 assets    = require('./config/assets')
 
 require('./config/formatters')(ss)
