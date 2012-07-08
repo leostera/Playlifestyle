@@ -1,6 +1,6 @@
 class NavView extends Backbone.View
 
-  template: ss.tmpl['user-nav']
+  template: ss.tmpl['partials-nav']
 
   initialize: =>
     @$el = $('nav')
@@ -17,11 +17,18 @@ class NavView extends Backbone.View
       el = el.parent()
 
     route = el.attr('href').split('/')[1]
-    console.log route
     window.UserRouter.navigate route, true
 
+  setActive: (routeName) =>
+    @$("ul.nav#menu li.active").removeClass('active')
+    @$("ul.nav#menu li a[href=\"/#{routeName}\"]").parent().addClass('active')
+
+    @$("section.tab-pane.active").removeClass('active')
+    @$("section.tab-pane##{routeName}").addClass('active')
+
+
   events:
-    "click ul.nav#menu li" : "clickMenu"    
+    "click ul.nav#menu li" : "clickMenu" 
 
   
 exports.init = (options) ->

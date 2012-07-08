@@ -1,4 +1,4 @@
-#     Routerious.coffee 0.1.1
+#     Routerious.coffee 0.1.2
 
 #     (c) 2010-2012 Leandro Ostera.
 #     Routerious may be freely distributed under the MIT license.
@@ -40,7 +40,7 @@ class Routerious extends Backbone.Router
       if view.path == viewName
         makeNew = no
 
-    if makeNew then @__prepareView(viewName, options)
+    if makeNew then @__prepareView(viewName, options, no)
 
 
   # __prepareView( viewName, options, lillMeFlag)
