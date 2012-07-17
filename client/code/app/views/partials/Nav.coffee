@@ -23,8 +23,9 @@ class NavView extends Backbone.View
     e.preventDefault()
     el = @$(e.srcElement)
     route = "#{Backbone.history.fragment.split('/')[0]}/#{el.attr('href').split('#')[1]}"
-    console.log route
+    window.UserRouter.setLast Backbone.history.fragment.split('/')[0], el.attr('href').split('#')[1]
     window.UserRouter.navigate route, true        
+
 
   setActive: (routeName, subRouteName) =>
     @$("ul.nav#menu li.active").removeClass('active')
@@ -35,7 +36,6 @@ class NavView extends Backbone.View
 
     @$("section#submenu ul.nav li.active").removeClass('active')
     @$("section#submenu ul.nav li a[href=\"##{subRouteName}\"]").parent().addClass('active')
-    console.log @$("section#submenu ul.nav li a[href=\"##{subRouteName}\"]").parent()
 
   clickBrand: (e) =>
     e.preventDefault()

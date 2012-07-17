@@ -1,5 +1,18 @@
 class UserRouter extends Routerious
 
+  viewState:
+    "events":
+      default: "today"
+
+    "settings":
+      default: "privay"
+
+    "messages":
+      default: "all"
+
+    "profile":
+      default: "me"
+
   routes:
     'events'        : 'events'
     'events/:subsection'        : 'events'
@@ -23,7 +36,7 @@ class UserRouter extends Routerious
     ss.rpc "Users.Auth.Status", (res) =>  
 
       if res.status is yes
-        @__defaultRoute 'me'
+        @__defaultRoute()
         @__prepareNav()
         @__prepareUniqueView('User/Profile')
       else
@@ -36,7 +49,7 @@ class UserRouter extends Routerious
     ss.rpc "Users.Auth.Status", (res) =>  
 
       if res.status is yes
-        @__defaultRoute 'today'
+        @__defaultRoute()
         @__prepareNav()
         @__prepareUniqueView('User/Events')
       else
@@ -49,7 +62,7 @@ class UserRouter extends Routerious
     ss.rpc "Users.Auth.Status", (res) =>  
 
       if res.status is yes
-        @__defaultRoute 'privacy'
+        @__defaultRoute()
         @__prepareNav()
         @__prepareUniqueView('User/Settings')
       else
@@ -62,7 +75,7 @@ class UserRouter extends Routerious
     ss.rpc "Users.Auth.Status", (res) =>  
 
       if res.status is yes
-        @__defaultRoute 'all'
+        @__defaultRoute()
         @__prepareNav()
         @__prepareUniqueView('User/Messages')
       else
@@ -77,13 +90,17 @@ class UserRouter extends Routerious
     subroute = Backbone.history.fragment.split('/')[1]
     @views[0].setActive( route || 'events', subroute || '')
 
-  __defaultRoute: (route) =>
+  __defaultRoute: (last=yes) =>
     fragments = Backbone.history.fragment.split('/')
-    if fragments[1] is undefined
+    if fragments[1] is undefined      
+      if last and @viewState[fragments[0]].last
+        route = @viewState[fragments[0]].last
+      else
+        route = @viewState[fragments[0]].default
       @navigate "#{fragments[0]}/#{route}", true
 
-
-    
+  setLast: (route, sub) =>
+    @viewState[route].last = sub    
 
 exports.init = ->
   new UserRouter()
