@@ -5,7 +5,7 @@ class UserRouter extends Routerious
       default: "today"
 
     "settings":
-      default: "privay"
+      default: "privacy"
 
     "messages":
       default: "all"
