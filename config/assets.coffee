@@ -18,6 +18,7 @@ module.exports =
     ]
 
     pc_code: [
+      'libs/css3-mediaqueries.js',
       'libs/jquery.js',
       'libs/jquery.ui.js',      
       'libs/underscore.js',
