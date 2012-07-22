@@ -4,24 +4,18 @@ ss        = require('socketstream')
 
 console.log "Running in #{ss.env} environment."
 
-mongoose  = require("mongoose")
-
-assets    = require('./config/assets')
+require('./config/database')(ss)
 require('./config/formatters')(ss)
-require('./config/clients')(ss,assets)
+require('./config/clients')(ss,require('./config/assets'))
 require('./config/routes')(ss)
 
 if ss.env == 'production'
-  mongoose.connect("mongodb://nodejitsu:6ec8fb06177bf66545b4f9b43afa7126@flame.mongohq.com:27042/nodejitsudb209414754778")
-  #ss.session.store.use('redis',{host: "redis://nodejitsu:3b85497df6dc86d111700ea93f4ecc16@koi.redistogo.com", port:9550, db:"play_redis"});
   #ss.client.packAssets()
+  #ss.session.store.use('redis', {host: "redis://nodejitsu:5af8fee4ff872082871928f186663a1f@chubb.redistogo.com", port: 9276, db: "play_redis"});
+  #ss.publish.transport.use('redis', {host: "redis://nodejitsu:5af8fee4ff872082871928f186663a1f@chubb.redistogo.com", port: 9276, db: "play_redis"});
 
 else if ss.env == 'fake_production'
   ss.client.packAssets()
-  mongoose.connect('mongodb://localhost/play_dev')
-
-else
-  mongoose.connect('mongodb://localhost/play_dev')
 
 # Start web server
 server = http.Server ss.http.middleware
