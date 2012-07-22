@@ -33,54 +33,34 @@ class UserRouter extends Routerious
 
   # Profile view
   profile: (username) =>
-    ss.rpc "Users.Auth.Status", (res) =>  
-
-      if res.status is yes
-        @__defaultRoute()
-        @__prepareNav()
-        @__prepareUniqueView('User/Profile')
-      else
-        @navigate '', true
-
+    @__defaultRoute()
+    @__prepareNav()
+    @__prepareUniqueView('User/Profile')
+    
     @
 
   #Events view
   events: (e) =>
-    ss.rpc "Users.Auth.Status", (res) =>  
-
-      if res.status is yes
-        @__defaultRoute()
-        @__prepareNav()
-        @__prepareUniqueView('User/Events')
-      else
-        @navigate '', true
-
+    @__defaultRoute()
+    @__prepareNav()
+    @__prepareUniqueView('User/Events')
+    
     @
 
   #Settings view
   settings: =>
-    ss.rpc "Users.Auth.Status", (res) =>  
-
-      if res.status is yes
-        @__defaultRoute()
-        @__prepareNav()
-        @__prepareUniqueView('User/Settings')
-      else
-        @navigate '', true
-
+    @__defaultRoute()
+    @__prepareNav()
+    @__prepareUniqueView('User/Settings')
+    
     @
 
   #Messages view
   messages: =>
-    ss.rpc "Users.Auth.Status", (res) =>  
-
-      if res.status is yes
-        @__defaultRoute()
-        @__prepareNav()
-        @__prepareUniqueView('User/Messages')
-      else
-        @navigate '', true
-
+    @__defaultRoute()
+    @__prepareNav()
+    @__prepareUniqueView('User/Messages')
+    
     @
 
   __prepareNav: =>
