@@ -4,7 +4,6 @@ module.exports =
       'libs/normalize.css',
       'libs/jquery.ui.css',
       'libs/foundation.grid.css',
-      'libs/modals.css',
       'libs/forms.css',
       'libs/buttons.css',
       'app',

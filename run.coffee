@@ -17,14 +17,15 @@ require('./config/clients')(ss,require('./config/assets'))
 # Configure the routes for serving the clients
 require('./config/routes')(ss)
 
-if ss.env != 'development'
+
+###if ss.env != 'development'
   ss.client.packAssets()
 
 if ss.env == 'production'  
   ss.session.store.use('redis', {host: "redis://nodejitsu:5af8fee4ff872082871928f186663a1f@chubb.redistogo.com", port: 9276, db: "play_redis"});
   ss.publish.transport.use('redis', {host: "redis://nodejitsu:5af8fee4ff872082871928f186663a1f@chubb.redistogo.com", port: 9276, db: "play_redis"});
 
-# Start web server
+# Start web server ###
 server = http.Server ss.http.middleware
 # Using the appropiate port if not development 
 if ss.env != 'development' then server.listen 4000
