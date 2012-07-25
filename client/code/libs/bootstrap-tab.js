@@ -61,6 +61,7 @@
         $this.trigger({
           type: 'shown'
         , relatedTarget: previous
+        , el: $this
         })
       })
     }
