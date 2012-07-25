@@ -5,3 +5,6 @@ run:
 
 deploy:
 	@SS_ENV=fake_production nodemon -w app -w config -w server run.coffee
+
+loc:
+	 tally ./app ./server ./client ./config

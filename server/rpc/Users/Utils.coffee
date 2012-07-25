@@ -4,7 +4,6 @@ exports.actions = (req, res, ss) ->
 
 # this module does not require auth checks
 #  req.use 'session'
-  req.use 'App.addToRequest'
   req.use 'debug', 'cyan'  
 
   {
@@ -16,15 +15,19 @@ exports.actions = (req, res, ss) ->
 
     switch data.id
       when 'email'
-        req.app.utils.Validators.isEmailAvailable(data, callback)
+        ss.App.Utils.Validators.isEmailAvailable(data, callback)
 
       when 'username'
-        req.app.utils.Validators.isUsernameAvailable(data, callback)
+        ss.App.Utils.Validators.isUsernameAvailable(data, callback)
 
       when 'birthday'
-        req.app.utils.Validators.checkDate(data, callback)
+        ss.App.Utils.Validators.checkDate(data, callback)
 
       when 'location'
-        req.app.utils.Validators.checkLocation(data, callback)
+        ss.App.Utils.Validators.checkLocation(data, callback)
+
+      when 'password'
+        ss.App.Utils.Validators.checkPassword(data, callback)
+
 
   }

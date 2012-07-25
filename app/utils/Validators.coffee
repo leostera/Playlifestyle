@@ -7,6 +7,10 @@ checkAlphabetic = module.exports.checkAlphabetic = (string) ->
   #check for only alphabetic+whitespaces instead of not only whitespace
   /^[a-zA-Z]{1}[a-zA-Z ]+$/.test string
 
+checkAlphanumeric = module.exports.checkAlphanumeric = (string) ->
+  #check for only alphanumeric
+  /^[a-zA-Z0-9]{1}[a-zA-Z0-9]+$/.test string
+  
 checkEmail = module.exports.checkEmail = (email) ->
   #ok here use ^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$
   /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w]*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$/.test email
@@ -47,7 +51,34 @@ checkDate = module.exports.checkDate = (date, fn) ->
   fn(result)
 
 checkNotEmpty = module.exports.checkNotEmpty = (string) ->
-  /^[ ]*/.test string
+  result=
+    status: /^\s*$/.test string
+    messages: []
+
+checkPassword = module.exports.checkPassword = (data, fn) ->
+  string = data.value
+  result=
+    status: yes
+    messages: []  
+
+  if checkAlphanumeric(string) and string.length >= 8
+    result.messages.push "Perfectly nice password =)"
+
+  if not checkAlphanumeric(string)
+    result.status = no
+    result.messages.push 'The password contains illegal characters!'
+  
+  if string.length < 8
+    result.status = no
+    result.messages.push 'The password must be 8 characters length!'  
+
+  if string.length == 0
+    result.status = no
+    result.messages.push 'Password can\'t be blank length!'  
+
+
+  fn(result)
+
 
 checkLocation = module.exports.checkLocation = (location) ->
   # How to check for a location existance by it's name?

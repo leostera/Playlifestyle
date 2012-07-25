@@ -3,7 +3,6 @@ _ = require('underscore')
 exports.actions = (req, res, ss) ->
 
 # this module does not require auth checks
-  req.use 'App.addToRequest'
   req.use 'session'
   req.use 'debug', 'cyan'  
 
@@ -13,7 +12,7 @@ exports.actions = (req, res, ss) ->
     #retrieve the current user session state
     #yes for logged in, currently valid
     #false for not logged in or currently not valid
-    if req.session?.user?
+    if req?.session?.user?
       if req.session.user.located is no
         res {status: no, step: 1}
       else
@@ -23,9 +22,9 @@ exports.actions = (req, res, ss) ->
 
   SignIn: (creds) ->
     #sign a user in
-    req.app.actions.Users.SignIn(creds, (err, user) ->
+    ss.App.Actions.Users.SignIn(creds, (err, user) ->
       if user
-        req.session.setUserId(user.username)
+        req.session.setUserId(user._id)
         req.session.user = user
         req.session.save()
         res
@@ -51,7 +50,7 @@ exports.actions = (req, res, ss) ->
 
   SignUp: (creds) ->
 
-    req.app.actions.Users.SignUp(creds, (errors, user) ->
+    ss.App.Actions.Users.SignUp(creds, (errors, user) ->
       if _.isEmpty errors
         req.session.setUserId(user.user)
         req.session.user = user

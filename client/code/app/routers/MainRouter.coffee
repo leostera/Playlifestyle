@@ -1,45 +1,36 @@
 class MainRouter extends Routerious
 
   routes:
-    ''             : 'index'
-    'signup'       : 'signup'
-    'signup/'       : 'signup'
-    'signup/:step' : 'signup'
-    'signout'     : 'signout'
-    'signout/'     : 'signout'
+    ''      : 'index'
+    'home'  : 'home'
+    'logout': 'logout'
 
   # Main route
   index: =>
     ss.rpc( "Users.Auth.Status", (res) =>
       console.log res
-      if res.status is no
-        @__prepareView('Index')
+      # If the user is not logged in
+      if res?.status is no
+        # Let him login or register        
+        @__prepareView('IndexView', {el: $('#body')})
       else
-        window.UserRouter.navigate 'events', true
+        # Otherwise let's go to the home view
+        @navigate 'home', true
     )
 
-    @
+  # Home route
+  home: =>
+    @__prepareView('HomeView', {el: $('#body')})
 
-  # Registration route that triggers registration process on the Index view
-  signup: () =>
-    @__prepareView("Index").register()
-
-    @
-
-  # Ask the server if the user can be logged out
-  signout: =>
-    ss.rpc( "Users.Auth.SignOut", (res) =>
+  # Sign Out Route
+  logout: =>
+    ss.rpc("Users.Auth.SignOut", (res) =>
       if res.status is yes
-        @navigate("",true)
+        @navigate '', true
       else
-        @__prepareView 'Utils/Templater',
-            template: "generic-message"
-            details:
-              title: "Holy Crap!"
-              message: "We were unable to log you out. Try again please!"
-    )
+        alert "Couldn't log you out buddy. Try again!"
+      )
 
-    @
 
-exports.init = ->
-  new MainRouter()
+exports.init = (options={})->
+  new MainRouter(options)

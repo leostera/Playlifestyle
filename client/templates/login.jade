@@ -1,0 +1,17 @@
+form#login
+
+  fieldset
+
+    section#errors.control-group.hide
+      label.control-label Please fill in both fields
+
+    section.eight.column.control-group#fields
+      input(type="text", placeholder="username")#username
+      input(type="password",placeholder="password")#password
+    section.four.column
+      button#login.button Go!      
+      p
+        a(href="#") Can't login?
+
+    section.twelve.columns
+      button.button.btn-success#register Register right now
