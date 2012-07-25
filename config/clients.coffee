@@ -2,8 +2,8 @@ module.exports = (ss, assets) ->
 	# Define main client
 	ss.client.define 'main', 
 	  view: 'app.jade'
-	  css:  assets.pc_style
-	  code: assets.pc_code
+	  css:  assets.desktop_style
+	  code: assets.desktop_code
 	  tmpl: '*'
 
   ###

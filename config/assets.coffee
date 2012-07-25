@@ -1,6 +1,6 @@
 module.exports =
   {
-    pc_styles: [
+    desktop_styles: [
       'libs/normalize.css',
       'libs/jquery.ui.css',
       'libs/foundation.grid.css',
@@ -10,7 +10,7 @@ module.exports =
       'libs/utils.css',
     ]
 
-    pc_code: [
+    desktop_code: [
       'libs/css3-mediaqueries.js',
       'libs/jquery.js',
       'libs/jquery.ui.js',
