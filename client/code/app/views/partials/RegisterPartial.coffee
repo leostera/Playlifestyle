@@ -1,28 +1,52 @@
-class GeolocationPartial extends Backbone.View
+class RegistrationPartial extends Backbone.View
 
-  template: ss.tmpl['signup-partials-geoloc']
-  
+  template: ss.tmpl['register']
+
   error:
-    location: yes
+    username: yes
+    password: yes
+    email: yes
+    birthday: yes
+
+  credentials:
+    location: {}
 
   ###
   #  Model methods
   ###
   getModelData: =>
-    @data = 
-      location:
-        str: @$('#location').val()
+    @credentials.username = @$('#username').val()
+    @credentials.password = @$('#password').val()
+    @credentials.email = @$('#email').val()
+    @credentials.birthday = @$('#birthday').val()
+    @credentials.location.str = @$('#location').val()
+    @credentials
 
   ###
   #  Rendering and visual effects
   ###
-  prerender: =>
+  begin: =>
+    $('#index').removeClass('limit')
+    @$el.hide().removeClass('hide').fadeIn('fast').find('input#username').focus()
+
+  render: =>
     # Render the templates
     @$el.html @template.render {}
 
     # Hide the icons!
     @$('span.add-on').hide()
- 
+
+    # Init jQuery's DatePicker
+    @$('input#birthday', @$el).datepicker
+        duration: "fast"
+        minDate: new Date(1940, 1, 1)
+        maxDate: new Date(1995, 12, 31)
+        changeMonth: true
+        changeYear: true
+        yearRange: 'c-40:c+10'
+
+    $('#ui-datepicker-div').hide()
+
     ##
     # This code instantiates a new GoogleMap inside div#map and
     # centers it in the LatLng retrieved from the server        
@@ -36,10 +60,6 @@ class GeolocationPartial extends Backbone.View
 
       geocode(position.coords.latitude, position.coords.longitude)
       
-      @trigger 'geolocation:proceed'
-      #disable the input box
-      @disableFields()
-
       @input = document.getElementById("location")
       @autocomplete = new google.maps.places.Autocomplete(@input)
       @autocomplete.bindTo("bounds", @map)
@@ -57,8 +77,7 @@ class GeolocationPartial extends Backbone.View
 
         @marker.setPosition(place.geometry.location)
 
-    error = (e) =>
-      @trigger 'geolocation:stop'
+    error = (e) => no
 
     geocode = (lat, lng) =>
       latlng = new google.maps.LatLng(lat, lng)
@@ -70,7 +89,7 @@ class GeolocationPartial extends Backbone.View
             for result in results
               if result.types[0] is 'locality'
                 locality=result
-                console.log(locality)
+                #console.log(locality)
                 break
           
             for addr_cmp in locality.address_components
@@ -81,44 +100,15 @@ class GeolocationPartial extends Backbone.View
               if (addr_cmp.types[0] is "country")
                 country = addr_cmp
 
-            location = { city: city.long_name, region: region.long_name, country: country.long_name, country_code: country.short_name }
-            @$('#location').val("#{location.city} (#{location.country_code})")
+            @credentials.location.city = city.long_name
+            @credentials.location.region = region.long_name
+            @credentials.location.country = country.long_name
+            @credentials.location.country_code = country.short_name
+            @$('#location').val("#{@credentials.location.city} (#{@credentials.location.country_code})")
         )
 
     navigator.geolocation.getCurrentPosition(success, error, {maximumAge: 75000})
-        
     @
-
-  render: => @.el
-
-  hideForm: =>
-    @$('form').animate({
-        opacity: 1
-        opacity: 0
-      }, 1500)
-    @
-
-  showForm: =>
-    @$('form').animate({
-        opacity: 0
-        opacity: 1
-      }, 1000)
-    @
-
-  enableFields: =>
-    @$('#location').removeAttr('disabled').focus()
-
-    @
-
-  disableFields: =>
-    @$('#location').attr('disabled','')
-
-    @
-
-  changeLocation: (e) =>
-    e.preventDefault()
-    @$('#location').val("")
-    @enableFields()
 
   ###
   #  Validations
@@ -135,23 +125,52 @@ class GeolocationPartial extends Backbone.View
       @__toggleIcons(result.field_id, not result.status)
 
       unless @__hasErrors()
-        @trigger 'geolocation:proceed'
-        @disableFields()
+        @$('button#register').removeClass('disabled')
       else
-        @trigger 'geolocation:stop'
+        @$('button#register').addClass('disabled')
     )
+
+  ###
+  #  Events
+  ###
+  triggerLogin: (e) =>
+    e.preventDefault()
+    @$el.fadeOut "fast", () =>
+      @trigger "login:begin"
+
+  onSubmit: (e) =>
+    e.preventDefault()
+
+    @$("form#register").fadeOut('fast')
+    @$("#wait.hide").fadeIn('fast')
+
+    ss.rpc('Users.Auth.SignUp', @getModelData(), (res) =>
+      setTimeout( ()=>
+        @$("#wait.hide").fadeOut('fast')
+        if res.status is yes          
+          @$("#finish.hide").fadeIn('fast')
+          setTimeout( () =>
+            window.MainRouter.navigate('home', true)
+          ,1000)
+        else 
+          @$("#problem.hide").fadeIn('fast')
+      , 2000)
+    )
+
+    @
+
 
   ###
   #  Private
   ###
   __toggleHints: (id, messages) =>
-    hint = $(".control-group##{id}-cg .controls")
-    hint.find('p.help-block').html("")
+    hint = @$(".control-group##{id}-cg")    
     _.each messages, (msg) =>
-      hint.append("<p class=\'help-block'>#{msg}</p>")
+      # there's yet only one message to show
+      hint.find('p.help-block#message').html(msg)
 
   __toggleIcons: (id, status) =>
-    cg = $(".control-group##{id}-cg")
+    cg = @$(".control-group##{id}-cg")
     cg.removeClass('error').removeClass('success')
     if status is yes
       cg.addClass('error')
@@ -173,10 +192,10 @@ class GeolocationPartial extends Backbone.View
   #  Events Table
   ###
   events:
-    # magiiiiic
-    'click #change' : "changeLocation"
     #validation
     'change input'  : "validateFields"
+    'click button#back' : "triggerLogin"
+    'click button#register' : 'onSubmit'
 
-exports.init = () ->
-  new GeolocationPartial().prerender()
+exports.init = (options={}) ->
+  new RegistrationPartial(options).render()

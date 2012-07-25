@@ -1,0 +1,111 @@
+section.twelve.columns
+  #wait.hide
+    h3 Your account is being created
+    h4 Please, wait a moment...
+    br
+    section.twelve.columns#loader(style="text-align:center;")
+      span Loading
+      span.l-1
+      span.l-2
+      span.l-3
+      span.l-4
+      span.l-5
+      span.l-6  
+
+  #finish.hide
+    h3 Welcome to Play
+    h4 Now you have a user and about to have some fun!
+    h4 Good luck while enjoying the network!
+
+  #problem.hide
+    h3 Problem!
+    h4 We are experiencing technical problems. Please try again later.
+
+  form.form-horizontal#register
+
+    .control-group#username-cg
+      label.control-label.hide-for-small(for="username") Username
+      .controls.hide-for-small
+        .input-append
+          input(type="text").input-xlarge#username
+          span.add-on#ok
+            i.icon-ok
+          span.add-on#error
+            i.icon-remove
+
+        p.help-block#message Any username starting with a letter will do.
+
+    .control-group#password-cg
+      label.control-label.hide-for-small(for="password") Password
+      .controls.hide-for-small
+        .input-append
+          input(type="text").input-xlarge#password
+          span.add-on#ok
+            i.icon-ok
+          span.add-on#error
+            i.icon-remove
+
+        p.help-block#message Minimum 8 alphanumeric characters.
+
+    .control-group#email-cg
+      label.control-label.hide-for-small(for="email") Email
+      .controls.hide-for-small
+        .input-append
+          input(type="text").input-xlarge#email
+          span.add-on#ok
+            i.icon-ok
+          span.add-on#error
+            i.icon-remove
+        p.help-block#message Please enter a valid email for account activation.
+
+      .input-append.show-for-small
+        label(for="email")
+          span Email
+          span.label-icon#ok
+            i.icon-ok
+          span.label-icon#error
+            i.icon-remove
+        input(type="text")#email
+
+        p.help-block.hide-for-small#message Valid email for account activation.
+
+    .control-group#birthday-cg
+      label.control-label.hide-for-small(for="birthday") Birthday
+      .controls.hide-for-small
+        .input-append
+          input(type="text").input-xlarge#birthday
+          span.add-on#ok
+            i.icon-ok
+          span.add-on#error
+            i.icon-remove
+        p.help-block#message Only 16+
+
+      .input-append.show-for-small
+        label(for="birthday")
+          span Birthday
+          span.label-icon#ok
+            i.icon-ok
+          span.label-icon#error
+            i.icon-remove
+        input(type="text")#birthday
+
+        p.help-block.hide-for-small#message Only 16+ please :)
+
+    div#map(width="200px", height="180px")
+
+    .control-group#location-cg
+      label.control-label(for="username") Current location
+      .controls      
+        .input-append
+          input.input-xlarge#location(type="text",placeholder="Where's Carmen San Diego?")
+          span.add-on#ok
+            i.icon-ok
+          span.add-on#error
+            i.icon-remove
+              
+        p.help-block Thou we try our best, geolocation isn't always accurate.
+
+    .control-group
+      .controls      
+        button.button.disabled.btn-success#register Let's do this!
+        button.button.right#back Go back
