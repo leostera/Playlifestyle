@@ -1,0 +1,46 @@
+section#body
+  position relative
+  
+  #content  
+    //margin-left 66px //take this fucking margin out! we shouldn't need it!
+    background-color white
+    border-radius 8px
+    -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
+
+    section.row
+      padding 5px
+
+  section#left
+    padding 5px
+    border-right 1px solid #333
+
+    section#info, img#avatar
+      float left
+
+    section#info
+      width 70%
+      padding-left 10px
+      padding-top 10px
+
+      #username
+        font-weight bold
+
+      #location
+        font-style italic
+        font-weight lighter
+        color #777
+
+    section#feeds
+      margin-top 50px
+      padding-top 20px
+
+      h1
+        margin 0px
+        margin-top 10px
+
+      section#feed
+        overflow-x auto
+        height 200px
+        p
+          margin 0px

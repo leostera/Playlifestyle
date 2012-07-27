@@ -1,0 +1,97 @@
+nav
+  padding 10px 0px
+
+  section#inner
+    background-color #CCC
+    height 45px
+    padding 10px
+
+    background: #eaeaea; /* Old browsers */
+    background: -moz-linear-gradient(top, #eaeaea 0%, #d1d1d1 50%, #c6c6c6 51%, #cecece 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eaeaea), color-stop(50%,#d1d1d1), color-stop(51%,#c6c6c6), color-stop(100%,#cecece)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #eaeaea 0%,#d1d1d1 50%,#c6c6c6 51%,#cecece 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #eaeaea 0%,#d1d1d1 50%,#c6c6c6 51%,#cecece 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #eaeaea 0%,#d1d1d1 50%,#c6c6c6 51%,#cecece 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #eaeaea 0%,#d1d1d1 50%,#c6c6c6 51%,#cecece 100%); /* W3C */
+    
+    border-radius: 2px
+    -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
+
+  section#search
+    float right
+    margin-top -3px
+
+    input
+      outline none
+
+    input::-webkit-search-decoration,input::-webkit-search-cancel-button
+      display none
+       /* remove the search and cancel icon */
+
+    /* search input field */
+    input[type=search]
+      -webkit-appearance textfield
+      -webkit-box-sizing content-box
+      font-family inherit
+      -size 100%
+      background #ededed url(/images/search-icon.png) no-repeat 9px center
+      border solid 1px #ccc
+      padding 9px 10px 9px 32px
+      width 60px
+      height 10px
+      -webkit-border-radius 10em
+      -moz-border-radius 10em
+      border-radius 10em
+      -webkit-transition all .5s
+      -moz-transition all .5s
+      transition all .5s
+    
+    input[type=search]:focus
+      width 140px
+      background-color #fff
+      border-color #6dcff6
+      -webkit-box-shadow 0 0 5px rgba(109,207,246,.5)
+      moz-box-shadow 0 0 5px rgba(109,207,246,.5)
+      box-shadow 0 0 5px rgba(109,207,246,.5)
+    
+    /* placeholder */
+    input:-moz-placeholder
+      color #999
+
+    input::-webkit-input-placeholder
+      color #999
+
+  section#profile
+    float left    
+    padding 0px
+    margin-right 40px
+    img
+      margin-top -3px
+      margin-right 5px
+    img, span
+      float left
+    span#username
+      font-weight bold
+      margin-right 3px
+    span#location
+      font-style italic
+      font-weight ligther
+      color #666
+
+
+  section#brand
+    float left
+    i.play-logo
+      background-image url("/images/play.png")
+
+  section#categories
+    float left
+    ul
+      margin-left 100px
+      li
+        display inline
+        padding 0px 10px
+        border-right 1px solid
+      li:last-child
+        border-right 0px
