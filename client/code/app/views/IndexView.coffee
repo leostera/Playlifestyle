@@ -12,7 +12,7 @@ class IndexView extends Backbone.View
           @partials.login.on 'registration:begin', @partials.register.begin
           @partials.register.on 'login:begin', @partials.login.begin
         )
-      , 100
+      , 2000
 
   render: =>
     @$el.html @template.render {}
