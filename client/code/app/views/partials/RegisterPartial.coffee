@@ -147,11 +147,11 @@ class RegistrationPartial extends Backbone.View
     ss.rpc('Users.Auth.SignUp', @getModelData(), (res) =>
       setTimeout( ()=>
         @$("#wait.hide").fadeOut('fast')
-        if res.status is yes          
+        if res.status is yes                    
           @$("#finish.hide").fadeIn('fast')
-          setTimeout( () =>
+          setTimeout( () =>            
             window.MainRouter.navigate('home', true)
-          ,1000)
+          ,2500)
         else 
           @$("#problem.hide").fadeIn('fast')
       , 2000)
