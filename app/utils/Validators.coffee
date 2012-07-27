@@ -128,7 +128,7 @@ isntValidUsername = module.exports.isntValidUsername = (user) ->
 
 isUsernameTaken = module.exports.isTakenUsername = (user, fn) ->
   findOne('Account',
-    {username: "#{user}"},
+    {username: "#{user.toLowerCase()}"},
     fn,
     {
       success: "Perfectly valid and available username."
