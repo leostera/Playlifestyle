@@ -17,6 +17,7 @@ module.exports =
       'libs/underscore.js',
       'libs/backbone.js',      
       'libs/Routerious.coffee',      
+      'libs/bootstrap.js',
       'app',
     ]
   }
