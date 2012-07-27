@@ -43,6 +43,17 @@ AccountSchema = new mongoose.Schema
   #location is mixed. here we can put as many info as we can get
   location: {}
 
+  #sex is boolean. true is male.
+  sex: Boolean
+
+  #name is mixed
+  name:
+    first: String
+    last: String
+
+  #bio is string
+  bio: String
+
   #following is an array of other users ids
   #following: [Schema.ObjectId]
 
