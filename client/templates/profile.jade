@@ -1,0 +1,57 @@
+section.row#profile-edit
+
+  section.six.columns#first-column  
+
+    form.form-horizontal
+      legend Personal Information
+
+      .control-group
+        label.control-label First Name
+        .controls
+          input.input-medium(type="text", placeholder="First Name", value="{{ user.name.first }}")#firstname
+
+      .control-group
+        label.control-label Last Name
+        .controls
+          input.input-medium(type="text", placeholder="Last Name", value="{{ user.name.last }}")#lastname
+
+      .control-group
+        label.control-label Genre
+        .controls
+          label.radio Male
+            input(type="radio", name="gender", value="true")#male
+            
+          label.radio Female
+            input(type="radio", name="gender", value="false")#female
+            
+      .control-group
+        label.control-label Short Bio
+        .controls
+          textarea.input-xlarge#bio(rows="3") {{ user.bio }}
+
+
+      .form-actions
+        button.button.btn-primary#save Save
+        button.button.btn-success(data-toggle="modal", data-target=".modal.hide.fade.in#preview-modal")#preview Preview
+
+  section.six.columns#second-column
+    form
+      legend Interests
+
+.modal.hide.fade.in#preview-modal
+  .modal-header
+    a.right.close(data-dismiss="modal") ×
+    h3 {{ user.username }}'s Profile Preview
+  .modal-body
+    section
+      img(src='/images/userpic.png')
+      section#info
+        span#fullname {{ user.name.first }} {{ user.name.last }}
+        br
+        span#username {{ user.username }}
+      blockquote#bio
+        p#bio {{ user.bio }}
+  .modal-footer
+    button.button.btn-primary#save Save
+    button.button(data-dismiss="modal") Close
+  
