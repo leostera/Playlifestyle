@@ -21,6 +21,7 @@ class MainRouter extends Routerious
   # Home route
   home: =>
     @__prepareView('HomeView', {el: $('#body')})
+    @__prepareView('partials/NavPartial')
 
   # Sign Out Route
   logout: =>
