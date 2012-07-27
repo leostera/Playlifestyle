@@ -906,6 +906,7 @@
 
     // Simple proxy to `Backbone.history` to save a fragment into the history.
     navigate: function(fragment, options) {
+      Backbone.history.last_fragment = Backbone.history.fragment;
       Backbone.history.navigate(fragment, options);
     },
 
