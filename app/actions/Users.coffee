@@ -28,7 +28,7 @@ Geolocate = module.exports.Geolocate =  (data, fn) ->
   )
 
 SignIn = module.exports.SignIn = (creds, fn) ->  
-  UserModel.findOne {username: creds.username.toLowerCase(), password: crypto.createHash('md5').update(creds.password).digest("hex")}, ['name','email','birthdate','hometown','location'] , (err, doc) ->
+  UserModel.findOne {username: creds.username.toLowerCase(), password: crypto.createHash('md5').update(creds.password).digest("hex")}, (err, doc) ->
     fn(err,doc)
 
 SignUp = module.exports.SignUp = (creds, fn) ->
@@ -40,3 +40,11 @@ SignUp = module.exports.SignUp = (creds, fn) ->
     location: creds.location
 
   newUser.save( fn )
+
+Update = module.exports.Update = (user, fn) ->
+  conditions = { _id: user._id, password: user.password }
+  delete user._id
+  UserModel.update(conditions, user, fn)
+
+Get = module.exports.Get = (user, fn) ->
+  UserModel.findOne(user, fn)
