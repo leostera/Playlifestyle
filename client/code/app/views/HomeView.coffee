@@ -3,12 +3,11 @@ class HomeView extends Backbone.View
   template: ss.tmpl['home']
 
   initialize: =>
-    setTimeout () =>
-        @$el.fadeOut('slow', () =>
-          @render()
-          @$el.fadeIn('slow')
-        )
-      , 100
+    if @$el.attr('home') isnt 'true'
+      @$el.hide()
+      @render()
+      @$el.fadeIn('slow')
+      @$el.attr('home','true')
 
   render: =>
     @$el.html @template.render {}

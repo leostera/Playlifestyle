@@ -4,53 +4,29 @@ class NavView extends Backbone.View
 
   initialize: =>
     @$el = $('nav')
-    setTimeout () =>
-        @$el.fadeOut('slow', () =>
-          @render()
-          @$el.fadeIn('slow')
-        )
-      , 100
-
+    if $('nav').html() == ""
+      @$el.hide()
+      @render()
+      @$el.fadeIn('slow')
+    
   render: =>
-    @$el.html @template.render {}
+    @$el.html @template.render {user: window.MainRouter.User}    
     @
 
   clickMenu: (e) =>
     e.preventDefault()    
     el = @$(e.srcElement)
-    if e.srcElement.localName is 'i'
-      el = el.parent()
-
+    if e.target.nodeName is "LI"
+      el = @$(el).children('a')
     route = el.attr('href').split('/')[1]
-    window.UserRouter.navigate route, true
-
-  clickSubMenu: (e) =>
-    e.preventDefault()
-    el = @$(e.srcElement)
-    route = "#{Backbone.history.fragment.split('/')[0]}/#{el.attr('href').split('#')[1]}"
-    window.UserRouter.setLast Backbone.history.fragment.split('/')[0], el.attr('href').split('#')[1]
-    window.UserRouter.navigate route, true        
-
-
-  setActive: (routeName, subRouteName) =>
-    @$("ul.nav#menu li.active").removeClass('active')
-    @$("ul.nav#menu li a[href=\"/#{routeName}\"]").parent().addClass('active')
-
-    @$("section.tab-pane.active").removeClass('active')
-    @$("section.tab-pane##{routeName}").addClass('active')
-
-    @$("section#submenu ul.nav li.active").removeClass('active')
-    @$("section#submenu ul.nav li a[href=\"##{subRouteName}\"]").parent().addClass('active')
-
-  clickBrand: (e) =>
-    e.preventDefault()
-    window.UserRouter.navigate 'events', true
+    if route is "profile"
+      window.MainRouter.navigate route, true
+    else
+      window.MainRouter.navigate route
 
   events:
-    "click section#submenu ul.nav li" : "clickSubMenu"
-    "click ul.nav#menu li"    : "clickMenu" 
-    "click a.brand" : "clickBrand"
-
+    'click a': "clickMenu"
+    'click li': "clickMenu"
   
 exports.init = (options) ->
   new NavView(options)
