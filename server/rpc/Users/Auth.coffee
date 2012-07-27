@@ -58,6 +58,6 @@ exports.actions = (req, res, ss) ->
         res {status: yes, step: 1, user: user}
       else
         res {status: no, errors: errors}
-    )  
+    ) 
     
   }

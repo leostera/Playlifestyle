@@ -4,7 +4,6 @@ exports.actions = (req, res, ss) ->
 
   req.use 'session'
   req.use "Auth.checkAuthenticated"
-  req.use 'App.addToRequest'
   req.use 'debug', 'cyan'  
 
   {
@@ -13,15 +12,24 @@ exports.actions = (req, res, ss) ->
     data.user = req.session.user
     ss.App.Actions.Users.Geolocate(data, res)    
     
-  GetLocation: () ->
-    #set the location from the user
-    #useful for tracking where the user has been
-    ip = "8.8.8.8"
-    ip = req.clientIp unless req.clientIp is "127.0.0.1"
-    location = ss.App.actions.Users.Geolocate(ip) || {}
-    res {status: not _.isEmpty(location), location: location}
+  Update: (obj) ->
+    user = _.extend obj, {_id: req.session.userId, password: req.session.user.password}
+    ss.App.Actions.Users.Update(user, (err, numAffected) =>
+      if numAffected == 1
+        req.session.user = _.extend(req.session.user, obj)
+        req.session.save()
+        res { status: yes, user: req.session.user }
+      else if numAffected > 1
+        res { status: no, message: 'Holy crap you modified someone elses profile!'}
+      else 
+        res { status: no, message: 'Nothing happened'}
+      )
 
-  IsGeolocated: () ->
-    #true if geolocated already    
-    res { status: req.session.user.located, user: req.session.user }
+  ShowUser: (user) ->
+    ss.App.Actions.User.Get(user, (err, usr) =>
+      if err is null
+        res {status:yes, user: usr}
+      else
+        res {status:no, message: "That user doesn't exits."}
+      )
   }
