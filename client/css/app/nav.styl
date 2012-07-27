@@ -1,7 +1,10 @@
 nav
-  padding 10px 0px
+  z-index 2
+  position relative
+  padding 5px 0px
+  padding-top 10px
 
-  section#inner
+  section#inner    
     background-color #CCC
     height 45px
     padding 10px
@@ -65,7 +68,6 @@ nav
   section#profile
     float left    
     padding 0px
-    margin-right 40px
     img
       margin-top -3px
       margin-right 5px
@@ -73,7 +75,7 @@ nav
       float left
     span#username
       font-weight bold
-      margin-right 3px
+      margin-right 3px      
     span#location
       font-style italic
       font-weight ligther
@@ -81,17 +83,32 @@ nav
 
 
   section#brand
+    width 32px
+    height 32px
     float left
     i.play-logo
-      background-image url("/images/play.png")
+      background #ededed url(/images/play-icon.png) no-repeat 9px center
 
   section#categories
     float left
+    height 45px
     ul
       margin-left 100px
+      min-height 45px
       li
+        cursor pointer
         display inline
-        padding 0px 10px
-        border-right 1px solid
+        padding 12px 10px
+        padding-bottom 15px
+        border-right 1px solid gray
+        min-height 45px
+        -webkit-transition padding .2s ease
+        -moz-transition padding .2s ease
+        transition padding .2s ease
+        a
+          color #333          
+      li:hover
+        padding 12px 20px
+        padding-bottom 15px
       li:last-child
         border-right 0px
