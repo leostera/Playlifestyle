@@ -33,7 +33,7 @@ exports.actions = (req, res, ss) ->
       else
         res
           status: no
-          error: "Username and password didn't have a match, try again please."
+          error: "No match, try something else."
           user: user
     )
 
