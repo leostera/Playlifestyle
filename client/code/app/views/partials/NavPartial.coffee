@@ -1,13 +1,18 @@
 class NavView extends Backbone.View
 
-  template: ss.tmpl['partials-nav']
+  template: ss.tmpl['nav']
 
   initialize: =>
     @$el = $('nav')
+    setTimeout () =>
+        @$el.fadeOut('slow', () =>
+          @render()
+          @$el.fadeIn('slow')
+        )
+      , 100
 
   render: =>
     @$el.html @template.render {}
-    $('header').html('')
     @
 
   clickMenu: (e) =>
@@ -48,4 +53,4 @@ class NavView extends Backbone.View
 
   
 exports.init = (options) ->
-  new NavView(options).render()
+  new NavView(options)
