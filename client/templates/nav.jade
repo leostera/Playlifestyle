@@ -1,16 +1,23 @@
 section.eleven.columns.centered#inner
-  section#profile    
-    a(href="/avatar")
-      img(src='/images/userpic.png',height="32px")#avatar
-    span#username
-      a(href="/profile") {{ user.username }}
+  section#dropdown.dropdown
+    section.dropdown-toggle(data-toggle="dropdown", data-target="ul#dropdown")#profile
+      img(src='http://imakeapps.alwaysdata.net/playcdn/images/userpic.png',height="32px")#avatar
+      span#username {{ user.username }}     
+      b.caret
 
-    span#location
-      a(href="/location") ({{ user.location.str }})
+    ul.dropdown-menu#menu
+      li
+        a(href="/profile") Edit Profile
+      li
+        a(href="/relocate") Relocate
+      li
+        a(href="/logout") Logout
 
-  section#brand
-    a(href="/")
-      i.play-logo
+  section#toolbar
+    a(href="/messages")#msg
+    a(href="/settings")#cog
+    a(href="/featured")#play
+
 
   section#categories
     ul

@@ -1,9 +1,12 @@
 class UserProfileView extends Backbone.View
 
   initialize: (@options) =>
+    console.log options
     @template = ss.tmpl[options.template]
     @$el = $ options.el
-    console.log @template
+    @$el.hide()
+    @render()
+    @$el.fadeIn('slow')
 
     @
 
@@ -13,4 +16,4 @@ class UserProfileView extends Backbone.View
 
   
 exports.init = (options) ->
-  new UserProfileView(options).render()
+  new UserProfileView(options)

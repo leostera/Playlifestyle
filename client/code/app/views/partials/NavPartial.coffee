@@ -19,11 +19,8 @@ class NavView extends Backbone.View
     if e.target.nodeName is "LI"
       el = @$(el).children('a')
     route = el.attr('href').split('/')[1]
-    if route is "profile"
-      window.MainRouter.navigate route, true
-    else
-      window.MainRouter.navigate route
-
+    window.MainRouter.navigate route, true
+    
   events:
     'click a': "clickMenu"
     'click li': "clickMenu"

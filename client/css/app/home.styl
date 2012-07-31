@@ -1,3 +1,17 @@
+::-webkit-scrollbar {
+    width 5px
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
 section#body
   position relative
   z-index 1
@@ -12,15 +26,30 @@ section#body
       padding 5px
 
   section#left
-    padding 5px
-    border-right 1px solid #333
+    padding-top 10px
+    margin-top -5px
+    padding-bottom 10px
+    margin-bottom -5px
+    border-right 1px solid gray
 
     h1
       margin 0px
       margin-top 10px
+      font-size .99em
 
     section#feed
       overflow-x auto
+      font-size: .7em;
       height 200px
-      p
-        margin 0px
+      #element
+        padding 0
+        margin 0
+        #text 
+          float left
+          margin 0
+          padding 0
+        #time
+          margin 0
+          padding 0
+          color gray
+          float right

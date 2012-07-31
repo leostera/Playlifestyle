@@ -4,6 +4,7 @@ class IndexView extends Backbone.View
 
   initialize: =>
     setTimeout () =>
+        $('nav').fadeOut('slow').html('')
         @$el.fadeOut('slow', () =>
           @render()
           @$el.fadeIn('slow')
@@ -14,7 +15,7 @@ class IndexView extends Backbone.View
         )
       , 2000
 
-  render: =>
+  render: =>    
     @$el.html @template.render {}
     @partials =
       login: require('./partials/LoginPartial').init({el: @$('section#login')})

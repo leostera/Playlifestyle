@@ -21,6 +21,13 @@ nav
     -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
 
+  section#dropdown
+    cursor pointer
+    
+    ul#menu
+      margin-top 30px
+      border-radius 6px
+
   section#search
     float right
     margin-top -3px
@@ -38,7 +45,7 @@ nav
       -webkit-box-sizing content-box
       font-family inherit
       -size 100%
-      background #ededed url(/images/search-icon.png) no-repeat 9px center
+      background #ededed url('http://imakeapps.alwaysdata.net/playcdn/images/search-icon.png') no-repeat 9px center
       border solid 1px #ccc
       padding 9px 10px 9px 32px
       width 60px
@@ -82,33 +89,45 @@ nav
       color #666
 
 
-  section#brand
-    width 32px
-    height 32px
+  section#toolbar
+    position absolute
     float left
-    i.play-logo
-      background #ededed url(/images/play-icon.png) no-repeat 9px center
+    margin-top -5px
+    margin-left 218px
+    a
+      float left
+      width 32px
+      height 32px
+
+    #play
+      background url('http://imakeapps.alwaysdata.net/playcdn/images/play-icon.png') no-repeat 9px center
+    #msg
+      background url('http://imakeapps.alwaysdata.net/playcdn/images/msg-icon.png') no-repeat 9px center
+    #cog
+      background url('http://imakeapps.alwaysdata.net/playcdn/images/cog-icon.png') no-repeat 9px center
+      border-right 1px solid gray
+      padding 23px
+      margin-top -5px
+    
 
   section#categories
+    position absolute
     float left
     height 45px
+    margin-left 400px
     ul
-      margin-left 100px
       min-height 45px
       li
         cursor pointer
         display inline
         padding 12px 10px
         padding-bottom 15px
-        border-right 1px solid gray
         min-height 45px
-        -webkit-transition padding .2s ease
-        -moz-transition padding .2s ease
-        transition padding .2s ease
+        -webkit-transition color .2s ease
+        -moz-transition color .2s ease
+        transition color .2s ease
         a
           color #333          
       li:hover
-        padding 12px 20px
-        padding-bottom 15px
-      li:last-child
-        border-right 0px
+        a
+          color #666
