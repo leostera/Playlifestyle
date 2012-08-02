@@ -42,6 +42,13 @@ AccountSchema = new mongoose.Schema
 
   #location is mixed. here we can put as many info as we can get
   location: {}
+  ###
+  For now this is what we are including within the location:
+    location.city
+    location.region
+    location.country
+    location.country_code
+  ###
 
   #sex is boolean. true is male.
   sex: Boolean
