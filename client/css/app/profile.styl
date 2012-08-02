@@ -1,38 +1,63 @@
-section#profile-edit
+section#profile
 
-  h1  
-    font-size 1em
-    padding-top 0
-    margin-top 0
-
-  #first-column
-    form
-      .control-group
-        margin-left -10px
-
-      .form-actions
-        button
-          margin 0 4px
-
-.modal#preview-modal
-
-  .modal-body
-    height 100px
-
-  img
-    float left
-    margin-right 10px
-  section#info
-    float left
-    padding-right 20px
-    border-right 1px solid
-    span
+  header.profile    
+    img
       float left
-    span#username
-      font-style italic
-      font-weight lighter
-    span#fullname
-      font-weight bold
+      margin-right 10px
 
-  blockquote#bio
-    float left
+    section#menu      
+      float left
+      ul
+        margin 0px
+        margin-left 230px
+        margin-top -60px
+        padding 0px
+        li
+          padding 10px
+          margin 0px 5px
+          background-color #EEE
+          border 1px solid #CCC
+          border-radius 5px
+          a
+            cursor pointer
+
+    section#data
+      float left
+      z-index 300
+
+      h1  
+        float left
+        font-size 3em
+        text-transform uppercase
+        margin-top 0px
+        margin-right 10px
+
+      h2
+        float left
+        color gray
+        margin-top 15px
+
+      h4
+        float left
+        position absolute
+        margin-top 55px        
+        color gray
+        a
+          font-style italic
+
+      .second
+        margin-top 80px
+
+    section#buttons
+      float right
+      margin-top 1px
+
+      button
+        float right
+        width 110px
+        margin 6px 0px
+
+    section#sections
+      float left
+      position absolute
+      margin-top 200px
