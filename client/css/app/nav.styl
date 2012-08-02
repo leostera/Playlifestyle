@@ -21,12 +21,22 @@ nav
     -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
 
-  section#dropdown
+  section.dropdown
     cursor pointer
     
-    ul#menu
+    ul
       margin-top 30px
       border-radius 6px
+
+  section#logout
+    float right
+    a
+      display block
+      width 32px
+      height 32px
+      background transparent url('http://imakeapps.alwaysdata.net/playcdn/images/logout-icon.png') no-repeat 9px center
+      margin-top -4px
+      margin-right 3px
 
   section#search
     float right
@@ -108,14 +118,14 @@ nav
       border-right 1px solid gray
       padding 23px
       margin-top -5px
-    
 
   section#categories
     position absolute
     float left
     height 45px
-    margin-left 400px
+    margin-left 350px
     ul
+      margin-left 50px
       min-height 45px
       li
         cursor pointer
@@ -131,3 +141,9 @@ nav
       li:hover
         a
           color #666
+
+    form
+      margin-top -2px
+      select
+        border-radius 5px
+        width 120px

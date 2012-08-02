@@ -1,28 +1,28 @@
 section.eleven.columns.centered#inner
   section#dropdown.dropdown
-    section.dropdown-toggle(data-toggle="dropdown", data-target="ul#dropdown")#profile
-      img(src='http://imakeapps.alwaysdata.net/playcdn/images/userpic.png',height="32px")#avatar
-      span#username {{ user.username }}     
-      b.caret
+    section#profile
+      span#avatar
+        a(href="/profile/avatar")
+          img(src='http://imakeapps.alwaysdata.net/playcdn/images/userpic.png',height="32px")#avatar
+      span#username
+        a(href="/profile") {{ user.username }}     
+      span#location 
+        a(href="/relocate") ({{user.location.region}})
+
+    b.caret.dropdown-toggle(data-toggle="dropdown", data-target="ul#dropdown", style="float: left; padding: 10px 0px;")
 
     ul.dropdown-menu#menu
       li
-        a(href="/profile") Edit Profile
-      li
         a(href="/relocate") Relocate
-      li
-        a(href="/logout") Logout
 
   section#toolbar
     a(href="/messages")#msg
     a(href="/settings")#cog
-    a(href="/featured")#play
+    a(href="/featured")#play.hide-for-medium
+    a#play.show-for-medium.dropdown-toggle(data-toggle="dropdown", data-target="ul#dropdown-category")
 
-
-  section#categories
-    ul
-      li
-        a(href="/featured") Featured
+  section#categories.show-for-medium
+    ul.dropdown-menu#dropdown-category
       li
         a(href="/nightlife") Nightlife
       li
@@ -36,6 +36,26 @@ section.eleven.columns.centered#inner
       li
         a(href="/buzz") Buzz
 
+  section#categories.hide-for-medium.hide-for-small
+    ul
+      li
+        a(href="/nightlife") Nightlife
+      li
+        a(href="/arts") Arts
+      li
+        a(href="/shows") Shows
+      li
+        a(href="/sports") Sports
+      li
+        a(href="/culinary") Culinary
+      li
+        a(href="/buzz") Buzz
+
+  section#logout
+    a(href="/logout")#logout
+
   section#search
     form
       input(type="search",placeholder="Look up anything...")
+
+
