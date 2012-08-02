@@ -15,8 +15,10 @@
 section#body
   position relative
   z-index 1
+  height 610px
 
   #content  
+    height 610px
     background-color white
     border-radius 8px
     -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -40,7 +42,7 @@ section#body
     section#feed
       overflow-x auto
       font-size: .7em;
-      height 200px
+      height 263px
       #element
         padding 0
         margin 0
@@ -58,3 +60,19 @@ section#body
   li
     display inline
     padding 0 10px
+
+
+
+@media only screen and (max-width: 1300px){
+  .push-three-on-medium {
+    left 0%
+  }
+}
+
+@media only screen and (min-width: 1300px){
+  .push-three-on-medium {left:25%;}
+}
+
+
+section.nine.columns.push-three-on-medium#right
+  width none
