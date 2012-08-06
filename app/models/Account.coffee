@@ -62,10 +62,12 @@ AccountSchema = new mongoose.Schema
   bio: String
 
   #following is an array of other users ids
-  #following: [Schema.ObjectId]
-
-  # followedby is an array of other users ids
-  #followedby: [Schema.ObjectId]
+  friends:
+    id: [Schema.ObjectId]
+    status:
+      type: Boolean
+      default: false
+    date_accepted: Date
 
 # Define the Model
 mongoose.model('Account', AccountSchema)
