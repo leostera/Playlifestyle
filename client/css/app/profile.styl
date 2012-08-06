@@ -1,63 +1,86 @@
 section#profile
 
-  header.profile    
-    img
-      float left
-      margin-right 10px
+  #heading
+    *
+      margin 0
+      padding 0
 
-    section#menu      
-      float left
-      ul
-        margin 0px
-        margin-left 230px
-        margin-top -60px
-        padding 0px
-        li
-          padding 10px
-          margin 0px 5px
-          background-color #EEE
-          border 1px solid #CCC
-          border-radius 5px
-          a
-            cursor pointer
+    h2
+      text-transform uppercase
+      margin-left 5px
+      font-size 2em
 
-    section#data
-      float left
-      z-index 300
-
-      h1  
-        float left
-        font-size 3em
-        text-transform uppercase
-        margin-top 0px
-        margin-right 10px
-
-      h2
-        float left
-        color gray
-        margin-top 15px
-
+    #icons
       h4
         float left
-        position absolute
-        margin-top 55px        
-        color gray
-        a
-          font-style italic
+        margin 5px        
+        color #AAA
+      i
+        float left
+        margin-right 2px
 
-      .second
-        margin-top 80px
-
-    section#buttons
+  #right
+    *
       float right
-      margin-top 1px
 
-      button
-        float right
-        width 110px
-        margin 6px 0px
+    img
+      margin-bottom 1px
 
-    section#sections
-      float left
-      position absolute
-      margin-top 200px
+    button
+      width 150px
+      margin 1px 0px
+
+  #menu
+    ul
+      width 100%
+      margin 0px      
+      padding 0px
+      li
+        width 100%
+        padding 10px
+        margin 0px 5px
+        background-color #EEE
+        border 1px solid #CCC
+        border-radius 5px
+        a
+          cursor pointer
+
+  #sections
+
+    #home
+      blockquote
+        background #f9f9f9
+        border-left 10px solid #ccc
+        margin 1.5em 10px
+        padding .5em 10px
+        quotes "\201C""\201D""\2018""\2019"
+      blockquote:before
+        color #ccc
+        content open-quote
+        font-size 4em
+        line-height .1em
+        margin-right .25em
+        vertical-align -.4em
+      blockquote p
+        display inline
+
+
+    #info
+      // a
+
+ 
+  i
+    display block
+    width 32px
+    height 32px    
+
+  .user-icon        
+    background transparent url('http://imakeapps.alwaysdata.net/playcdn/images/user-icon.png') no-repeat 9px center
+  .user-add-icon        
+    background transparent url('http://imakeapps.alwaysdata.net/playcdn/images/user-add-icon.png') no-repeat 9px center
+  .location-icon   
+    width 35px     
+    background transparent url('http://imakeapps.alwaysdata.net/playcdn/images/location-icon.png') no-repeat 9px center
+  .occupation-icon
+    background transparent url('http://imakeapps.alwaysdata.net/playcdn/images/location-icon.png') no-repeat 9px center
+

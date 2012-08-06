@@ -1,88 +1,71 @@
 section.row#profile
-  section.twelve.columns
-    header.profile
-      img(src="http://imakeapps.alwaysdata.net/playcdn/images/userpic.png",width="150px",height="150px")
-      section#data
-        h1 {{ user.name.first }} {{ user.name.last }}
-        h2 ({{ user.username }})
-        h4 From 
-          a(href="/networks/{{user.location.region}}") {{ user.location.city }}, {{user.location.region}}, {{user.location.country}}
-        //
-          h4.second Currently {{user.occupation.role}} @
-          a(href="/companies/{{user.occupation.company}}") {{user.occupation.company}}
+  section.nine.columns
+    section.row
+      section.twelve.columns#heading
+        h2 {{ user.name.first }} {{ user.name.last }}
+        section#icons
+          i.user-icon
+          h4#username {{ user.username }} 
+          i.location-icon
+          h4#location {{ user.location.city }}
 
-      section#buttons
-        button.button.btn-success Follow
-        br
-        button.button.btn-primary Message
-        br
-        button.button.btn-primary Invite
+    section.row
+      section.twelve.columns
+        section#menu
+          ul.nav.nav-tabs.horizontal-list
+            li.active
+              a(data-target="section.tab-pane#home", data-toggle="tab") Home
+            li
+              a(data-target="section.tab-pane#info", data-toggle="tab") Info
+            li
+              a(data-target="section.tab-pane#buddies", data-toggle="tab") Buddies
+            li
+              a(data-target="section.tab-pane#interests", data-toggle="tab") Interests
+            li
+              a(data-target="section.tab-pane#companies", data-toggle="tab") Companies
 
-      section#menu
-        ul.nav.nav-tabs.horizontal-list
-          li.active
-            a(data-target="section.tab-pane#home", data-toggle="tab") Home
-          li
-            a(data-target="section.tab-pane#info", data-toggle="tab") Info
-          li
-            a(data-target="section.tab-pane#buddies", data-toggle="tab") Buddies
-          li
-            a(data-target="section.tab-pane#interests", data-toggle="tab") Interests
-          li
-            a(data-target="section.tab-pane#companies", data-toggle="tab") Companies
-
-      section.tab-content#sections
-        section.tab-pane.active#home
-          section.row
-            section.eleven.columns.centered.well2
-
-              section.twelve.columns
-                h4 Short Bio
-                blockquote I was born with a bad sign, left down in the cold. I'm a lonely man who knows to lose control.
-                h4 Hometown: Calgary, Alberta
-                h4 Occupation: CEO &amp; DJ @ 
-                  a Play
-
-        section.tab-pane.row#info
-          section.eleven.columns.centered.well2 
-            h3 I am 
-              i male 
-            h3 I was born on the
-              i 28th September, 1991
-            blockquote I am 
-              i male 
-            h3 I am 
-              i single 
-            h3 My phone number is 
-              i +54 0381 425 67 25 
-            h3 My email address is 
-              i
-                a(href="mailto: j.durand@playlifestyle.com") j.durand@playlifestyle.com 
-            h3 My website is 
-              i 
-                a(href="http://playlifestyle.jit.su/") PlayLifestyle 
-            h3 I am 
-              i CEO 
-              @
-              i Play Canada 
-
-        section.tab-pane#buddies
-            section.row
-              section.eleven.columns.centered.well2
-
+        section.tab-content#sections
+            section.tab-pane.active#home
+              section.row
                 section.twelve.columns
-                  h4 Buddies
+                  blockquote {{{ user.bio }}}
+                  i.hide.icon-edit
 
-        section.tab-pane#interests
-            section.row
-              section.eleven.columns.centered.well2
-
+            section.tab-pane#info
+              section.row
                 section.twelve.columns
-                  h4 Interests
+                  form.form-horizontal
+                    .control-group
+                      label.control-label First name
+                        .controls
+                          input.input-xlarge                    
 
-        section.tab-pane#companies
-            section.row
-              section.eleven.columns.centered.well2
 
-                section.twelve.columns
-                  h4 Companies
+            section.tab-pane#buddies
+                section.row
+                  section.eleven.columns.centered
+
+                    section.twelve.columns
+                      h4 Buddies
+
+            section.tab-pane#interests
+                section.row
+                  section.eleven.columns.centered
+
+                    section.twelve.columns
+                      h4 Interests
+
+            section.tab-pane#companies
+                section.row
+                  section.eleven.columns.centered
+
+                    section.twelve.columns
+                      h4 Companies
+
+
+
+  section.three.columns#right
+    img(src="http://imakeapps.alwaysdata.net/playcdn/images/userpic.png",width="150px",height="150px")
+    button.button.btn Add as Friend
+    button.button.btn Message
+    button.button.btn Invite
