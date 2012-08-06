@@ -18,6 +18,7 @@ require('./config/clients')(ss,require('./config/assets'))
 require('./config/routes')(ss)
 
 
+###
 if ss.env != 'development'
   ss.client.packAssets()
 
