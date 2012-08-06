@@ -8,6 +8,9 @@ section.row#profile
           h4#username {{ user.username }} 
           i.location-icon
           h4#location {{ user.location.city }}
+          i.hometown-icon
+          h4#hometown {{ user.location.city }}
+
 
     section.row
       section.twelve.columns
@@ -35,33 +38,41 @@ section.row#profile
               section.row
                 section.twelve.columns
                   form.form-horizontal
-                    .control-group
-                      label.control-label First name
+                    fieldset
+                      .control-group
+                        label.control-label Birthday
                         .controls
-                          input.input-xlarge                    
+                          span.input-small.uneditable-input {{ user.birthday }}
+                          input.hide.input-small(type="text",id="birthday")
+                      .control-group
+                        label.control-label Full name
+                        .controls
+                          span.input-small.uneditable-input {{ user.name.first }}
+                          input.hide.input-small(type="text",id="firstname")
+                          span.input-small.uneditable-input {{ user.name.last }}
+                          input.hide.input-small(type="text",id="lastname")
+                      .control-group
+                        label.control-label Genre
+                        .controls
+                          label.radio
+                            input#genre-male(type='radio', name='genre', value='male', checked='')
+                            | Male
+                          label.radio
+                            input#genre-female(type='radio', name='genre', value='female')
+                            | Female
+
+                      .control-group
+                        label.control-label Hometown
+                        .controls
+                          span.input-large.uneditable-input {{ user.location.city }}
+                          input.hide.input-small(type="text",id="hometown")
+
 
 
             section.tab-pane#buddies
                 section.row
-                  section.eleven.columns.centered
-
-                    section.twelve.columns
-                      h4 Buddies
-
-            section.tab-pane#interests
-                section.row
-                  section.eleven.columns.centered
-
-                    section.twelve.columns
-                      h4 Interests
-
-            section.tab-pane#companies
-                section.row
-                  section.eleven.columns.centered
-
-                    section.twelve.columns
-                      h4 Companies
-
+                  section.twelve.columns
+                    h4 Buddies
 
 
   section.three.columns#right
