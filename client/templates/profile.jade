@@ -7,76 +7,85 @@ section.row#profile
           i.user-icon
           h4#username {{ user.username }} 
           i.location-icon
-          h4#location {{ user.location.city }}
+          h4#location {{ user.location.str }}
           i.hometown-icon
-          h4#hometown {{ user.location.city }}
+          h4#hometown {{ user.hometown }}
 
 
     section.row
       section.twelve.columns
         section#menu
           ul.nav.nav-tabs.horizontal-list
-            li.active
-              a(data-target="section.tab-pane#home", data-toggle="tab") Home
-            li
-              a(data-target="section.tab-pane#info", data-toggle="tab") Info
-            li
-              a(data-target="section.tab-pane#buddies", data-toggle="tab") Buddies
-            li
-              a(data-target="section.tab-pane#interests", data-toggle="tab") Interests
-            li
-              a(data-target="section.tab-pane#companies", data-toggle="tab") Companies
+            li.active(data-target="section.tab-pane#home", data-toggle="tab")
+              a Home
+            li(data-target="section.tab-pane#info", data-toggle="tab")
+              a Info
+            li(data-target="section.tab-pane#buddies", data-toggle="tab")
+              a Buddies
+            li(data-target="section.tab-pane#interests", data-toggle="tab")
+              a Interests
+            li(data-target="section.tab-pane#companies", data-toggle="tab")
+              a Companies
 
         section.tab-content#sections
             section.tab-pane.active#home
               section.row
                 section.twelve.columns
-                  blockquote {{{ user.bio }}}
-                  i.hide.icon-edit
+                  section#bio
+                    blockquote
+                      textarea#bio {{ user.bio }}
+
+                section.four.columns.centered
+                  section#buttons.pull-right
+                    button.button.btn-primary#save Save 
 
             section.tab-pane#info
               section.row
                 section.twelve.columns
                   form.form-horizontal
                     fieldset
-                      .control-group
+                      .control-group#birthday
                         label.control-label Birthday
                         .controls
-                          span.input-small.uneditable-input {{ user.birthday }}
-                          input.hide.input-small(type="text",id="birthday")
-                      .control-group
+                          span.uneditable-input.input-xlarge#birthday {{ user.birthday }}
+
+                      .control-group#name
                         label.control-label Full name
                         .controls
-                          span.input-small.uneditable-input {{ user.name.first }}
-                          input.hide.input-small(type="text",id="firstname")
-                          span.input-small.uneditable-input {{ user.name.last }}
-                          input.hide.input-small(type="text",id="lastname")
-                      .control-group
-                        label.control-label Genre
+                          input.input-medium(type="text", value="{{ user.name.first }}")#firstname
+                          input.input-medium(type="text", value="{{ user.name.last }}")#lastname
+
+                      .control-group#gender
+                        label.control-label Gender
                         .controls
                           label.radio
-                            input#genre-male(type='radio', name='genre', value='male', checked='')
+                            input#gender-male(type='radio', name='gender', value='male')
                             | Male
                           label.radio
-                            input#genre-female(type='radio', name='genre', value='female')
+                            input#gender-female(type='radio', name='gender', value='female')
                             | Female
 
-                      .control-group
+                      .control-group#hometown
                         label.control-label Hometown
                         .controls
-                          span.input-large.uneditable-input {{ user.location.city }}
-                          input.hide.input-small(type="text",id="hometown")
+                          input.input-xlarge(type="text", value="{{ user.hometown }}")#hometown
 
-
+                section.four.columns.centered
+                  section#buttons.pull-right
+                    button.button.btn-primary#save Save 
 
             section.tab-pane#buddies
-                section.row
-                  section.twelve.columns
-                    h4 Buddies
+              section.row
+                section.twelve.columns
 
 
   section.three.columns#right
     img(src="http://imakeapps.alwaysdata.net/playcdn/images/userpic.png",width="150px",height="150px")
-    button.button.btn Add as Friend
-    button.button.btn Message
-    button.button.btn Invite
+    button.button.btn Change Picture
+    button.button.btn Relocate    
+    button.hide.button.btn Add as Friend
+    button.hide.button.btn Message
+    button.hide.button.btn Invite
+
+    section#statistics
+      span#joindate Joined {{ user.joindate }}
