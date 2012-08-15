@@ -5,7 +5,9 @@ class MainRouter extends Routerious
     'home'   : 'home'
     'profile': 'profile'
     'logout' : 'logout'
-    ':other' : 'partials'
+    'users/:username' : 'profileByUsername'
+    #':other' : 'partials'
+
 
   # Main route
   index: =>
@@ -54,6 +56,21 @@ class MainRouter extends Routerious
         @__prepareView('HomeView', {el: '#body'})
         @__prepareView('partials/NavPartial')
         @__prepareView('partials/ProfilePartial', {el: '#right'})
+    )
+
+  # Profile by Username route
+  profileByUsername: (username) =>
+    console.log username
+    ss.rpc( "Users.Auth.Status", (res) =>
+      console.log res
+      if res?.status is no
+        @navigate ''
+        @__prepareView('IndexView', {el: $('#body')})
+      else
+        @User = res.user
+        @__prepareView('HomeView', {el: '#body'})
+        @__prepareView('partials/NavPartial')
+        @__prepareView('partials/ProfileByUsernamePartial', {el: '#right', username: username})   
     )
 
   # Sign Out Route
