@@ -18,7 +18,8 @@ class RegistrationPartial extends Backbone.View
     @credentials.username = @$('#username').val()
     @credentials.password = @$('#password').val()
     @credentials.email = @$('#email').val()
-    @credentials.birthday = @$('#birthday').val()
+    date = @$('#birthday').val().toString().split('/')
+    @credentials.birthday = new Date(date[2],date[0]-1,date[1])
     @credentials.location.str = @$('#location').val()
     @credentials
 
@@ -44,6 +45,7 @@ class RegistrationPartial extends Backbone.View
         changeMonth: true
         changeYear: true
         yearRange: 'c-40:c+10'
+
 
     $('#ui-datepicker-div').hide()
 
