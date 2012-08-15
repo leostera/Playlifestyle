@@ -31,12 +31,15 @@ nav
   section#logout
     float right
     a
+      opacity 0.5
       display block
       width 32px
       height 32px
       background transparent url('http://imakeapps.alwaysdata.net/playcdn/images/logout-icon.png') no-repeat 9px center
       margin-top -4px
       margin-right 3px
+    a:hover
+      opacity 1
 
   section#search
     float right
@@ -105,9 +108,13 @@ nav
     margin-top -5px
     margin-left 218px
     a
+      opacity 0.5
+      transition opacity .2s
       float left
       width 32px
       height 32px
+    a:hover
+      opacity 1
 
     #play
       background url('http://imakeapps.alwaysdata.net/playcdn/images/play-icon.png') no-repeat 9px center
