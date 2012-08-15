@@ -26,7 +26,7 @@ exports.actions = (req, res, ss) ->
       )
 
   ShowUser: (user) ->
-    ss.App.Actions.User.Get(user, (err, usr) =>
+    ss.App.Actions.Users.Get(user, (err, usr) =>
       if err is null
         res {status:yes, user: usr}
       else
