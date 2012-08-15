@@ -28,8 +28,13 @@ AccountSchema = new mongoose.Schema
     lowercase: true
     trim: true
 
+  #joindate is a Dat
+  joindate:
+    type: String
+    default: (new Date()).toDateString()
+
   #birthdate is a Date
-  birthdate: Date
+  birthday: Date
     #we should add range checking here
 
   #hometown is a String, but could be latLon for the hometown
@@ -50,8 +55,8 @@ AccountSchema = new mongoose.Schema
     location.country_code
   ###
 
-  #sex is boolean. true is male.
-  sex: Boolean
+  #gender is a string.
+  gender: String
 
   #name is mixed
   name:
