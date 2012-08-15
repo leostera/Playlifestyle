@@ -1,0 +1,74 @@
+section.row#profile
+  section.nine.columns
+    section.row
+      section.twelve.columns#heading
+        h2 {{ user.name.first }} {{ user.name.last }}
+        section#icons
+          i.user-icon
+          h4#username {{ user.username }} 
+          i.location-icon
+          h4#location {{ user.location.str }}
+          i.hometown-icon
+          h4#hometown {{ user.hometown }}
+
+    section.row
+      section.twelve.columns
+        section#menu
+          ul.nav.nav-tabs.horizontal-list
+            li.active(data-target="section.tab-pane#home", data-toggle="tab")
+              a Home
+            li(data-target="section.tab-pane#info", data-toggle="tab")
+              a Info
+            li(data-target="section.tab-pane#buddies", data-toggle="tab")
+              a Buddies
+            li(data-target="section.tab-pane#interests", data-toggle="tab")
+              a Interests
+            li(data-target="section.tab-pane#companies", data-toggle="tab")
+              a Companies
+
+        section.tab-content#sections
+            section.tab-pane.active#home
+              section.row
+                section.twelve.columns
+                  section#bio
+                    blockquote {{ user.bio }}
+
+            section.tab-pane#info
+              section.row
+                section.twelve.columns
+                  form.form-horizontal
+                    fieldset
+                      .control-group#birthday
+                        label.control-label Birthday
+                        .controls
+                          span.uneditable-input.input-xlarge#birthday {{ user.birthday }}
+
+                      .control-group#name
+                        label.control-label Full name
+                        .controls
+                          span.uneditable-input.input-medium {{ user.name.first }}
+                          span.uneditable-input.input-medium {{ user.name.last }}
+
+                      .control-group#gender
+                        label.control-label Gender
+                        .controls
+                          span.uneditable-input.input-short {{ user.gender }}
+
+                      .control-group#hometown
+                        label.control-label Hometown
+                        .controls
+                          span.uneditable-input.input-xlarge {{ user.location.city }}
+
+            section.tab-pane#buddies
+              section.row
+                section.twelve.columns
+
+
+  section.three.columns#right
+    img(src="http://imakeapps.alwaysdata.net/playcdn/images/userpic.png",width="150px",height="150px")
+    button.button.btn#add Add as Friend
+    button.button.btn#message Message
+    button.button.btn#invite Invite
+
+    section#statistics
+      span#joindate Joined {{ user.joindate }}
