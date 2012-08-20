@@ -21,7 +21,7 @@ section.row#profile
             li(data-target="section.tab-pane#info", data-toggle="tab")
               a Info
             li(data-target="section.tab-pane#buddies", data-toggle="tab")
-              a Buddies
+              a Social
             li(data-target="section.tab-pane#interests", data-toggle="tab")
               a Interests
             li(data-target="section.tab-pane#companies", data-toggle="tab")
@@ -37,7 +37,7 @@ section.row#profile
 
                 section.four.columns.centered
                   section#buttons.pull-right
-                    button.button.btn-primary#save Save 
+                    button.button.btn-primary#saveBio Save 
 
             section.tab-pane#info
               section.row
@@ -72,20 +72,22 @@ section.row#profile
 
                 section.four.columns.centered
                   section#buttons.pull-right
-                    button.button.btn-primary#save Save 
+                    button.button.btn-primary#saveInfo Save 
 
             section.tab-pane#buddies
               section.row
                 section.twelve.columns
+                  h3 Follows
+                  #put-follows-here
+                  h3 Followers
+                  #put-followers-here
+
 
 
   section.three.columns#right
     img(src="http://imakeapps.alwaysdata.net/playcdn/images/userpic.png",width="150px",height="150px")
     button.button.btn Change Picture
     button.button.btn Relocate    
-    button.hide.button.btn Add as Friend
-    button.hide.button.btn Message
-    button.hide.button.btn Invite
 
     section#statistics
       span#joindate Joined {{ user.joindate }}
