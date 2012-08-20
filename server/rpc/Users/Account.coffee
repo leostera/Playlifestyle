@@ -13,8 +13,8 @@ exports.actions = (req, res, ss) ->
     ss.App.Actions.Users.Geolocate(data, res)    
     
   Update: (obj) ->
-    user = _.extend obj, {_id: req.session.userId, password: req.session.user.password}
-    ss.App.Actions.Users.Update(user, (err, numAffected) =>
+    user = {_id: req.session.userId || req.session.user._id, password: req.session.user.password}
+    ss.App.Actions.Users.Update(user, obj, (err, numAffected) =>
       if numAffected == 1
         req.session.user = _.extend(req.session.user, obj)
         req.session.save()
@@ -32,4 +32,24 @@ exports.actions = (req, res, ss) ->
       else
         res {status:no, message: "That user doesn't exits."}
       )
+
+  Follow: (user) ->
+    ss.App.Actions.Users.Follow req.session.user, user, (err, numAffected) =>
+      if numAffected == 1
+        ss.App.Actions.Users.Get req.session.user, (err, usr) =>
+          req.session.user = usr
+          req.session.save()
+          res { status: yes, user: req.session.user }
+      else
+        res { status: no, message: "#$%\"& you already following this guy!"}
+
+  Unfollow: (user) ->
+    ss.App.Actions.Users.Unfollow req.session.user, user, (err, numAffected) =>
+      if numAffected == 1
+        ss.App.Actions.Users.Get req.session.user, (err, usr) =>
+          req.session.user = usr
+          req.session.save()
+          res { status: yes, user: req.session.user }
+      else
+        res { status: no, message: "#$%\"& you ain't following this guy!"}
   }
