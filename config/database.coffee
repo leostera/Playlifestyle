@@ -1,6 +1,6 @@
 dbs =
   dev: "mongodb://localhost/play_dev"
-  prod: "mongodb://nodejitsu:9bf0ff87b7b9dd77c6d29fc92b655032@flame.mongohq.com:27042/nodejitsudb515494115625"
+  prod: "mongodb://nodejitsu:ac12968680ce8329c8a136be9c2e3e3e@alex.mongohq.com:10090/nodejitsudb885971376864"
 
 module.exports = (ss)->
   mongoose  = require("mongoose")
