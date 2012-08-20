@@ -7,6 +7,19 @@ Schema    = mongoose.Schema
 # Load the Email SchemaType
 #mongooseTypes.loadTypes(mongoose,'email')
 
+# Define Follow Schema
+FollowSchema = new mongoose.Schema
+  id: Schema.ObjectId
+
+  username:
+    type: String
+    lowercase: true
+    trim: true
+    
+  avatar:
+    url: String
+    use_gravatar: Boolean
+
 # Define the Schema
 AccountSchema = new mongoose.Schema
 
@@ -67,12 +80,9 @@ AccountSchema = new mongoose.Schema
   bio: String
 
   #following is an array of other users ids
-  friends:
-    id: [Schema.ObjectId]
-    status:
-      type: Boolean
-      default: false
-    date_accepted: Date
+  following: [FollowSchema]
+  followers: [FollowSchema]
+
 
 # Define the Model
 mongoose.model('Account', AccountSchema)
