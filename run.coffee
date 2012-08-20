@@ -30,7 +30,7 @@ if ss.env == 'production'
 server = http.Server ss.http.middleware
 # Using the appropiate port if not development 
 if ss.env != 'development' then server.listen 4000
-else server.listen 3000
+else server.listen 3000, "localhost"
 
 # Start SocketStream server
 ss.start server
