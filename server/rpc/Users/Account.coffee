@@ -39,7 +39,8 @@ exports.actions = (req, res, ss) ->
         ss.App.Actions.Users.Get req.session.user, (err, usr) =>
           req.session.user = usr
           req.session.save()
-          res { status: yes, user: req.session.user }
+          ss.App.Actions.Users.Get user, (err, followee) =>
+            res { status: yes, user: req.session.user, followee: followee }
       else
         res { status: no, message: "#$%\"& you already following this guy!"}
 
@@ -49,7 +50,8 @@ exports.actions = (req, res, ss) ->
         ss.App.Actions.Users.Get req.session.user, (err, usr) =>
           req.session.user = usr
           req.session.save()
-          res { status: yes, user: req.session.user }
+          ss.App.Actions.Users.Get user, (err, followee) =>
+            res { status: yes, user: req.session.user, followee: followee }
       else
         res { status: no, message: "#$%\"& you ain't following this guy!"}
   }

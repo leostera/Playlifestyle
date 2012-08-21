@@ -85,8 +85,10 @@ section.row#profile
 
 
   section.three.columns#right
-    img(src="http://imakeapps.alwaysdata.net/playcdn/images/userpic.png",width="150px",height="150px")
-    button.button.btn Change Picture
+    img(src="http://playcdn.jit.su/{{ user.avatar.url }}",width="150px",height="150px")#picture
+    button.button.btn#changePicture Change Picture
+    form(action="http://playcdn.jit.su/",method="post")#picture
+      input(type="file").hide#new-picture
     button.button.btn Relocate    
 
     section#statistics

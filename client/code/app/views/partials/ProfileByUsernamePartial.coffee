@@ -74,7 +74,9 @@ class ProfileByUsernamePartial extends Backbone.View
       return
 
     ss.rpc("Users.Account.Follow", @user, (res) =>
+      console.log res
       if res.status is yes
+        @user = res.followee
         window.MainRouter.User = res.user
         alert("Great, you are now following #{@username}!")
         @$('button#follow').addClass('disabled').html('Following')
@@ -84,16 +86,23 @@ class ProfileByUsernamePartial extends Backbone.View
     e.preventDefault()
 
     ss.rpc("Users.Account.Unfollow", @user, (res) =>
+      console.log res
       if res.status is yes
+        @user = res.followee
         window.MainRouter.User = res.user
         alert("How sad, you stopped following #{@username}!")
         @$('button#follow').removeClass('disabled').html('Follow')
     )
 
+  rerouteToUser: (e) =>
+    e.preventDefault()
+    window.MainRouter.navigate @$(e.srcElement).attr('href'), true
+
   events:
     'click button#follow' : "follow"
     'click button#message': "render"
     'click button#invite' : "render"
+    'click a#user' : 'rerouteToUser'
     
 exports.init = (options={}) ->
   new ProfileByUsernamePartial(options)

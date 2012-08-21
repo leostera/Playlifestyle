@@ -14,6 +14,8 @@ module.exports =
       'libs/css3-mediaqueries.js',
       'libs/jquery.js',
       'libs/jquery.ui.js',
+      'libs/jquery.form.js',
+      #'libs/jquery.file.upload.js',
       'libs/underscore.js',
       'libs/backbone.js',      
       'libs/Routerious.coffee',      

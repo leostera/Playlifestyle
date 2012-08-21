@@ -32,6 +32,26 @@ class ProfilePartial extends Backbone.View
       _.each window.MainRouter.User.followers, (f) ->
         @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: f.username } )
 
+    $('form#picture').ajaxForm({
+      beforeSubmit: (formData, jqform, options) =>
+          if $("#new-picture").val() is ""
+            return false
+          alert('Uploading image!')
+      success: (responseText, statusText, xhr, $form) =>
+          obj = 
+            avatar:
+              url: $('#new-picture').val().toString().split('\\')[2]
+
+          ss.rpc('Users.Account.Update', obj, (res) => 
+            alert("Profile picture changed!")
+            console.log res
+            if res.status is yes
+              window.MainRouter.User = res.user
+              @render()
+            )
+          
+    })
+
     @
 
   save: (e) =>
@@ -52,9 +72,23 @@ class ProfilePartial extends Backbone.View
         @render()
       )
 
+  changePicture: (e) =>
+    e.preventDefault();
+    @$('#new-picture').trigger('click')
+
+  uploadPicture: (e) =>
+    @$('form#picture').submit()
+
+  rerouteToUser: (e) =>
+    e.preventDefault()
+    window.MainRouter.navigate @$(e.srcElement).attr('href'), true
+
   events:
     'click button#saveInfo' : "save"
     'click button#saveBio' : "save"
+    'click button#changePicture' : "changePicture"
+    'change #new-picture' : "uploadPicture"
+    'click a#user' : 'rerouteToUser'
     
 exports.init = (options={}) ->
   new ProfilePartial(options)
