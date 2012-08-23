@@ -37,7 +37,10 @@ class ProfilePartial extends Backbone.View
           if $("#new-picture").val() is ""
             return false
           alert('Uploading image!')
+          
       success: (responseText, statusText, xhr, $form) =>
+          console.log(responseText,statusText,xhr,$form)
+
           obj = 
             avatar:
               url: $('#new-picture').val().toString().split('\\')[2]
