@@ -21,8 +21,8 @@ require('./config/routes')(ss)
 if ss.env == 'production'
   ss.client.packAssets({
     cdn:
-      js: (f) -> "http://d3jzxruh9il70w.cloudfront.net/#{f.path}"
-      css: (f) -> "http://d3jzxruh9il70w.cloudfront.net/#{f.path}"
+      js: (f) -> "http://d3jzxruh9il70w.cloudfront.net#{f.path}"
+      css: (f) -> "http://d3jzxruh9il70w.cloudfront.net#{f.path}"
   })
 
   #ss.session.store.use('redis', {host: "redis://leostera:a34f4ede135aefe9e3de4939928c2b45@char.redistogo.com/", port: 9020, db: "char-9020"})
