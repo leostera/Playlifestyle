@@ -1,14 +1,16 @@
-dbs =
-  #"mongodb://localhost/play_dev"
-  dev: "mongodb://nodejitsu:ac12968680ce8329c8a136be9c2e3e3e@alex.mongohq.com:10090/nodejitsudb885971376864"
-  prod: "mongodb://nodejitsu:ac12968680ce8329c8a136be9c2e3e3e@alex.mongohq.com:10090/nodejitsudb885971376864"
+dbs = "mongodb://playlifestyle:uselesshugepassphrasethatprotectsourdatabase@alex.mongohq.com:10039/play_mongo"
+  #dev: "mongodb://playlifestyle:uselesshugepassphrasethatprotectsourdatabase@alex.mongohq.com:10039/play_mongo"
+  #prod: "mongodb://playlifestyle:uselesshugepassphrasethatprotectsourdatabase@alex.mongohq.com:10039/play_mongo"
 
 module.exports = (ss)->
   mongoose  = require("mongoose")
   
+  ###
   if ss.env == 'production'
     db = dbs.prod
   else
     db = dbs.dev
 
   mongoose.connect(db)
+  ###
+  mongoose.connect(dbs)

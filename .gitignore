@@ -1,5 +1,2 @@
-db/*
 client/static/*
 node_modules/*
-todos.coffee
-*.sublime-*
