@@ -85,18 +85,25 @@ class ProfilePartial extends Backbone.View
     file = e.target.files[0]
     reader = new FileReader()
     reader.onload = (event) =>
+      @$('img#picture').fadeTo(250,0.4)
+      @$('img#loadingoverlay').fadeTo(250,1)
+
       console.log event.target
+      
       ss.rpc('Users.Account.UploadProfilePicture', {type: file.type, raw: event.target.result} , (res) =>        
+        @$('img#loadingoverlay').fadeTo(250,0)
         if res.status
           cdn = $("img#avatar").attr('src').split('/')
           cdn.pop()
           avatar = cdn.join('/')+"/"+res.user.avatar.split('/').pop()
           $("img#avatar").attr('src',avatar)
           @$('img#picture').attr('src',avatar)
-          window.MainRouter.User.avatar = res.user.avatar
+          window.MainRouter.User.avatar = res.user.avatar          
           #@render()
         else
           alert res.message
+
+        @$('img#picture').fadeTo(500,1)
       )
 
     console.log file
