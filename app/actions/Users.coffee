@@ -96,3 +96,21 @@ Unfollow = module.exports.Unfollow = (follower, folowee, fn) ->
     
   else
     fn(null,0)
+
+UploadProfilePicture = module.exports.UploadProfilePicture = (user, image, fn) ->
+  fu = require('../utils/FileUploader')
+  newAvatar = "/users/#{user.username}/profile/#{Date.now()}"
+  fu.putBuffer( image, newAvatar, (err, res) ->
+    if 200 is res.statusCode
+      conditions = { _id: user._id, password: user.password}
+      user.avatar.url = newAvatar
+      Update(conditions, user, (err, numAffected) ->
+        if numAffected == 1 and err is null
+          fn null, user
+        else
+          fn err, null
+      )
+    else
+      fn err, null
+
+  )

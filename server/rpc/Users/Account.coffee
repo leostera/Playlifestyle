@@ -33,9 +33,19 @@ exports.actions = (req, res, ss) ->
         res {status:no, message: "That user doesn't exits."}
       )
 
+  UploadProfilePicture: (image) ->
+    ss.App.Actions.Users.UploadProfilePicture(req.session.user, image, (err, usr) ->
+      if err is null
+        req.session.user = usr
+        req.session.save()
+        res {status:yes, user: usr}
+      else
+        res {status:no, message: err}
+    )
+
   Follow: (user) ->
     ss.App.Actions.Users.Follow req.session.user, user, (err, numAffected) =>
-      if numAffected == 1
+      if err is null
         ss.App.Actions.Users.Get req.session.user, (err, usr) =>
           req.session.user = usr
           req.session.save()
@@ -46,7 +56,7 @@ exports.actions = (req, res, ss) ->
 
   Unfollow: (user) ->
     ss.App.Actions.Users.Unfollow req.session.user, user, (err, numAffected) =>
-      if numAffected == 1
+      if err is null
         ss.App.Actions.Users.Get req.session.user, (err, usr) =>
           req.session.user = usr
           req.session.save()
