@@ -80,7 +80,27 @@ class ProfilePartial extends Backbone.View
     @$('#new-picture').trigger('click')
 
   uploadPicture: (e) =>
-    @$('form#picture').submit()
+    e.preventDefault()
+    console.log e
+    file = e.target.files[0]
+    reader = new FileReader()
+    reader.onload = (event) =>
+      console.log event.target
+      ss.rpc('Users.Account.UploadProfilePicture', {type: file.type, raw: event.target.result} , (res) =>        
+        if res.status
+          cdn = $("img#avatar").attr('src').split('/')
+          cdn.pop()
+          avatar = cdn.join('/')+"/"+res.user.avatar.split('/').pop()
+          $("img#avatar").attr('src',avatar)
+          @$('img#picture').attr('src',avatar)
+          window.MainRouter.User.avatar = res.user.avatar
+          #@render()
+        else
+          alert res.message
+      )
+
+    console.log file
+    reader.readAsDataURL(file)
 
   rerouteToUser: (e) =>
     e.preventDefault()
