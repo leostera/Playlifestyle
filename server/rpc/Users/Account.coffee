@@ -34,18 +34,18 @@ exports.actions = (req, res, ss) ->
       )
 
   UploadProfilePicture: (image) ->
-    ss.App.Actions.Users.UploadProfilePicture(req.session.user, image, (err, usr) ->
-      if err is null
-        req.session.user = usr
+    image = _.extend image, {timestamp: Date.now()}
+    ss.App.Actions.Users.UploadProfilePicture req.session.user, image, (err, numAffected) ->
+      if err is null and numAffected == 1
+        req.session.user.avatar = "/users/#{req.session.user.username}/profile/#{image.timestamp}.#{image.type.split('/')[1]}"
         req.session.save()
-        res {status:yes, user: usr}
+        res {status: yes, user: req.session.user }
       else
-        res {status:no, message: err}
-    )
+        res {status: no, message: err}
 
   Follow: (user) ->
     ss.App.Actions.Users.Follow req.session.user, user, (err, numAffected) =>
-      if err is null
+      if err is null and numAffected == 1
         ss.App.Actions.Users.Get req.session.user, (err, usr) =>
           req.session.user = usr
           req.session.save()
@@ -56,7 +56,7 @@ exports.actions = (req, res, ss) ->
 
   Unfollow: (user) ->
     ss.App.Actions.Users.Unfollow req.session.user, user, (err, numAffected) =>
-      if err is null
+      if err is null and numAffected == 1
         ss.App.Actions.Users.Get req.session.user, (err, usr) =>
           req.session.user = usr
           req.session.save()
