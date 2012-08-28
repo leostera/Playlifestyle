@@ -54,9 +54,7 @@ AccountSchema = new mongoose.Schema
   hometown: String
 
   #avatar is a url for the avatar or the url for the gravatar
-  avatar:
-    url: String
-    use_gravatar: Boolean
+  avatar: String
 
   #location is mixed. here we can put as many info as we can get
   location: {}
