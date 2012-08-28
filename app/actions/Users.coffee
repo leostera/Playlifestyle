@@ -44,7 +44,6 @@ SignUp = module.exports.SignUp = (creds, fn) ->
   newUser.save( fn )
 
 Update = module.exports.Update = (user, obj, fn) ->
-  console.log user, obj
   if obj._id
     delete obj._id
   UserModel.update(user, obj, fn)
@@ -99,17 +98,20 @@ Unfollow = module.exports.Unfollow = (follower, folowee, fn) ->
 
 UploadProfilePicture = module.exports.UploadProfilePicture = (user, image, fn) ->
   fu = require('../utils/FileUploader')
-  newAvatar = "/users/#{user.username}/profile/#{Date.now()}"
-  fu.putBuffer( image, newAvatar, (err, res) ->
+
+  destination = "/users/#{user.username}/profile/#{image.timestamp}.#{image.type.split('/')[1]}"
+  headers =
+    'Content-Type': "#{image.type}"
+    'x-amz-acl': 'public-read'
+
+  rawData = new Buffer(image.raw.split(";base64,")[1],'base64')
+
+  fu.putBuffer( rawData, destination, headers, (err, res) ->
     if 200 is res.statusCode
       conditions = { _id: user._id, password: user.password}
-      user.avatar.url = newAvatar
-      Update(conditions, user, (err, numAffected) ->
-        if numAffected == 1 and err is null
-          fn null, user
-        else
-          fn err, null
-      )
+      user.avatar = destination
+
+      Update(conditions, user, fn)
     else
       fn err, null
 
