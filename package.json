@@ -21,7 +21,7 @@
     , "should": "git://github.com/visionmedia/should.js.git"
   }
   , "scripts": {
-      "test": "node_modules/mocha/bin/mocha"
+      "test": "mocha"
     , "start": "node run.coffee"
   } 
 }
