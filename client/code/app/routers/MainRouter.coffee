@@ -6,6 +6,7 @@ class MainRouter extends Routerious
     'profile': 'profile'
     'logout' : 'logout'
     'users/:username' : 'profileByUsername'
+    'messages/:id'  : 'messages'
     #':other' : 'partials'
 
 
@@ -60,7 +61,6 @@ class MainRouter extends Routerious
 
   # Profile by Username route
   profileByUsername: (username) =>
-    console.log username
     ss.rpc( "Users.Auth.Status", (res) =>
       console.log res
       if res?.status is no
@@ -82,6 +82,20 @@ class MainRouter extends Routerious
       else
         alert "Couldn't log you out buddy. Try again!"
       )
+
+  # Messages route
+  messages: (id) =>
+    ss.rpc( "Users.Auth.Status", (res) =>
+      console.log res
+      if res?.status is no
+        @navigate ''
+        @__prepareView('IndexView', {el: $('#body')})
+      else
+        @User = res.user
+        @__prepareView('HomeView', {el: '#body'})
+        @__prepareView('partials/NavPartial')
+        @__prepareView('partials/ProfileByUsernamePartial', {el: '#right', username: username})   
+    )
 
   # Generic Partial Loading
   partials: (other) =>
