@@ -31,30 +31,6 @@ class ProfilePartial extends Backbone.View
     else
       _.each window.MainRouter.User.followers, (f) ->
         @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: f.username } )
-
-    $('form#picture').ajaxForm({
-      beforeSubmit: (formData, jqform, options) =>
-          if $("#new-picture").val() is ""
-            return false
-          alert('Uploading image!')
-          
-      success: (responseText, statusText, xhr, $form) =>
-          console.log(responseText,statusText,xhr,$form)
-
-          obj = 
-            avatar:
-              url: $('#new-picture').val().toString().split('\\')[2]
-
-          ss.rpc('Users.Account.Update', obj, (res) => 
-            alert("Profile picture changed!")
-            console.log res
-            if res.status is yes
-              window.MainRouter.User = res.user
-              @render()
-            )
-          
-    })
-
     @
 
   save: (e) =>

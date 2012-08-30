@@ -11,14 +11,14 @@ module.exports =
     ]
 
     desktop_code: [
-      'vendor/css3-mediaqueries.js',
-      'vendor/jquery.js',
-      'vendor/jquery.ui.js',
-      'vendor/jquery.form.js',
+      #'vendor/css3-mediaqueries.js',
+      #'vendor/jquery.js',
+      #'vendor/jquery.ui.js',
+      #'vendor/jquery.form.js',
       #'vendor/jquery.file.upload.js',
-      'vendor/underscore.js',
-      'vendor/backbone.js',      
-      'vendor/bootstrap.js',
+      #'vendor/underscore.js',
+      #'vendor/backbone.js',      
+      #'vendor/bootstrap.js',
       'libs/Routerious.coffee',      
       'app',
     ]
