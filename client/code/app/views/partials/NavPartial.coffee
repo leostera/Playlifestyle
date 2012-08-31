@@ -25,8 +25,7 @@ class NavView extends Backbone.View
     if e.keyCode is 13
       e.preventDefault()
       s = @$('input[type="search"]').val()
-      if s is "lea" or s is "jcarter"
-        window.MainRouter.navigate "/users/#{s}", true
+      window.MainRouter.navigate "/users/#{s}", true
 
   events:
     'click a': "clickMenu"
