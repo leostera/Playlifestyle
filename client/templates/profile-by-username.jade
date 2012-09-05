@@ -63,15 +63,16 @@ section.row#profile
               section.row
                 section.twelve.columns
                   h3 Follows
-                  #put-follows-here
+                  ul.follows#put-follows-here
                   h3 Followers
-                  #put-followers-here
+                  ul.follows#put-followers-here
 
 
   section.three.columns#right
     img(src="http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}",width="150px",height="150px")
     button.button.btn#follow Follow
-    button.hide.button.btn#message Message
+    button.hide.button.disabled.btn#unfollow Following
+    button.button.btn#message Send Message
     button.hide.button.btn#invite Invite
 
     section#statistics

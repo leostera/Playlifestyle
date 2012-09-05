@@ -23,14 +23,23 @@ class ProfilePartial extends Backbone.View
     if _.isEmpty window.MainRouter.User.following
       @$('#put-follows-here').append("Apparently you don't like people.")
     else
-      _.each window.MainRouter.User.following, (f) ->
-        @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: f.username } )
+      _.each window.MainRouter.User.following, (f) =>
+        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+          if res.status is yes
+            console.log res
+            @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+        )
+        
 
     if _.isEmpty window.MainRouter.User.followers
       @$('#put-followers-here').append("People doesn't like you.")
     else
-      _.each window.MainRouter.User.followers, (f) ->
-        @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: f.username } )
+      _.each window.MainRouter.User.followers, (f) =>
+        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+          if res.status is yes
+            console.log res
+            @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+        )
     @
 
   save: (e) =>
@@ -94,7 +103,7 @@ class ProfilePartial extends Backbone.View
     'click button#saveBio' : "save"
     'click button#changePicture' : "changePicture"
     'change #new-picture' : "uploadPicture"
-    'click a#user' : 'rerouteToUser'
+    'click li a' : 'rerouteToUser'
     
 exports.init = (options={}) ->
   new ProfilePartial(options)
