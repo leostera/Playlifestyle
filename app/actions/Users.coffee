@@ -97,6 +97,7 @@ Unfollow = module.exports.Unfollow = (follower, folowee, fn) ->
     fn(null,0)
 
 UploadProfilePicture = module.exports.UploadProfilePicture = (user, image, fn) ->
+  #This should also save resized version of the image!
   fu = require('../utils/FileUploader')
 
   destination = "/users/#{user.username}/profile/#{image.timestamp}.#{image.type.split('/')[1]}"
