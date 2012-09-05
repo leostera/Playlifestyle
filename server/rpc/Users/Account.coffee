@@ -25,7 +25,7 @@ exports.actions = (req, res, ss) ->
         res { status: no, message: 'Nothing happened'}
       )
 
-  ShowUser: (user) ->
+  GetUser: (user) ->
     ss.App.Actions.Users.Get(user, (err, usr) =>
       if err is null
         res {status:yes, user: usr}
@@ -43,25 +43,30 @@ exports.actions = (req, res, ss) ->
       else
         res {status: no, message: err}
 
-  Follow: (user) ->
-    ss.App.Actions.Users.Follow req.session.user, user, (err, numAffected) =>
+  Follow: (userToFollow) ->
+    ss.App.Actions.Users.Follow req.session.user, userToFollow, (err, numAffected) =>
       if err is null and numAffected == 1
-        ss.App.Actions.Users.Get req.session.user, (err, usr) =>
+        ss.App.Actions.Users.Get {username: req.session.user.username}, (err, usr) =>
           req.session.user = usr
           req.session.save()
-          ss.App.Actions.Users.Get user, (err, followee) =>
+
+          ss.App.Actions.Users.Get {username: userToFollow.username}, (err, followee) =>
+            console.log "Following #{userToFollow.username}", usr, followee
             res { status: yes, user: req.session.user, followee: followee }
+
       else
         res { status: no, message: "#$%\"& you already following this guy!"}
 
-  Unfollow: (user) ->
-    ss.App.Actions.Users.Unfollow req.session.user, user, (err, numAffected) =>
+  Unfollow: (userToUnfollow) ->
+    ss.App.Actions.Users.Unfollow req.session.user, userToUnfollow, (err, numAffected) =>
       if err is null and numAffected == 1
-        ss.App.Actions.Users.Get req.session.user, (err, usr) =>
+        ss.App.Actions.Users.Get {username: req.session.user.username}, (err, usr) =>
           req.session.user = usr
           req.session.save()
-          ss.App.Actions.Users.Get user, (err, followee) =>
+
+          ss.App.Actions.Users.Get {username: userToUnfollow.username}, (err, followee) =>
             res { status: yes, user: req.session.user, followee: followee }
+
       else
         res { status: no, message: "#$%\"& you ain't following this guy!"}
   }
