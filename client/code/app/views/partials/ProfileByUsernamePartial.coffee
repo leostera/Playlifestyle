@@ -4,7 +4,7 @@ class ProfileByUsernamePartial extends Backbone.View
 
   initialize: (options) =>
     # Get the username from the parameters
-    @username = options.username
+    @username = options.username    
     # Initialize the user object
     @user = {}
     # Get the view element from the parameters
@@ -12,13 +12,16 @@ class ProfileByUsernamePartial extends Backbone.View
     # Hide it
     @$el.hide()
 
+    @startFollowing = @startUnfollowing = false
+
     # Make an RPC to get the user information
-    ss.rpc('Users.Account.ShowUser', {username: @username}, (res) =>
+    ss.rpc('Users.Account.GetUser', {username: @username}, (res) =>
       # If the result status is true
       if res.status is yes
         # Save the result user
         @user = res.user
         # And render the view
+        console.log @user
         @render()
 
         # Then show the view
@@ -46,63 +49,72 @@ class ProfileByUsernamePartial extends Backbone.View
 
     # Manage unfollowing behaviour
     if found
-      @$('button#follow').addClass('disabled').html('Following').hover( (e) =>
-          @$('button#follow').html('Unfollow').removeClass('disabled').addClass('button-warning')
+      @$('button#follow').addClass('hide')
+      @$('button#unfollow').removeClass('hide').hover( (e) =>
+          @$('button#unfollow').html('Unfollow').removeClass('disabled').addClass('btn-warning')
         , (e) =>
-          @$('button#follow').html('Following').addClass('disabled').removeClass('button-warning')
-      ).click @unfollow
+          @$('button#unfollow').html('Following').addClass('disabled').removeClass('btn-warning')
+      )
 
     # Manage Social profile-tab behaviour
     if _.isEmpty @user.following
-      @$('#put-follows-here').append("This guy doesn't like much people.")
+      @$('#put-follows-here').append("Apparently you don't like people.")
     else
-      _.each @user.following, (f) ->
-        @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: f.username } )
+      _.each @user.following, (f) =>
+        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+          if res.status is yes
+            console.log res
+            @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+        )
+        
 
     if _.isEmpty @user.followers
-      @$('#put-followers-here').append("People doesn't like this guy.")
+      @$('#put-followers-here').append("People doesn't like you.")
     else
-      _.each @user.followers, (f) ->
-        @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: f.username } )
-    
+      _.each @user.followers, (f) =>
+        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+          if res.status is yes
+            console.log res
+            @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+        )    
     # Return itself      
     @
 
   follow: (e)=>
     e.preventDefault()
-    if @$(e.srcElement).hasClass('disabled')
-      return
-
     ss.rpc("Users.Account.Follow", @user, (res) =>
-      console.log res
+      console.log @user, window.MainRouter.User, res
       if res.status is yes
         @user = res.followee
         window.MainRouter.User = res.user
         alert("Great, you are now following #{@username}!")
-        @$('button#follow').addClass('disabled').html('Following')
+        @render()
     )
 
   unfollow: (e) =>
     e.preventDefault()
-
-    ss.rpc("Users.Account.Unfollow", @user, (res) =>
-      console.log res
-      if res.status is yes
-        @user = res.followee
-        window.MainRouter.User = res.user
-        alert("How sad, you stopped following #{@username}!")
-        @$('button#follow').removeClass('disabled').html('Follow')
-    )
+    if @startUnfollowing is false
+      ss.rpc("Users.Account.Unfollow", @user, (res) =>
+        console.log res
+        if res.status is yes
+          @user = res.followee
+          window.MainRouter.User = res.user
+          alert("How sad, you stopped following #{@username}!")
+          @render()
+          @startUnfollowing = true
+        else
+          @startUnfollowing = false
+      )
 
   rerouteToUser: (e) =>
     e.preventDefault()
+    console.log @$(e.srcElement).attr('href')
     window.MainRouter.navigate @$(e.srcElement).attr('href'), true
 
   events:
     'click button#follow' : "follow"
-    'click button#message': "render"
-    'click button#invite' : "render"
-    'click a#user' : 'rerouteToUser'
+    'click button#unfollow' : "unfollow"
+    'click ul.follows li a' : 'rerouteToUser'
     
 exports.init = (options={}) ->
   new ProfileByUsernamePartial(options)

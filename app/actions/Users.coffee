@@ -14,7 +14,7 @@ Geolocate = module.exports.Geolocate =  (data, fn) ->
                 lon: data.longitude
                 }
               } 
-            }        
+            }
 
   UserModel.update({email: data.user.email}, options, (err, num) =>
     if num is 1
@@ -53,8 +53,8 @@ Get = module.exports.Get = (user, fn) ->
 
 Follow = module.exports.Follow = (follower, folowee, fn) ->
   conditions = { _id: follower._id, password: follower.password}
-  result = _.find follower.following, (f) -> return (f.id is folowee._id)
   console.log folowee
+  result = _.find follower.following, (f) -> return (f.id is folowee._id)
   if result is undefined
     #update the guy being followed
     folowee.followers.push {id: follower._id, username: follower.username}
