@@ -7,7 +7,7 @@
     "node": "~0.8.8"
   }
   , "dependencies": {
-      "socketstream": "git://github.com/socketstream/socketstream.git#master"
+      "socketstream": "git://github.com/leostera/socketstream.git#master"
     , "knox": "git://github.com/LearnBoost/knox.git"
     , "ss-coffee": ">= 0.1.x"
     , "ss-jade": ">= 0.1.x"
