@@ -1,156 +1,151 @@
 nav
-  z-index 2
-  position relative
-  padding 5px 0px
-  padding-top 10px
+  .navbar.navbar-inverse
+    .navbar-inner#inner
+      border 0
+      border-radius 0
+      background: -moz-linear-gradient(#FAFAFA, #EAEAEA);
+      background: -webkit-linear-gradient(#FAFAFA, #EAEAEA);
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#eaeaea')";
+      border-bottom: 1px solid #CACACA;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4),0 0px 10px rgba(0, 0, 0, 0.1);
 
-  section#inner    
-    background-color #CCC
-    height 45px
-    padding 10px
-
-    background: #eaeaea; /* Old browsers */
-    background: -moz-linear-gradient(top, #eaeaea 0%, #d1d1d1 50%, #c6c6c6 51%, #cecece 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eaeaea), color-stop(50%,#d1d1d1), color-stop(51%,#c6c6c6), color-stop(100%,#cecece)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #eaeaea 0%,#d1d1d1 50%,#c6c6c6 51%,#cecece 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #eaeaea 0%,#d1d1d1 50%,#c6c6c6 51%,#cecece 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #eaeaea 0%,#d1d1d1 50%,#c6c6c6 51%,#cecece 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #eaeaea 0%,#d1d1d1 50%,#c6c6c6 51%,#cecece 100%); /* W3C */
-    
-    border-radius: 2px
-    -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.5);
-
-  section.dropdown
-    cursor pointer
-    
-    ul
-      margin-top 30px
-      border-radius 6px
-
-  section#logout
-    float right
-    a
-      opacity 0.5
-      display block
-      width 32px
-      height 32px
-      background transparent url('http://d3jzxruh9il70w.cloudfront.net/images/logout-icon.png') no-repeat 9px center
-      margin-top -4px
-      margin-right 3px
-    a:hover
-      opacity 1
-
-  section#search
-    float right
-    margin-top -3px
-
-    input
-      outline none
-
-    input::-webkit-search-decoration,input::-webkit-search-cancel-button
-      display none
-       /* remove the search and cancel icon */
-
-    /* search input field */
-    input[type=search]
-      -webkit-appearance textfield
-      -webkit-box-sizing content-box
-      font-family inherit
-      -size 100%
-      background #ededed url('http://d3jzxruh9il70w.cloudfront.net/images/search-icon.png') no-repeat 9px center
-      border solid 1px #ccc
-      padding 9px 10px 9px 32px
-      width 60px
-      height 10px
-      -webkit-border-radius 10em
-      -moz-border-radius 10em
-      border-radius 10em
-      -webkit-transition all .5s
-      -moz-transition all .5s
-      transition all .5s
-    
-    input[type=search]:focus
-      width 140px
-      background-color #fff
-      border-color #6dcff6
-      -webkit-box-shadow 0 0 5px rgba(109,207,246,.5)
-      moz-box-shadow 0 0 5px rgba(109,207,246,.5)
-      box-shadow 0 0 5px rgba(109,207,246,.5)
-    
-    /* placeholder */
-    input:-moz-placeholder
-      color #999
-
-    input::-webkit-input-placeholder
-      color #999
-
-  section#profile
-    float left    
-    padding 0px
-    img
-      margin-top -3px
-      margin-right 5px
-    img, span
-      float left
-    span#username
-      font-weight bold
-      margin-right 3px      
-    span#location
-      font-style italic
-      font-weight ligther
-      color #666
-
-
-  section#toolbar
-    position absolute
-    float left
-    margin-top -5px
-    margin-left 218px
-    a
-      opacity 0.5
-      transition opacity .2s
-      float left
-      width 32px
-      height 32px
-    a:hover
-      opacity 1
-
-    #play
-      background url('http://d3jzxruh9il70w.cloudfront.net/images/play-icon.png') no-repeat 9px center
-    #msg
-      background url('http://d3jzxruh9il70w.cloudfront.net/images/msg-icon.png') no-repeat 9px center
-    #cog
-      background url('http://d3jzxruh9il70w.cloudfront.net/images/cog-icon.png') no-repeat 9px center
-      border-right 1px solid gray
-      padding 23px
-      margin-top -5px
-
-  section#categories
-    position absolute
-    float left
-    height 45px
-    margin-left 350px
-    ul
-      margin-left 50px
-      min-height 45px
-      li
+      padding 3px      
+      
+        
+      section.dropdown
         cursor pointer
-        display inline
-        padding 12px 10px
-        padding-bottom 15px
-        min-height 45px
-        -webkit-transition color .2s ease
-        -moz-transition color .2s ease
-        transition color .2s ease
+        ul
+          margin-top 30px
+          border-radius 6px
+        b.caret.dropdown-toggle
+          margin-top 18px
+
+      section#logout
+        float right
         a
-          color #333          
-      li:hover
-        a
+          opacity 0.5
+          display block
+          width 32px
+          height 32px
+          background transparent url('http://d3jzxruh9il70w.cloudfront.net/images/logout-icon.png') no-repeat 9px center
+          margin-top -4px
+          margin-right 3px
+        a:hover
+          opacity 1
+
+      section#search
+        float right
+        margin-top -3px
+
+        input
+          outline none
+
+        input::-webkit-search-decoration,input::-webkit-search-cancel-button
+          display none
+           /* remove the search and cancel icon */
+
+        /* search input field */
+        input[type=search]
+          -webkit-appearance textfield
+          -webkit-box-sizing content-box
+          font-family inherit
+          -size 100%
+          background #ededed url('http://d3jzxruh9il70w.cloudfront.net/images/search-icon.png') no-repeat 9px center
+          border solid 1px #ccc
+          padding 9px 10px 9px 32px
+          width 60px
+          height 10px
+          -webkit-border-radius 10em
+          -moz-border-radius 10em
+          border-radius 10em
+          -webkit-transition all .5s
+          -moz-transition all .5s
+          transition all .5s
+        
+        input[type=search]:focus
+          width 140px
+          background-color #fff
+          border-color #6dcff6
+          -webkit-box-shadow 0 0 5px rgba(109,207,246,.5)
+          moz-box-shadow 0 0 5px rgba(109,207,246,.5)
+          box-shadow 0 0 5px rgba(109,207,246,.5)
+        
+        /* placeholder */
+        input:-moz-placeholder
+          color #999
+
+        input::-webkit-input-placeholder
+          color #999
+
+      section#profile
+        float left    
+        padding 0px
+        img
+          margin-right 5px
+        img, span
+          float left
+        span#avatar, img
+          border-radius 5px
+        span#username
+          margin-top 10px
+          font-weight bold
+          margin-right 3px      
+        span#location
+          margin-top 10px
+          font-style italic
+          font-weight ligther
           color #666
 
-    form
-      margin-top -2px
-      select
-        border-radius 5px
-        width 120px
+
+      section#toolbar
+        position absolute
+        float left
+        margin-top -5px
+        margin-left 218px
+        a
+          opacity 0.5
+          transition opacity .2s
+          float left
+          width 32px
+          height 32px
+        a:hover
+          opacity 1
+
+        #play
+          background url('http://d3jzxruh9il70w.cloudfront.net/images/play-icon.png') no-repeat 9px center
+        #msg
+          background url('http://d3jzxruh9il70w.cloudfront.net/images/msg-icon.png') no-repeat 9px center
+        #cog
+          background url('http://d3jzxruh9il70w.cloudfront.net/images/cog-icon.png') no-repeat 9px center
+          border-right 1px solid gray
+          padding 23px
+          margin-top -5px
+
+      section#categories
+        position absolute
+        float left
+        height 45px
+        margin-left 350px
+        ul
+          margin-left 50px
+          min-height 45px
+          li
+            cursor pointer
+            display inline
+            padding 12px 10px
+            padding-bottom 15px
+            min-height 45px
+            -webkit-transition color .2s ease
+            -moz-transition color .2s ease
+            transition color .2s ease
+            a
+              color #333          
+          li:hover
+            a
+              color #666
+
+        form
+          margin-top -2px
+          select
+            border-radius 5px
+            width 120px
