@@ -1,61 +1,32 @@
-section.eleven.columns.centered#inner
-  section#dropdown.dropdown
-    section#profile
-      span#avatar
-        a(href="/profile/avatar")
-          img(src="http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}", height="32px")#avatar
-      span#username
-        a(href="/profile") {{ user.username }}     
-      span#location 
-        a(href="/relocate") ({{user.location.region}})
+.navbar.navbar-inverse
+  .navbar-inner#inner
+    .container-fluid
+      a.btn.btn-navbar.collapsed(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
 
-    b.caret.dropdown-toggle(data-toggle="dropdown", data-target="ul#dropdown", style="float: left; padding: 10px 0px;")
+      section#dropdown.dropdown
+        section#profile
+          span#avatar
+            a(href="/profile/avatar")
+              img(src="http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}", height="32px", width="32px")#avatar
+          span#username
+            a(href="/profile") {{ user.username }}     
+          span#location 
+            a(href="/relocate") ({{user.location.region}})
 
-    ul.dropdown-menu#menu
-      li
-        a(href="/relocate") Relocate
+        b.caret.dropdown-toggle(data-toggle="dropdown", data-target="ul#dropdown", style="float: left; padding: 10px 0px;")
 
-  section#toolbar
-    a(href="/messages")#msg
-    a(href="/settings")#cog
-    a(href="/featured")#play.hide-for-medium
-    a#play.show-for-medium.dropdown-toggle(data-toggle="dropdown", data-target="ul#dropdown-category")
+        ul.dropdown-menu#menu
+          li
+            a(href="/relocate") Relocate
 
-  section#categories.show-for-medium
-    ul.dropdown-menu#dropdown-category
-      li
-        a(href="/nightlife") Nightlife
-      li
-        a(href="/arts") Arts
-      li
-        a(href="/shows") Shows
-      li
-        a(href="/sports") Sports
-      li
-        a(href="/culinary") Culinary
-      li
-        a(href="/buzz") Buzz
+      .nav-collapse
+        p.navbar-text.pull-right
+          section#logout
+            a(href="/logout")#logout
 
-  section#categories.hide-for-medium.hide-for-small
-    ul
-      li
-        a(href="/nightlife") Nightlife
-      li
-        a(href="/arts") Arts
-      li
-        a(href="/shows") Shows
-      li
-        a(href="/sports") Sports
-      li
-        a(href="/culinary") Culinary
-      li
-        a(href="/buzz") Buzz
-
-  section#logout
-    a(href="/logout")#logout
-
-  section#search
-    form
-      input(type="search",placeholder="Look up anything...")
-
-
+          section#search
+            form
+              input(type="search",placeholder="Look up anything...")

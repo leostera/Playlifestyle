@@ -1,17 +1,15 @@
-form#login
-
-  fieldset
-
-    section#errors.control-group.hide
-      label.control-label Please fill in both fields
-
-    section.eight.column.control-group#fields
-      input(type="text", placeholder="username")#username
-      input(type="password",placeholder="password")#password
-    section.four.column
-      button#login.button Go!      
-      p
-        a(href="#") Can't login?
-
-    section.twelve.columns
-      button.button.btn-success#register Register right now
+form.form-horizontal#login
+  section#errors.control-group.hide
+    label.control-label Please fill in both fields
+  .control-group
+    label.control-label(for='inputEmail') Username
+    .controls
+      input#username(type='text', placeholder='Email')
+  .control-group
+    label.control-label(for='inputPassword') Password
+    .controls
+      input#password(type='password', placeholder='Password')
+  .control-group
+    .controls
+      button.btn#login Sign in
+      button.btn.btn-success#register Register right now

@@ -6,6 +6,19 @@ html
     meta(name='keywords', content='Play Lifestyle, Play Life Style, Play Canada')
     meta(name='description', description='It\'s your play ground.')          
 
+    style(src="//css.cdn.tl/normalize.css")
+    style(src="//twitter.github.com/bootstrap/assets/css/bootstrap.css")
+
+    script(src="//css3-mediaqueries-js.googlecode.com/files/css3-mediaqueries.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.4/bootstrap.min.js")
+
+    script(src="http://thecodeplayer.com/uploads/js/prefixfree.js")
+    script(src="http://maps.google.com/maps/api/js?libraries=places&sensor=true")   
+
     style
         body {
           font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
@@ -14,9 +27,10 @@ html
           background-color: #F2F2F2;
         }
 
-        section#body{
-          position: relative;
-          top: 10%;
+        #loader {
+          float: center;
+          margin: 0 auto;
+          margin-top: 22%;
         }
 
         #loader span {
@@ -155,26 +169,17 @@ html
           }
         }
 
-    script(src="//css3-mediaqueries-js.googlecode.com/files/css3-mediaqueries.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.4/bootstrap.min.js")
   body
-    nav.row#nav
-    section.row#body
-      section.one.columns.centered#loader(style="text-align:center;")
-        span Loading
-        span.l-1
-        span.l-2
-        span.l-3
-        span.l-4
-        span.l-5
-        span.l-6
-    footer.row#foot
-
-    script(src="http://thecodeplayer.com/uploads/js/prefixfree.js")
-    script(src="http://maps.google.com/maps/api/js?libraries=places&sensor=true")   
+    nav
+    section.container-fluid
+      section.row-fluid#body
+        section.span1#loader
+          span Loading
+          span.l-1
+          span.l-2
+          span.l-3
+          span.l-4
+          span.l-5
+          span.l-6
 
     != SocketStream

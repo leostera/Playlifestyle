@@ -1,98 +1,82 @@
-section.row#profile
-  section.nine.columns
-    section.row
-      section.twelve.columns#heading
-        h2 {{ user.name.first }} {{ user.name.last }}
-        section#icons
-          i.user-icon
-          h4#username {{ user.username }} 
-          i.location-icon
-          h4#location {{ user.location.str }}
-          i.hometown-icon
-          h4#hometown {{ user.hometown }}
+.row-fluid#profile
+  .span9
+    .span12#heading
+      h2 {{ user.name.first }} {{ user.name.last }}
+      section#icons
+        i.user-icon
+        h4#username {{ user.username }} 
+        i.location-icon
+        h4#location {{ user.location.str }}
+        i.hometown-icon
+        h4#hometown {{ user.hometown }}
 
+    section#menu
+      ul.nav.nav-tabs
+        li.active
+          a(data-target="section.tab-pane#home", data-toggle="tab") Home
+        li
+          a(data-target="section.tab-pane#info", data-toggle="tab") Info
+        li
+          a(data-target="section.tab-pane#buddies", data-toggle="tab") Social
+        li
+          a(data-target="section.tab-pane#interests", data-toggle="tab") Interests
+        li
+          a(data-target="section.tab-pane#companies", data-toggle="tab") Companies
 
-    section.row
-      section.twelve.columns
-        section#menu
-          ul.nav.nav-tabs.horizontal-list
-            li.active(data-target="section.tab-pane#home", data-toggle="tab")
-              a Home
-            li(data-target="section.tab-pane#info", data-toggle="tab")
-              a Info
-            li(data-target="section.tab-pane#buddies", data-toggle="tab")
-              a Social
-            li(data-target="section.tab-pane#interests", data-toggle="tab")
-              a Interests
-            li(data-target="section.tab-pane#companies", data-toggle="tab")
-              a Companies
+    section.tab-content#sections
+      section.tab-pane.active#home
+        section#bio
+          blockquote
+            textarea#bio {{ user.bio }}
 
-        section.tab-content#sections
-            section.tab-pane.active#home
-              section.row
-                section.twelve.columns
-                  section#bio
-                    blockquote
-                      textarea#bio {{ user.bio }}
+        section#buttons.pull-right
+          button.btn.btn-primary#saveBio Save 
 
-                section.four.columns.centered
-                  section#buttons.pull-right
-                    button.button.btn-primary#saveBio Save 
+      section.tab-pane#info
+        form.form-horizontal
+          fieldset
+            .control-group#birthday
+              label.control-label Birthday
+              .controls
+                span.uneditable-input.input-xlarge#birthday {{ user.birthday }}
 
-            section.tab-pane#info
-              section.row
-                section.twelve.columns
-                  form.form-horizontal
-                    fieldset
-                      .control-group#birthday
-                        label.control-label Birthday
-                        .controls
-                          span.uneditable-input.input-xlarge#birthday {{ user.birthday }}
+            .control-group#name
+              label.control-label Full name
+              .controls
+                input.input-medium(type="text", value="{{ user.name.first }}")#firstname
+                input.input-medium(type="text", value="{{ user.name.last }}")#lastname
 
-                      .control-group#name
-                        label.control-label Full name
-                        .controls
-                          input.input-medium(type="text", value="{{ user.name.first }}")#firstname
-                          input.input-medium(type="text", value="{{ user.name.last }}")#lastname
+            .control-group#gender
+              label.control-label Gender
+              .controls
+                label.radio
+                  input#gender-male(type='radio', name='gender', value='male')
+                  | Male
+                label.radio
+                  input#gender-female(type='radio', name='gender', value='female')
+                  | Female
 
-                      .control-group#gender
-                        label.control-label Gender
-                        .controls
-                          label.radio
-                            input#gender-male(type='radio', name='gender', value='male')
-                            | Male
-                          label.radio
-                            input#gender-female(type='radio', name='gender', value='female')
-                            | Female
+            .control-group#hometown
+              label.control-label Hometown
+              .controls
+                input.input-xlarge(type="text", value="{{ user.hometown }}")#hometown
 
-                      .control-group#hometown
-                        label.control-label Hometown
-                        .controls
-                          input.input-xlarge(type="text", value="{{ user.hometown }}")#hometown
+        section#buttons.pull-right
+          button.btn.btn-primary#saveInfo Save 
 
-                section.four.columns.centered
-                  section#buttons.pull-right
-                    button.button.btn-primary#saveInfo Save 
+      section.tab-pane#buddies
+        h3 Follows
+        ul.follows#put-follows-here
+        h3 Followers
+        ul.follows#put-followers-here
 
-            section.tab-pane#buddies
-              section.row
-                section.twelve.columns
-                  h3 Follows
-                  ul.follows#put-follows-here
-              section.row
-                section.twelve.columns
-                  h3 Followers
-                  ul.follows#put-followers-here
-
-
-
-  section.three.columns#right
+  .span3#right
     img(src="http://d3jzxruh9il70w.cloudfront.net/images/loading.gif")#loadingoverlay
     img(src="http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}",width="150px",height="150px")#picture
-    button.button.btn#changePicture Change Picture
+    button.btn.btn#changePicture Change Picture
     form(action="http://d3jzxruh9il70w.cloudfront.net/images/",method="post")#picture
       input(type="file").hide#new-picture
-    button.button.btn Relocate    
+    button.btn.btn Relocate    
 
     section#statistics
       span#joindate Joined {{ user.joindate }}

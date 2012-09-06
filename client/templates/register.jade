@@ -1,9 +1,9 @@
-section.twelve.columns
+section.span12
   #wait.hide
     h2 Your account is being created
     p Please, wait a moment...
     br
-    section.twelve.columns#loader(style="text-align:center;")
+    section#loader(style="text-align:center;")
       span Loading
       span.l-1
       span.l-2
@@ -24,8 +24,8 @@ section.twelve.columns
   form.form-horizontal#register
 
     .control-group#username-cg
-      label.control-label.hide-for-small(for="username") Username
-      .controls.hide-for-small
+      label.control-label(for="username") Username
+      .controls
         .input-append
           input(type="text").input-xlarge#username
           span.add-on#ok
@@ -36,8 +36,8 @@ section.twelve.columns
         p.help-block#message Any username starting with a letter will do.
 
     .control-group#password-cg
-      label.control-label.hide-for-small(for="password") Password
-      .controls.hide-for-small
+      label.control-label(for="password") Password
+      .controls
         .input-append
           input(type="text").input-xlarge#password
           span.add-on#ok
@@ -48,7 +48,7 @@ section.twelve.columns
         p.help-block#message Minimum 8 alphanumeric characters.
 
     .control-group#email-cg
-      label.control-label.hide-for-small(for="email") Email
+      label.control-label(for="email") Email
       .controls.hide-for-small
         .input-append
           input(type="text").input-xlarge#email
@@ -58,38 +58,17 @@ section.twelve.columns
             i.icon-remove
         p.help-block#message Please enter a valid email for account activation.
 
-      .input-append.show-for-small
-        label(for="email")
-          span Email
-          span.label-icon#ok
-            i.icon-ok
-          span.label-icon#error
-            i.icon-remove
-        input(type="text")#email
-
-        p.help-block.hide-for-small#message Valid email for account activation.
-
     .control-group#birthday-cg
-      label.control-label.hide-for-small(for="birthday") Birthday
-      .controls.hide-for-small
+      label.control-label(for="birthday") Birthday
+      .controls
         .input-append
-          input(type="text").input-xlarge#birthday
-          span.add-on#ok
-            i.icon-ok
-          span.add-on#error
-            i.icon-remove
-        p.help-block#message Only 16+
-
-      .input-append.show-for-small
-        label(for="birthday")
-          span Birthday
+          input(type="text")#birthday
           span.label-icon#ok
             i.icon-ok
           span.label-icon#error
-            i.icon-remove
-        input(type="text")#birthday
+            i.icon-remove            
 
-        p.help-block.hide-for-small#message Only 16+ please :)
+        p.help-block#message Only 16+ please :)
 
     div#map(width="200px", height="180px")
 
@@ -107,5 +86,5 @@ section.twelve.columns
 
     .control-group
       .controls      
-        button.button.disabled.btn-success#register Let's do this!
-        button.button.right#back Go back
+        button.btn.disabled.btn-success#register Let's do this!
+        button.btn.right#back Go back
