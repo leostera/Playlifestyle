@@ -34,6 +34,8 @@ server.listen 3000, "localhost"
 
 # Bind tasks, this could live inside a tasks folder I guess
 ss.events.on "assets:packaged", () ->
+  console.log "Deploy assets..."
+  
   s3client = require('./config/storage').getClient()
   fs = require('fs')
 
