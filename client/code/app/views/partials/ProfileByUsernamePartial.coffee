@@ -42,6 +42,7 @@ class ProfileByUsernamePartial extends Backbone.View
       alert("Crap! User is gone!")
     if window.MainRouter.User.username is @user.username
       @$('button#follow').remove()
+      @$('button#message').remove()
 
     # Try to find the user within the following list
     findIt = (f) => f.username is @user.username
@@ -111,10 +112,15 @@ class ProfileByUsernamePartial extends Backbone.View
     console.log @$(e.srcElement).attr('href')
     window.MainRouter.navigate @$(e.srcElement).attr('href'), true
 
+  compose: (e) =>
+    e.preventDefault()
+    $('.modal#message').modal('show')
+
   events:
     'click button#follow' : "follow"
     'click button#unfollow' : "unfollow"
-    'click ul.follows li a' : 'rerouteToUser'
+    'click ul.follows li a img' : 'rerouteToUser'
+    'click button#message' : "compose"
     
 exports.init = (options={}) ->
   new ProfileByUsernamePartial(options)

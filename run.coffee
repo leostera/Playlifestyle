@@ -32,24 +32,3 @@ if ss.env == 'production'
 server = http.Server ss.http.middleware
 server.listen 3000, "localhost"
 ss.start server
-
-###
-ss.events.on "server:start", ->
-  console.log "Server started, binding to assets:packaged event..."
-  ##
-  if ss.env
-    #put assets in s3 Bucket
-    ss.events.on 'assets:packaged', =>
-      console.log "Assets ready for deployment, initializing process..."
-      ##
-      s3client = require('./config/storage').getClient()
-      fs.readdir('./client/static/assets/main', (err, files) =>
-        if files
-          for f in files
-            console.log "Queued to upload compressed asset #{f}"
-            s3client.putFile("./client/static/assets/main/#{f}", "assets/main/#{f}", (errPutFile, result) =>
-              if errPutFile then throw errPutFile
-              if 200 is result?.statusCode then console.log "Compressed asset #{f} up in Amazon S3 Bucket"
-              else console.log "Failed to upload compressed asset #{f} to Amazon S3 Bucket"
-            )                   
-      )

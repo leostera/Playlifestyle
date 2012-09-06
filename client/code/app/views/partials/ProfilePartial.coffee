@@ -96,14 +96,14 @@ class ProfilePartial extends Backbone.View
 
   rerouteToUser: (e) =>
     e.preventDefault()
-    window.MainRouter.navigate @$(e.srcElement).attr('href'), true
+    window.MainRouter.navigate @$(e.srcElement).parent().attr('href'), true
 
   events:
     'click button#saveInfo' : "save"
     'click button#saveBio' : "save"
     'click button#changePicture' : "changePicture"
     'change #new-picture' : "uploadPicture"
-    'click li a' : 'rerouteToUser'
+    'click ul.follows li a img' : 'rerouteToUser'
     
 exports.init = (options={}) ->
   new ProfilePartial(options)
