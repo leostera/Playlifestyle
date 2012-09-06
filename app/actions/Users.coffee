@@ -109,7 +109,7 @@ UploadProfilePicture = module.exports.UploadProfilePicture = (user, image, fn) -
 
   fu.putBuffer( rawData, destination, headers, (err, res) ->
     if 200 is res.statusCode
-      conditions = { _id: user._id, password: user.password}
+      conditions = { _id: user._id, password: user.password }
       user.avatar = destination
 
       Update(conditions, user, fn)
