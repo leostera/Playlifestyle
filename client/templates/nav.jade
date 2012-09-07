@@ -6,21 +6,15 @@
         span.icon-bar
         span.icon-bar
 
-      section#dropdown.dropdown
-        section#profile
-          span#avatar
-            a(href="/profile/avatar")
-              img(src="http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}", height="32px", width="32px")#avatar
-          span#username
-            a(href="/profile") {{ user.username }}     
-          span#location 
-            a(href="/relocate") ({{user.location.region}})
-
-        b.caret.dropdown-toggle(data-toggle="dropdown", data-target="ul#dropdown", style="float: left; padding: 10px 0px;")
-
-        ul.dropdown-menu#menu
-          li
-            a(href="/relocate") Relocate
+      
+      section#profile
+        span#avatar
+          a(href="/profile/avatar")
+            img(src="http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}", height="32px", width="32px")#avatar
+        span#username
+          a(href="/profile") {{ user.username }}     
+        span#location 
+          a(href="/relocate") ({{user.location.region}})
 
       .nav-collapse
         p.navbar-text.pull-right
