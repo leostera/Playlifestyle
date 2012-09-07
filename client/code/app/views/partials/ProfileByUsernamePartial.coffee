@@ -21,8 +21,7 @@ class ProfileByUsernamePartial extends Backbone.View
         # Save the result user
         @user = res.user
         # And render the view
-        console.log @user
-        @render()
+        @render()        
 
         # Then show the view
         @$el.fadeIn('fast') 
@@ -38,6 +37,8 @@ class ProfileByUsernamePartial extends Backbone.View
     # Render the template with the user
     @$el.html @template.render {user: @user}
 
+    @messageModal = require('../modals/ComposeMessage').init({el: ".modals", modal: 'hide'})
+    
     if @user is {}
       alert("Crap! User is gone!")
     if window.MainRouter.User.username is @user.username
@@ -114,7 +115,7 @@ class ProfileByUsernamePartial extends Backbone.View
 
   compose: (e) =>
     e.preventDefault()
-    $('.modal#message').modal('show')
+    @messageModal.show()
 
   events:
     'click button#follow' : "follow"

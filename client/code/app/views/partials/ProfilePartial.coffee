@@ -40,6 +40,7 @@ class ProfilePartial extends Backbone.View
             console.log res
             @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
         )
+
     @
 
   save: (e) =>
@@ -97,6 +98,7 @@ class ProfilePartial extends Backbone.View
   rerouteToUser: (e) =>
     e.preventDefault()
     window.MainRouter.navigate @$(e.srcElement).parent().attr('href'), true
+
 
   events:
     'click button#saveInfo' : "save"
