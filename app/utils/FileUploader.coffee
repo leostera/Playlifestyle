@@ -1,1 +1,1 @@
-module.exports = require('knox').createClient( require('../../config/storage') )
+module.exports = require('../../config/storage').getClient()
