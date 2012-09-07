@@ -22,14 +22,10 @@ class ProfileByUsernamePartial extends Backbone.View
         @user = res.user
         # And render the view
         @render()        
-
         # Then show the view
         @$el.fadeIn('fast') 
-
       else #otherwise
-        # Show message
         alert('User not found! Going back to home...')
-        # And go back home
         window.MainRouter.navigate '/home', true
     )
 
