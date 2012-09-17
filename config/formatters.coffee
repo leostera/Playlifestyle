@@ -4,4 +4,4 @@ module.exports = (ss) ->
   ss.client.formatters.add require 'ss-stylus'
   ss.client.formatters.add require 'ss-jade'
   # Template engine
-  ss.client.templateEngine.use require 'ss-hogan'
+  ss.client.templateEngine.use 'angular'

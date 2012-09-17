@@ -16,6 +16,8 @@ require('./config/formatters')(ss)
 require('./config/clients')(ss,require('./config/assets'))
 # Configure the routes for serving the clients
 require('./config/routes')(ss)
+# Configure the responders
+require('./config/responders')(ss)
 
 # Production config
 if ss.env == 'production'
@@ -32,22 +34,8 @@ if ss.env == 'production'
 server = http.Server ss.http.middleware
 server.listen 3000, "localhost"
 
-# Bind tasks, this could live inside a tasks folder I guess
-s3client = require('./config/storage').getClient()
-fs = require('fs')
-
-ss.events.on "assets:packaged", () =>
-  console.log "Deploy assets..."
-  fs.readdir('./client/static/assets/main', (err, files) =>
-    if files
-      for f in files
-        console.log "Queued to upload compressed asset #{f}"
-        s3client.putFile("./client/static/assets/main/#{f}", "assets/main/#{f}", (errPutFile, result) =>
-          if errPutFile then throw errPutFile
-          if 200 is result?.statusCode then console.log "Compressed asset #{f} up in Amazon S3 Bucket"
-          else console.log "Failed to upload compressed asset #{f} to Amazon S3 Bucket"
-        )                   
-  )
+# Configure tasks
+require('./tasks')(ss)
 
 # Now start the server
 ss.start server

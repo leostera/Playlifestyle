@@ -7,11 +7,6 @@ exports.actions = (req, res, ss) ->
   req.use 'debug', 'cyan'  
 
   {
-
-  SetLocation: (data={}) ->
-    data.user = req.session.user
-    ss.App.Actions.Users.Geolocate(data, res)    
-    
   Update: (obj) ->
     user = {_id: req.session.userId || req.session.user._id, password: req.session.user.password}
     ss.App.Actions.Users.Update(user, obj, (err, numAffected) =>
