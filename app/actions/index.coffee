@@ -1,2 +1,2 @@
 module.exports = 
-  Users: require('./Users')
+  users: require('./users')

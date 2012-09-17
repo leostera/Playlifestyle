@@ -8,7 +8,7 @@ exports.actions = (req, res, ss) ->
 
   {
 
-  Status: ->
+  status: ->
     #retrieve the current user session state
     #yes for logged in, currently valid
     #false for not logged in or currently not valid
@@ -20,9 +20,9 @@ exports.actions = (req, res, ss) ->
     else
       res {status: no, step: 0}
 
-  SignIn: (creds) ->
+  signIn: (creds) ->
     #sign a user in
-    ss.App.Actions.Users.SignIn(creds, (err, user) ->
+    ss.app.actions.users.signIn(creds, (err, user) ->
       if user
         req.session.setUserId(user._id)
         req.session.user = user
@@ -37,7 +37,7 @@ exports.actions = (req, res, ss) ->
           user: user
     )
 
-  SignOut: ->
+  signOut: ->
     #destroy de session!
     #make sure the user is not flagged as logged in in the db
     #make sure the session is marked as not valid anymore in the db
@@ -48,9 +48,9 @@ exports.actions = (req, res, ss) ->
       res status:yes
     res status:no
 
-  SignUp: (creds) ->
+  signUp: (creds) ->
 
-    ss.App.Actions.Users.SignUp(creds, (errors, user) ->
+    ss.app.actions.users.signUp(creds, (errors, user) ->
       if _.isEmpty errors
         req.session.setUserId(user.user)
         req.session.user = user

@@ -1,3 +1,3 @@
 module.exports=
-  Validators: require('./Validators')
-  FileUploader: require('./FileUploader')
+  validators: require('./Validators')
+  fileUploader: require('./FileUploader')

@@ -6,7 +6,7 @@ ss        = require('socketstream')
 console.log "Running in #{ss.env} environment."
 
 # Register our app to be accessed at ss.App in the server
-ss.api.add('App', require('./app'))
+ss.api.add('app', require('./app'))
 
 # Configure the database and initialize it
 require('./config/database')(ss)

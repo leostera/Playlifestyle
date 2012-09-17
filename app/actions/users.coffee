@@ -3,7 +3,7 @@ crypto = require('crypto')
 
 UserModel = require('../models/Account').model
 
-Geolocate = module.exports.Geolocate =  (data, fn) ->
+geolocate = module.exports.geolocate =  (data, fn) ->
   options = {
             $set: {
               located: yes,
@@ -27,11 +27,11 @@ Geolocate = module.exports.Geolocate =  (data, fn) ->
       fn { status: no }
   )
 
-SignIn = module.exports.SignIn = (creds, fn) ->  
+signIn = module.exports.signIn = (creds, fn) ->  
   UserModel.findOne {username: creds.username.toLowerCase(), password: crypto.createHash('md5').update(creds.password).digest("hex")}, (err, doc) ->
     fn(err,doc)
 
-SignUp = module.exports.SignUp = (creds, fn) ->
+signUp = module.exports.signUp = (creds, fn) ->
   newUser = new UserModel
     username: creds.username
     email: creds.email
@@ -43,15 +43,15 @@ SignUp = module.exports.SignUp = (creds, fn) ->
 
   newUser.save( fn )
 
-Update = module.exports.Update = (user, obj, fn) ->
+update = module.exports.update = (user, obj, fn) ->
   if obj._id
     delete obj._id
   UserModel.update(user, obj, fn)
 
-Get = module.exports.Get = (user, fn) ->
+get = module.exports.get = (user, fn) ->
   UserModel.findOne(user, fn)
 
-Follow = module.exports.Follow = (follower, folowee, fn) ->
+follow = module.exports.follow = (follower, folowee, fn) ->
   conditions = { _id: follower._id, password: follower.password}
   console.log folowee
   result = _.find follower.following, (f) -> return (f.id is folowee._id)
@@ -73,7 +73,7 @@ Follow = module.exports.Follow = (follower, folowee, fn) ->
   else
     fn(null,0)
 
-Unfollow = module.exports.Unfollow = (follower, folowee, fn) ->
+unfollow = module.exports.unfollow = (follower, folowee, fn) ->
   conditions = { _id: follower._id, password: follower.password}
 
   result = _.find follower.following, (f) -> return (f.id is folowee._id)
@@ -96,7 +96,7 @@ Unfollow = module.exports.Unfollow = (follower, folowee, fn) ->
   else
     fn(null,0)
 
-UploadProfilePicture = module.exports.UploadProfilePicture = (user, image, fn) ->
+uploadProfilePicture = module.exports.uploadProfilePicture = (user, image, fn) ->
   #This should also save resized version of the image!
   fu = require('../utils/FileUploader')
 

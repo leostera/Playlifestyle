@@ -24,7 +24,7 @@ class ProfilePartial extends Backbone.View
       @$('#put-follows-here').append("Apparently you don't like people.")
     else
       _.each window.MainRouter.User.following, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.getUser", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
@@ -35,7 +35,7 @@ class ProfilePartial extends Backbone.View
       @$('#put-followers-here').append("People doesn't like you.")
     else
       _.each window.MainRouter.User.followers, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.getUser", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
@@ -76,7 +76,7 @@ class ProfilePartial extends Backbone.View
 
       console.log event.target
       
-      ss.rpc('Users.Account.UploadProfilePicture', {type: file.type, raw: event.target.result} , (res) =>        
+      ss.rpc('users.account.uploadProfilePicture', {type: file.type, raw: event.target.result} , (res) =>        
         @$('img#loadingoverlay').fadeTo(250,0)
         if res.status
           cdn = $("img#avatar").attr('src').split('/')

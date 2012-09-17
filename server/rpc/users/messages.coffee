@@ -3,15 +3,15 @@ _ = require('underscore')
 exports.actions = (req, res, ss) ->
 
   req.use 'session'
-  req.use "Auth.checkAuthenticated"
+  req.use "auth.check"
   req.use 'debug', 'cyan'  
 
   {
 
-  SendMessage: (user, msg) ->
+  send: (user, msg) ->
     res { status:no, message: "Not implemented yet" }
 
-  GetMessages: () ->
+  get: () ->
     res { status:no, message: "Not implemented yet" }
 
   }
