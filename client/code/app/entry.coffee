@@ -9,6 +9,9 @@ ss.server.on 'disconnect', ->
 ss.server.on 'reconnect', ->
   console.log('Connection back up :D')
 
+require('ssAngular')
+require('controllers')
+
 ss.server.on 'ready', ->
 
   # Wait for the DOM to finish loading
