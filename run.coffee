@@ -39,12 +39,16 @@ app.configure( () =>
   app.use(express.static(path.join(__dirname, 'public')));
 )
 
-app.get '/', (req, res) ->  
-  res.serveClient('main')
-
 app.get('/mockup',  (req, res) ->
   res.sendfile(__dirname + '/public/index.html');
 )
+
+app.get '/', (req, res) ->  
+  res.serveClient('main')
+
+app.get '/users/:username', (req, res) ->  
+  res.serveClient('main')
+
 
 # Start! ###
 server = app.listen 3000
