@@ -1,7 +1,12 @@
 # Require node HTTP Module
 http      = require('http')
+path      = require('path')
 # SocketStream requires
 ss        = require('socketstream')
+express   = require('express')
+# Express
+app = express();
+
 
 console.log "Running in #{ss.env} environment."
 
@@ -15,7 +20,7 @@ require('./config/formatters')(ss)
 # Configure the differet clients (Phone, Tablet, Desktop)
 require('./config/clients')(ss,require('./config/assets'))
 # Configure the routes for serving the clients
-require('./config/routes')(ss)
+require('./config/routes')(ss, app)
 
 # Production config
 if ss.env == 'production'
@@ -27,10 +32,23 @@ if ss.env == 'production'
 
   #ss.session.store.use('redis', {host: "redis://leostera:a34f4ede135aefe9e3de4939928c2b45@char.redistogo.com/", port: 9020, db: "char-9020"})
   #ss.publish.transport.use('redis', {host: "redis://leostera:a34f4ede135aefe9e3de4939928c2b45@char.redistogo.com/", port: 9020, db: "char-9020"})
-  
+
+app.configure( () =>
+  app.use(express.bodyParser());
+  app.use(app.router);
+  app.use(express.static(path.join(__dirname, 'public')));
+)
+
+app.get '/', (req, res) ->  
+  res.serveClient('main')
+
+app.get('/mockup',  (req, res) ->
+  res.sendfile(__dirname + '/public/index.html');
+)
+
 # Start! ###
-server = http.Server ss.http.middleware
-server.listen 3000, "localhost"
+server = app.listen 3000
+#server.listen 3000, "localhost"
 
 # Bind tasks, this could live inside a tasks folder I guess
 s3client = require('./config/storage').getClient()
@@ -51,3 +69,6 @@ ss.events.on "assets:packaged", () =>
 
 # Now start the server
 ss.start server
+
+# Append SocketStream middleware to the stack
+app.stack = app.stack.concat(ss.http.middleware.stack);

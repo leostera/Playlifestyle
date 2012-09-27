@@ -8,6 +8,7 @@
   }
   , "dependencies": {
       "socketstream": "git://github.com/leostera/socketstream.git"
+    , "express": ">= 3.x"
     , "knox": "git://github.com/LearnBoost/knox.git"
     , "ss-coffee": ">= 0.1.x"
     , "ss-jade": ">= 0.1.x"

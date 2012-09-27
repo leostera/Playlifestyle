@@ -1,0 +1,181 @@
+<!doctype html>
+
+<html>
+<head>
+	<!-- Doc. Info. -->
+	<title>Play Canada - Entertainment Lifestyle Network</title>
+	<meta name="keywords" content="Play Lifestyle, Play Life Style, Play Canada">
+	<meta name="description" description="It's your play ground.">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./css/layout.css">
+
+	<!-- Javascript Libraries -->
+	<script src="./js/less-1.1.5.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="./js/bootstrap/bootstrap-collapse.js"></script>
+	<script src="./js/bootstrap/bootstrap-dropdown.js"></script>
+
+	<!-- Mobile Viewports Compatibility -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Fix HTML5 for earlier versions of IE -->
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/<tr></tr>unk/html5.js"></script>
+	<![endif]-->
+</head>
+<!-- Adjust view to hide URL-bar in mobile-webkit -->
+<body onload="setTimeout(function() { window.scrollTo(0, 1) }, 100);">
+
+	<!-- Global Navigation -->
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<!-- Responsive navigation-toggle button -->
+				<a class="btn btn-navbar btn-widget" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<!-- Navigation items -->
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="home"><a href="#"><img src="./img/ico-home.png" /></a></li>
+						<li><a href="#">Active</a></li>
+						<li><a href="#">Arts/Photography</a></li>
+						<li><a href="#">Culinary</a></li>
+						<li><a href="#">Fashion</a></li>
+						<li><a href="#">Buzz</a></li>
+						<li><a href="#">Music</a></li>
+						<li><a href="#">Nightlife/Concerts</a></li>
+						<li><a href="#">Sports</a></li>
+						<li><a href="#">Travel</a></li>
+
+					</ul>
+				</div><!-- .nav-collapse -->
+			</div><!-- .container -->
+		</div><!-- .navbar-inner -->
+	</div><!-- .navbar -->
+
+	<!-- Header -->
+	<div class="container" id="header">
+		<div class="logo-section span3">
+			<a href="#"><img src="./img/logo.png" id="logo" /></a>
+		</div><!-- .row -->
+
+		<div class="interface-section span7">
+			<div class="user-alerts">
+				<ul class="user-alerts-menu">
+					<li class="last"><img src="./img/ico-message.png"><a href="#">Messages</a></li>
+					<li><img src="./img/ico-notification.png"><a href="#">Notifications</a></li>
+				</ul>
+			</div><!-- .user-alerts -->
+			<div class="user-ui">
+				<ul class="nav pull-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="caret"></i></a>
+						<ul class="dropdown-menu user-ui-menu">
+							<li><img src="./img/ico-logout.png"><a href="#">Logout</a></li>
+							<li><img src="./img/ico-settings.png"><a href="#">My Settings</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- .user-ui -->
+		</div><!-- .interface-section -->
+	</div><!-- #header -->
+
+	<div class="container" id="page-content">
+		<div id="sidebar">
+			<!-- Responsive sidebar-toggle button -->
+			<a class="btn btn-navbar btn-navbar-user" data-toggle="collapse" data-target=".sidebar-content">
+				<span class="icon-user icon-white"></span>
+			</a>
+
+			<div class="sidebar-content collapse in">
+				<div class="user-profile sidebar-block">
+					<img src="./img/userpic.gif" />
+					<a href="#" class="user-name-link">John Doe</a>
+					<span class="user-location">Calgary, AB</span>
+					<a href="#" class="change-city">Change City</a>
+				</div><!-- .user-profile -->
+
+				<div class="friends-list sidebar-block">
+					<h3>FRIENDS<img src="./img/ico-collapse.png"></h3>
+					<span class="message">You have no friends to display.</span>
+				</div><!-- .friends-list -->
+
+				<div class="meeting-spots sidebar-block">
+					<h3>MY MEETING SPOTS<img src="./img/ico-collapse.png"></h3>
+					<span class="message">You have no upcoming events or meeting spots.</span>
+				</div><!-- .meeting-spots -->
+
+				<div class="activity-feeds sidebar-block">
+					<ul>
+						<li class="active"><a href="#">USER ACTIVITY</a></li>
+						<li><a href="#">NETWORK ACTIVITY</a></li>
+					</ul>
+					<span class="message">There is no activity to display.</span>
+				</div><!-- .activity-feeds -->
+			</div><!-- .sidebar-content -->
+		</div><!-- #sidebar -->
+
+		<div id="main-content">
+			<h2>HOME / HIGHLIGHTS</h2>
+			<div class="row">
+				<div class="span4 content-block featured">
+					<h3>FEATURED</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+				<div class="span3 content-block">
+					<h3>NIGHTLIFE/CONCERTS</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+				<div class="span2 content-block">
+					<h3>CULINARY</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span2 content-block">
+					<h3>SHOPPING</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+				<div class="span4 content-block">
+					<h3>SPORTS</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+				<div class="span3 content-block">
+					<h3>BUZZ</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span4 content-block">
+					<h3>MUSIC</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+				<div class="span5 content-block">
+					<h3>ARTS/PHOTOGRAPHY</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span4 content-block">
+					<h3>TRAVEL</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+				<div class="span5 content-block">
+					<h3>ACTIVE</h3>
+					<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+				</div>
+			</div><!-- .row -->
+		</div><!-- #main-content -->
+	</div><!-- #page-content -->
+
+	<div class="container" id="footer">
+		Play Canada 2010 &#174; All Rights Reserved
+	</div><!-- #footer -->
+
+</body>
+</html>
