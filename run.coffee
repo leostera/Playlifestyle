@@ -35,6 +35,8 @@ if ss.env == 'production'
 
 app.configure( () =>
   app.use(express.bodyParser());
+  app.use(express.cookieParser())
+  app.use(express.session())
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 )
