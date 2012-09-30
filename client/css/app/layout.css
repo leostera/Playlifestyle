@@ -246,7 +246,9 @@ a {
     behavior:url('_/border-radius.htc');
 }
 
-}#page-content {
+}
+
+#page-content {
     background-image:url('http://d3jzxruh9il70w.cloudfront.net/old_images/sidebar-bg.png');
     border-left:1px solid #5f5f5f;
 }
@@ -424,10 +426,6 @@ a {
 }
 
 @media (max-width: 768px) {
-    #page-content {
-     background:0;
-    }
-
     #sidebar {
         width:98%;
     }

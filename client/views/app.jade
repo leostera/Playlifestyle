@@ -27,22 +27,25 @@ html
           color: #333;
           -webkit-font-smoothing: antialiased;
           background-color: #F2F2F2;
-          opacity: 0;
-        }
-    
+        }    
 
     //if lt IE 9
       script(src='src', html5shiv.googlecode.com='html5shiv.googlecode.com', svn='svn')
       tr
       | unk/html5.js"
 
-  body(onload='setTimeout(function() { window.scrollTo(0, 1) }, 100);')
+    != SocketStream
+
+  body(onload='setTimeout(function() { window.scrollTo(0, 1)}, 100);')
     nav
-    header
-    section.container#page-content
+    header.container#header
+      .logo-section.span3
+        a(href='#')
+          img#logo(src='http://d3jzxruh9il70w.cloudfront.net/old_images/logo.png')
+    .container#page-content
       h1
-        | Hello World
+        | Loading...
     footer.container#footer
       | Play Canada 2010 ® All Rights Reserved
 
-    != SocketStream
+    

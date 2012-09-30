@@ -27,7 +27,7 @@ section.span12
       label.control-label(for="username") Username
       .controls
         .input-append
-          input(type="text").input-xlarge#username
+          input(type="text")#username
           span.add-on#ok
             i.icon-ok
           span.add-on#error
@@ -39,7 +39,7 @@ section.span12
       label.control-label(for="password") Password
       .controls
         .input-append
-          input(type="text").input-xlarge#password
+          input(type="text")#password
           span.add-on#ok
             i.icon-ok
           span.add-on#error
@@ -51,12 +51,12 @@ section.span12
       label.control-label(for="email") Email
       .controls.hide-for-small
         .input-append
-          input(type="text").input-xlarge#email
+          input(type="text")#email
           span.add-on#ok
             i.icon-ok
           span.add-on#error
             i.icon-remove
-        p.help-block#message Please enter a valid email for account activation.
+        p.help-block#message Valid email for account activation.
 
     .control-group#birthday-cg
       label.control-label(for="birthday") Birthday
@@ -76,13 +76,13 @@ section.span12
       label.control-label(for="username") Current location
       .controls      
         .input-append
-          input.input-xlarge#location(type="text",placeholder="Where's Carmen San Diego?")
+          input#location(type="text",placeholder="Where's Carmen San Diego?")
           span.add-on#ok
             i.icon-ok
           span.add-on#error
             i.icon-remove
               
-        p.help-block Thou we try our best, geolocation isn't always accurate.
+        p.help-block Geolocation isn't always accurate.
 
     .control-group
       .controls      

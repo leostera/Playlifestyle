@@ -1,10 +1,9 @@
 class IndexView extends Backbone.View
 
-  template: ss.tmpl['profile']
+  template: ss.tmpl['index']
 
   initialize: =>
     @render()
-    @$el.fadeIn('slow')
 
     #not jquery chipchattery, real bindings and stuff
     @partials.login.on 'registration:begin', @partials.register.begin

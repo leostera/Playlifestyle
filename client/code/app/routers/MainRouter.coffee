@@ -15,8 +15,7 @@ class MainRouter extends Routerious
       # If the user is not logged in
       if res?.status is no
         # Let him login or register       
-        console.log $('#page-content')      
-        #@__prepareView('IndexView', {el: $('#page-content')})
+        @__prepareView('IndexView', {el: $('#page-content')})
       else
         # Otherwise let's go to the home view
         @User = res.user

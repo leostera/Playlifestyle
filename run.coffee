@@ -48,6 +48,12 @@ app.get('/mockup',  (req, res) ->
 app.get '/', (req, res) ->  
   res.serveClient('main')
 
+app.get '/profile', (req, res) ->  
+  res.serveClient('main')
+
+app.get '/logout', (req, res) ->  
+  res.serveClient('main')
+
 app.get '/users/:username', (req, res) ->  
   res.serveClient('main')
 
