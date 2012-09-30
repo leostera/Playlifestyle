@@ -1,26 +1,32 @@
-.navbar.navbar-inverse
-  .navbar-inner#inner
-    .container-fluid
-      a.btn.btn-navbar.collapsed(data-toggle='collapse', data-target='.nav-collapse')
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
+.navbar
+  .navbar-inner
+    .container
 
-      
-      section#profile
-        span#avatar
-          a(href="/profile/avatar")
-            img(src="http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}", height="32px", width="32px")#avatar
-        span#username
-          a(href="/profile") {{ user.username }}     
-        span#location 
-          a(href="/relocate") ({{user.location.region}})
+      a.btn.btn-navbar.btn-widget(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
 
       .nav-collapse
-        p.navbar-text.pull-right
-          section#logout
-            a(href="/logout")#logout
-
-          section#search
-            form
-              input(type="search",placeholder="Look up anything...")
+        ul.nav
+          li.home
+            a(href='#')
+              img(src='./img/ico-home.png')
+          li
+            a(href='#') Active
+          li
+            a(href='#') Arts/Photography
+          li
+            a(href='#') Culinary
+          li
+            a(href='#') Fashion
+          li
+            a(href='#') Buzz
+          li
+            a(href='#') Music
+          li
+            a(href='#') Nightlife/Concerts
+          li
+            a(href='#') Sports
+          li
+            a(href='#') Travel

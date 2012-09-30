@@ -4,7 +4,8 @@ html
     meta(charset="utf-8")
     title Play Lifestyle Network
     meta(name='keywords', content='Play Lifestyle, Play Life Style, Play Canada')
-    meta(name='description', description='It\'s your play ground.')          
+    meta(name='description', description='It\'s your play ground.')     
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')     
 
     style(src="//css.cdn.tl/normalize.css")
     style(src="//twitter.github.com/bootstrap/assets/css/bootstrap.css")
@@ -25,161 +26,20 @@ html
           color: #333;
           -webkit-font-smoothing: antialiased;
           background-color: #F2F2F2;
-        }
-
-        #loader {
-          float: center;
-          margin: 0 auto;
-          margin-top: 22%;
-        }
-
-        #loader span {
-          display: block;
-          margin: 0 auto;
-        }
-
-        #loader span[class*="l-"] {
-          height: 4px;
-          width: 4px;
-          background: #000;
-          display: inline-block;
-          margin: 12px 2px;
-          border-radius: 100%;
-          -webkit-border-radius: 100%;
-          -moz-border-radius: 100%;
-          -webkit-animation: loader 4s infinite;
-          -webkit-animation-timing-function: cubic-bezier(0.03, 0.615, 0.995, 0.415);
-          -webkit-animation-fill-mode: both;
-          -moz-animation: loader 4s infinite;
-          -moz-animation-timing-function: cubic-bezier(0.03, 0.615, 0.995, 0.415);
-          -moz-animation-fill-mode: both;
-          -ms-animation: loader 4s infinite;
-          -ms-animation-timing-function: cubic-bezier(0.03, 0.615, 0.995, 0.415);
-          -ms-animation-fill-mode: both;
-          animation: loader 4s infinite;
-          animation-timing-function: cubic-bezier(0.03, 0.615, 0.995, 0.415);
-          animation-fill-mode: both;
-        }
-
-        #loader span.l-1 {
-          -webkit-animation-delay: 1s;
-          animation-delay: 1s;
-          -ms-animation-delay: 1s;
-          -moz-animation-delay: 1s;
-        }
-        #loader span.l-2 {
-          -webkit-animation-delay: 0.8s;
-          animation-delay: 0.8s;
-          -ms-animation-delay: 0.8s;
-          -moz-animation-delay: 0.8s;
-        }
-        #loader span.l-3 {
-          -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s;
-          -ms-animation-delay: 0.6s;
-          -moz-animation-delay: 0.6s;
-        }
-        #loader span.l-4 {
-          -webkit-animation-delay: 0.4s;
-          animation-delay: 0.4s;
-          -ms-animation-delay: 0.4s;
-          -moz-animation-delay: 0.4s;
-        }
-        #loader span.l-5 {
-          -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s;
-          -ms-animation-delay: 0.2s;
-          -moz-animation-delay: 0.2s;
-        }
-        #loader span.l-6 {
-          -webkit-animation-delay: 0;
-          animation-delay: 0;
-          -ms-animation-delay: 0;
-          -moz-animation-delay: 0;
-        }
-        @-webkit-keyframes loader {
-          0% {
-            -webkit-transform: translateX(-30px);
-            opacity: 0;
-          }
-
-          25% {
-            opacity: 1;
-          }
-
-          50% {
-            -webkit-transform: translateX(30px);
-            opacity: 0;
-          }
-
-          100% {
-            opacity: 0;
-          }
-        }
-        @-moz-keyframes loader {
-          0% {
-            -moz-transform: translateX(-30px);
-            opacity: 0;
-          }
-
-          25% {
-            opacity: 1;
-          }
-
-          50% {
-            -moz-transform: translateX(30px);
-            opacity: 0;
-          }
-
-          100% {
-            opacity: 0;
-          }
-        }
-        #loader -keyframes loader {
-          -transform: translateX(-30px);
           opacity: 0;
         }
-        #loader -keyframes loader {
-          opacity: 1;
-        }
-        #loader -keyframes loader {
-          -transform: translateX(30px);
-          opacity: 0;
-        }
-        #loader -keyframes loader {
-          opacity: 0;
-        }
-        @-ms-keyframes loader {
-          0% {
-            -ms-transform: translateX(-30px);
-            opacity: 0;
-          }
+    
 
-          25% {
-            opacity: 1;
-          }
+    //if lt IE 9
+      script(src='src', html5shiv.googlecode.com='html5shiv.googlecode.com', svn='svn')
+      tr
+      | unk/html5.js"
 
-          50% {
-            -ms-transform: translateX(30px);
-            opacity: 0;
-          }
-
-          100% {
-            opacity: 0;
-          }
-        }
-
-  body
+  body(onload='setTimeout(function() { window.scrollTo(0, 1) }, 100);')
     nav
-    section.container-fluid
-      section.row-fluid#body
-        section.span1#loader
-          span Loading
-          span.l-1
-          span.l-2
-          span.l-3
-          span.l-4
-          span.l-5
-          span.l-6
+    header
+    section.container#page-content
+    footer.container#footer
+      | Play Canada 2010 ® All Rights Reserved
 
     != SocketStream
