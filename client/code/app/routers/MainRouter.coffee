@@ -21,6 +21,7 @@ class MainRouter extends Routerious
         @User = res.user
         @navigate 'profile'
         @__prepareView('ProfileView', {el: $('#page-content')})
+        @__prepareView('partials/ProfileHeadPartial')
         @__prepareView('partials/NavPartial')
     )
 

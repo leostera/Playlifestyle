@@ -3,9 +3,9 @@
     span.icon-user.icon-white
   .sidebar-content.collapse.in
     .user-profile.sidebar-block
-      img(src='http://d3jzxruh9il70w.cloudfront.net/old_images/userpic.png')
-      a.user-name-link(href='#') John Doe
-      span.user-location Calgary, AB
+      img(src='http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}', width="65px", height="65px")
+      a.user-name-link(href='#') {{ user.name.first }} {{ user.name.last }}
+      span.user-location {{ user.hometown }}
       a.change-city(href='#') Change City
     .friends-list.sidebar-block
       h3
