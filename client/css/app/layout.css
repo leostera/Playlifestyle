@@ -29,6 +29,10 @@ nav.navbar div div div ul.nav li a {
     text-shadow: 1px 1px 0 #FFDD76;
 }
 
+ul.dropdown-menu.user-ui-menu {
+    margin-top: -15px;
+}
+
 .navbar {
     z-index:15;
 }
@@ -134,6 +138,7 @@ div.interface-section.span7 {
     -webkit-box-shadow:0 2px 2px 0 #777;
     -khtml-box-shadow:0 2px 2px 0 #777;
     box-shadow:0 2px 2px 0 #777;
+    min-width: 111px;
 }
 
 .interface-section .user-alerts-menu li a {
@@ -505,8 +510,10 @@ ul.nav.pull-right {
 }
 
 
-ul.nav.pull-right li i.dropdown.caret {
+ul.nav.pull-right li.dropdown i.caret {
     margin-top: -15px;
     margin-left: 10px;
 }
+
+
 
