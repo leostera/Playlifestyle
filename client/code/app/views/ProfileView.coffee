@@ -9,7 +9,8 @@ class ProfilePartial extends Backbone.View
     @$el.fadeIn('fast')
 
   render: =>
-    @$el.html @template.render {user: window.MainRouter.User}
+    @user = window.MainRouter.User
+    @$el.html @template.render {user: @user}
 
     # Manage Social profile-tab behaviour
     if _.isEmpty @user.following
@@ -95,7 +96,7 @@ class ProfilePartial extends Backbone.View
   events:
     'click button#saveInfo' : "save"
     'click button#saveBio' : "save"
-    'click button#changePicture' : "changePicture"
+    'click a#changePicture' : "changePicture"
     'change #new-picture' : "uploadPicture"
     'click ul.follows li a img' : 'rerouteToUser'
     
