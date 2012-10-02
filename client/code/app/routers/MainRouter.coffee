@@ -2,11 +2,25 @@ class MainRouter extends Routerious
 
   routes:
     ''       : 'index'
+    "home"  : 'index'
     'profile': 'profile'
     'logout' : 'logout'
     'users/:username' : 'profileByUsername'
     'messages/:id'  : 'messages'
-
+    
+    #placeholder
+    'active': 'placeholder'  
+    'arts': 'placeholder'  
+    'culinary': 'placeholder'  
+    'fashion':  'placeholder'  
+    'buzz': 'placeholder'  
+    'music':  'placeholder'  
+    'nightlife':  'placeholder'  
+    'sports': 'placeholder'  
+    'travel': 'placeholder'
+    'settings': 'placeholder'
+    'messages': 'placeholder'
+    'notifications': 'placeholder'
 
   # Main route
   index: =>
@@ -16,11 +30,14 @@ class MainRouter extends Routerious
       if res?.status is no
         # Let him login or register       
         @__prepareView('IndexView', {el: $('#page-content')})
+        #clean the nav and the header
+        $('nav').html('')
+        $('header').html('')
       else
         # Otherwise let's go to the home view
         @User = res.user
-        @navigate 'profile'
-        @__prepareView('ProfileView', {el: $('#page-content')})
+        @__prepareView('HomeView', {el: $('#page-content')})
+        @__prepareView('partials/SidebarPartial')
         @__prepareView('partials/ProfileHeadPartial')
         @__prepareView('partials/NavPartial')
     )
@@ -34,10 +51,15 @@ class MainRouter extends Routerious
         # Let him login or register        
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
+        #clean the nav and the header
+        $('nav').html('')
+        $('header').html('')
       else
         # Otherwise let's go to the home view
         @User = res.user
         @__prepareView('ProfileView', {el: $('#page-content')})
+        @__prepareView('partials/SidebarPartial')
+        @__prepareView('partials/ProfileHeadPartial')
         @__prepareView('partials/NavPartial')
     )
 
@@ -48,9 +70,14 @@ class MainRouter extends Routerious
       if res?.status is no
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
+        #clean the nav and the header
+        $('nav').html('')
+        $('header').html('')
       else
         @User = res.user
         @__prepareView('ProfileView', {el: $('#page-content'), username: usernam})
+        @__prepareView('partials/SidebarPartial')
+        @__prepareView('partials/ProfileHeadPartial')
         @__prepareView('partials/NavPartial')
       )
 
@@ -71,9 +98,32 @@ class MainRouter extends Routerious
       if res?.status is no
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
+        #clean the nav and the header
+        $('nav').html('')
+        $('header').html('')
       else
         @User = res.user
         @__prepareView('MessagesView', {el: '#page-content'})
+        @__prepareView('partials/SidebarPartial')
+        @__prepareView('partials/ProfileHeadPartial')
+        @__prepareView('partials/NavPartial')
+    )
+
+  # Placeholder
+  placeholder: ->
+    ss.rpc( "Users.Auth.Status", (res) =>
+      console.log res
+      if res?.status is no
+        @navigate ''
+        @__prepareView('IndexView', {el: $('#page-content')})
+        #clean the nav and the header
+        $('nav').html('')
+        $('header').html('')
+      else
+        @User = res.user
+        @__prepareView('PlaceholderView', {el: '#page-content'})
+        @__prepareView('partials/SidebarPartial')
+        @__prepareView('partials/ProfileHeadPartial')
         @__prepareView('partials/NavPartial')
     )
 

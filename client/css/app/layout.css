@@ -24,6 +24,11 @@ a {
     max-width:960px;
 }
 
+nav.navbar div div div ul.nav li a {
+    color: #4C4008;
+    text-shadow: 1px 1px 0 #FFDD76;
+}
+
 .navbar {
     z-index:15;
 }
@@ -474,3 +479,11 @@ a {
 }
 
 
+div div ul li i {
+    margin-top: -15px;
+    margin-left: 10px;
+}
+
+ul.nav.pull-right {
+    margin: 0;
+}

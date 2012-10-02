@@ -57,6 +57,34 @@ app.get '/logout', (req, res) ->
 app.get '/users/:username', (req, res) ->  
   res.serveClient('main')
 
+app.get '/active', (req, res) ->
+  res.serveClient('main')
+  
+app.get '/arts', (req, res) ->
+  res.serveClient('main')
+  
+app.get '/culinary', (req, res) ->
+  res.serveClient('main')
+  
+app.get '/fashion', (req, res) ->
+  res.serveClient('main')
+  
+app.get '/buzz', (req, res) ->
+  res.serveClient('main')
+  
+app.get '/music', (req, res) ->
+  res.serveClient('main')
+  
+app.get '/nightlife', (req, res) ->
+  res.serveClient('main')
+  
+app.get '/sports', (req, res) ->
+  res.serveClient('main')
+  
+app.get '/travel', (req, res) ->
+  res.serveClient('main')
+  
+
 
 # Start! ###
 server = app.listen 3000

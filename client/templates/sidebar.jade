@@ -1,0 +1,25 @@
+a.btn.btn-navbar.btn-navbar-user(data-toggle='collapse', data-target='.sidebar-content')
+  span.icon-user.icon-white
+.sidebar-content.collapse.in
+  .user-profile.sidebar-block
+    img(src='http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}', width="65px", height="65px")
+    a.user-name-link(href='/profile') {{ user.name.first }}
+    span.user-location {{ user.location.str }}
+    a.change-city(href='/relocate') Change City
+  .friends-list.sidebar-block
+    h3
+      | FRIENDS
+      img(src='http://d3jzxruh9il70w.cloudfront.net/old_images/ico-collapse.png')
+    span.message You have no friends to display.
+  .meeting-spots.sidebar-block
+    h3
+      | MY MEETING SPOTS
+      img(src='http://d3jzxruh9il70w.cloudfront.net/old_images/ico-collapse.png')
+    span.message You have no upcoming events or meeting spots. 
+  .activity-feeds.sidebar-block
+    ul
+      li.active
+        a(href='#') USER ACTIVITY
+      li
+        a(href='#') NETWORK ACTIVITY
+    span.message There is no activity to display.
