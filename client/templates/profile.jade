@@ -1,47 +1,66 @@
 #sidebar
 #main-content
-  h2 HOME / HIGHLIGHTS
-  .row
-    .span4.content-block.featured
-      h3 FEATURED
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-    .span3.content-block
-      h3 NIGHTLIFE/CONCERTS
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-    .span2.content-block
-      h3 CULINARY
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-  .row
-    .span2.content-block
-      h3 SHOPPING
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-    .span4.content-block
-      h3 SPORTS
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-    .span3.content-block
-      h3 BUZZ
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-  .row
-    .span4.content-block
-      h3 MUSIC
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-    .span5.content-block
-      h3 ARTS/PHOTOGRAPHY
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-  .row
-    .span4.content-block
-      h3 TRAVEL
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-    .span5.content-block
-      h3 ACTIVE
-      .content
-        | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+  form(action="http://d3jzxruh9il70w.cloudfront.net/images/",method="post")#picture
+    input(type="file").hide#new-picture
+
+  section#menu
+    ul.nav.nav-tabs
+      li.active
+        a(data-target="section.tab-pane#home", data-toggle="tab") Home
+      li
+        a(data-target="section.tab-pane#info", data-toggle="tab") Info
+      li
+        a(data-target="section.tab-pane#buddies", data-toggle="tab") Social
+      li
+        a(data-target="section.tab-pane#interests", data-toggle="tab") Interests
+      li
+        a(data-target="section.tab-pane#companies", data-toggle="tab") Companies
+      li
+        a#changePicture Change Picture
+
+  section.tab-content#sections
+    section.tab-pane.active#home
+      section#bio
+        blockquote
+          textarea#bio {{ user.bio }}
+
+      section#buttons.pull-right
+        button.btn.btn-primary#saveBio Save 
+
+    section.tab-pane#info
+      form.form-horizontal
+        fieldset
+          .control-group#birthday
+            label.control-label Birthday
+            .controls
+              span.uneditable-input.input-xlarge#birthday {{ user.birthday }}
+
+          .control-group#name
+            label.control-label Full name
+            .controls
+              input.input-medium(type="text", value="{{ user.name.first }}")#firstname
+              input.input-medium(type="text", value="{{ user.name.last }}")#lastname
+
+          .control-group#gender
+            label.control-label Gender
+            .controls
+              label.radio
+                input#gender-male(type='radio', name='gender', value='male')
+                | Male
+              label.radio
+                input#gender-female(type='radio', name='gender', value='female')
+                | Female
+
+          .control-group#hometown
+            label.control-label Hometown
+            .controls
+              input.input-xlarge(type="text", value="{{ user.hometown }}")#hometown
+
+      section#buttons.pull-right
+        button.btn.btn-primary#saveInfo Save 
+
+    section.tab-pane#buddies
+      h3 Follows
+      ul.follows#put-follows-here
+      h3 Followers
+      ul.follows#put-followers-here

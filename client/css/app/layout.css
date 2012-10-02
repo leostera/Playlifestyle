@@ -109,8 +109,12 @@ nav.navbar div div div ul.nav li a {
 }
 
 .interface-section {
-    float:right;
+    float: right;
     margin-bottom:25px;
+}
+
+div.interface-section.span7 {
+    float: right;
 }
 
 .interface-section .user-alerts-menu {
@@ -431,6 +435,15 @@ nav.navbar div div div ul.nav li a {
 }
 
 @media (max-width: 768px) {
+    #page-content {
+        background: 0;
+    }
+
+
+    #logo-section {
+        width: 98%;
+    }
+
     #sidebar {
         width:98%;
     }
@@ -449,6 +462,10 @@ nav.navbar div div div ul.nav li a {
         margin-left:0;
     }
 
+}
+
+ul.nav.pull-right {
+    margin: 0;
 }
 
 @media (max-width: 480px) {
@@ -470,6 +487,15 @@ nav.navbar div div div ul.nav li a {
         margin-left:0;
     }
 
+    div.interface-section.span7 {
+        float: left;
+        width: 98%;
+    }
+
+    ul.nav.pull-right {
+        margin-left: -60px;
+    }
+
 }
 
 #footer {
@@ -479,11 +505,8 @@ nav.navbar div div div ul.nav li a {
 }
 
 
-div div ul li i {
+ul.nav.pull-right li i.dropdown.caret {
     margin-top: -15px;
     margin-left: 10px;
 }
 
-ul.nav.pull-right {
-    margin: 0;
-}
