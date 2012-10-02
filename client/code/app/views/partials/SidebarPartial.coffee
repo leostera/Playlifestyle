@@ -16,7 +16,6 @@ class SidebarPartial extends Backbone.View
       _.each @user.following, (f) =>
         ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
           if res.status is yes
-            console.log res
             @$('.friends-list#i-follow span').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
         )
         
@@ -25,7 +24,6 @@ class SidebarPartial extends Backbone.View
       _.each @user.followers, (f) =>
         ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
           if res.status is yes
-            console.log res
             @$('.friends-list#follow-me span').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
         )   
 
@@ -34,7 +32,7 @@ class SidebarPartial extends Backbone.View
   silentlyRoute: (e) =>
     e.preventDefault()
     fragment = @$(e.srcElement).attr("href")
-    if fragment isnt "#"
+    if fragment isnt "#hide-sidebar"
       window.MainRouter.navigate fragment, true
 
   events:

@@ -30,9 +30,7 @@ class MainRouter extends Routerious
       if res?.status is no
         # Let him login or register       
         @__prepareView('IndexView', {el: $('#page-content')})
-        #clean the nav and the header
-        $('nav').html('')
-        $('header').html('')
+        @__prepareView("partials/LogoPartial")
       else
         # Otherwise let's go to the home view
         @User = res.user
@@ -51,9 +49,7 @@ class MainRouter extends Routerious
         # Let him login or register        
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
-        #clean the nav and the header
-        $('nav').html('')
-        $('header').html('')
+        @__prepareView("partials/LogoPartial")
       else
         # Otherwise let's go to the home view
         @User = res.user
@@ -70,9 +66,7 @@ class MainRouter extends Routerious
       if res?.status is no
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
-        #clean the nav and the header
-        $('nav').html('')
-        $('header').html('')
+        @__prepareView("partials/LogoPartial")
       else
         @User = res.user
         @__prepareView('ProfileView', {el: $('#page-content'), username: usernam})
@@ -98,9 +92,7 @@ class MainRouter extends Routerious
       if res?.status is no
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
-        #clean the nav and the header
-        $('nav').html('')
-        $('header').html('')
+        @__prepareView("partials/LogoPartial")
       else
         @User = res.user
         @__prepareView('MessagesView', {el: '#page-content'})
@@ -116,9 +108,7 @@ class MainRouter extends Routerious
       if res?.status is no
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
-        #clean the nav and the header
-        $('nav').html('')
-        $('header').html('')
+        @__prepareView("partials/LogoPartial")
       else
         @User = res.user
         @__prepareView('PlaceholderView', {el: '#page-content'})

@@ -41,7 +41,7 @@ exports.actions = (req, res, ss) ->
         req.session.save()
         res {status: yes, user: req.session.user }
       else
-        res {status: no, message: err}
+        res {status: no, message: "Couldn't upload profile picture."}
 
   Follow: (userToFollow) ->
     ss.App.Actions.Users.Follow req.session.user, userToFollow, (err, numAffected) =>
