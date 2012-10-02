@@ -11,6 +11,28 @@ class ProfilePartial extends Backbone.View
   render: =>
     @$el.html @template.render {user: window.MainRouter.User}
 
+    # Manage Social profile-tab behaviour
+    if _.isEmpty @user.following
+      @$('#put-follows-here').append("Apparently you don't like people.")
+    else
+      _.each @user.following, (f) =>
+        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+          if res.status is yes
+            console.log res
+            @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+        )
+        
+
+    if _.isEmpty @user.followers
+      @$('#put-followers-here').append("People doesn't like you.")
+    else
+      _.each @user.followers, (f) =>
+        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+          if res.status is yes
+            console.log res
+            @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+        ) 
+
     @
 
   save: (e) =>
