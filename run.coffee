@@ -109,7 +109,7 @@ ss.events.on "assets:packaged", () =>
     if files
       for f in files
         console.log "Queued to upload compressed asset #{f}"
-        s3client.putFile("./client/static/assets/main/#{f}", "assets/main/#{f}", (errPutFile, result) =>
+        s3client.putFile("./client/static/assets/main/#{f}", "assets/main/#{f}",  {'x-amz-acl': 'public-read' }, (errPutFile, result) =>
           if errPutFile then throw errPutFile
           if 200 is result?.statusCode then console.log "Compressed asset #{f} up in Amazon S3 Bucket"
           else console.log "Failed to upload compressed asset #{f} to Amazon S3 Bucket"
