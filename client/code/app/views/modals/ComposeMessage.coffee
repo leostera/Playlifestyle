@@ -10,7 +10,7 @@ class ComposeMessageModal extends Backbone.View
     @render().$el.modal(options?.modal)
 
     @
-    
+
   render: =>
     @$el.hide()
     @$el.html @template.outer.render {}
@@ -20,11 +20,13 @@ class ComposeMessageModal extends Backbone.View
 
   show: =>
     @$el.modal('show')
+
   hide: =>
     @$el.modal('hide')
 
   send: (e) =>
     e.preventDefault()
+    #get the RPC to send the message
 
   events:
     'click #send': "send"

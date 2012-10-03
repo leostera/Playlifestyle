@@ -48,6 +48,9 @@ app.get('/mockup',  (req, res) ->
 app.get '/', (req, res) ->  
   res.serveClient('main')
 
+app.get '/home', (req, res) ->  
+  res.serveClient('main')
+
 app.get '/notifications', (req, res) ->  
   res.serveClient('main')
 
