@@ -96,7 +96,14 @@ app.get '/sports', (req, res) ->
 app.get '/travel', (req, res) ->
   res.serveClient('main')
   
+app.get '/friends', (req, res) ->
+  res.serveClient('main')
 
+app.get '/following', (req, res) ->
+  res.serveClient('main')
+
+app.get '/followers', (req, res) ->
+  res.serveClient('main')
 
 # Start! ###
 server = app.listen 3000

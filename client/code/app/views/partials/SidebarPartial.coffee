@@ -22,7 +22,7 @@ class SidebarPartial extends Backbone.View
             (a,b) ->
               a.id is b.id
         );
-      @$('.friends-list#friends h3').html("#{_.size(friends)} Friends")
+      @$('.friends-list#friends h3 a').html("#{_.size(friends)} Friends")
       @$('.friends-list#friends span').html("")
 
       _.each friends, (f) =>
@@ -32,7 +32,8 @@ class SidebarPartial extends Backbone.View
         )
 
     # Manage Social profile-tab behaviour
-    @$('.friends-list#follows h3').html("#{_.size(@user.following)} Following | #{_.size(@user.followers)} Followers")
+    @$('.friends-list#follows h3 a#following').html("#{_.size(@user.following)} Following")
+    @$('.friends-list#follows h3 a#followers').html("#{_.size(@user.followers)} Followers")
 
     @
 

@@ -6,6 +6,9 @@ class MainRouter extends Routerious
     'profile': 'profile'
     'logout' : 'logout'
     'users/:username' : 'placeholder'
+    'following': 'following'
+    'followers': 'followers'
+    'friends': 'friends'
     'messages/:id'  : 'messages'
     
     #placeholder
@@ -54,6 +57,60 @@ class MainRouter extends Routerious
         # Otherwise let's go to the home view
         @User = res.user
         @__prepareView('ProfileView', {el: $('#page-content')})
+        @__prepareView('partials/SidebarPartial')
+        @__prepareView('partials/ProfileHeadPartial')
+        @__prepareView('partials/NavPartial')
+    )
+
+  following: =>
+    ss.rpc( "Users.Auth.Status", (res) =>
+      console.log res
+      # If the user is not logged in
+      if res?.status is no
+        # Let him login or register        
+        @navigate ''
+        @__prepareView('IndexView', {el: $('#page-content')})
+        @__prepareView("partials/LogoPartial")
+      else
+        # Otherwise let's go to the home view
+        @User = res.user
+        @__prepareView('FollowingView', {el: $('#page-content')})
+        @__prepareView('partials/SidebarPartial')
+        @__prepareView('partials/ProfileHeadPartial')
+        @__prepareView('partials/NavPartial')
+    )
+
+  followers: =>
+    ss.rpc( "Users.Auth.Status", (res) =>
+      console.log res
+      # If the user is not logged in
+      if res?.status is no
+        # Let him login or register        
+        @navigate ''
+        @__prepareView('IndexView', {el: $('#page-content')})
+        @__prepareView("partials/LogoPartial")
+      else
+        # Otherwise let's go to the home view
+        @User = res.user
+        @__prepareView('FollowersView', {el: $('#page-content')})
+        @__prepareView('partials/SidebarPartial')
+        @__prepareView('partials/ProfileHeadPartial')
+        @__prepareView('partials/NavPartial')
+    )
+
+  friends: =>
+    ss.rpc( "Users.Auth.Status", (res) =>
+      console.log res
+      # If the user is not logged in
+      if res?.status is no
+        # Let him login or register        
+        @navigate ''
+        @__prepareView('IndexView', {el: $('#page-content')})
+        @__prepareView("partials/LogoPartial")
+      else
+        # Otherwise let's go to the home view
+        @User = res.user
+        @__prepareView('FriendsView', {el: $('#page-content')})
         @__prepareView('partials/SidebarPartial')
         @__prepareView('partials/ProfileHeadPartial')
         @__prepareView('partials/NavPartial')
