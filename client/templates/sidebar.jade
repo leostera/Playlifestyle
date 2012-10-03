@@ -2,20 +2,21 @@ a.btn.btn-navbar.btn-navbar-user(href="#hide-sidebar", data-toggle='collapse', d
   span.icon-user.icon-white
 .sidebar-content.collapse.in
   .user-profile.sidebar-block
-    img(src='http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}', width="65px", height="65px")
+    img(src='http://d3jzxruh9il70w.cloudfront.net{{ user.avatar }}', width="65px", height="65px")#avatar
     a.user-name-link(href='/profile') {{ user.name.first }}
     span.user-location {{ user.location.str }}
     a.change-city(href='/relocate') Change City
+  .friends-list.sidebar-block#friends
+    h3
+      | FRIENDS
+      img(src='http://d3jzxruh9il70w.cloudfront.net/old_images/ico-collapse.png')
+    span.message You have no friends to display.
   .friends-list.sidebar-block#i-follow
     h3
-      | I FOLLOW
-      img(src='http://d3jzxruh9il70w.cloudfront.net/old_images/ico-collapse.png')
-    span.message You have no friends to display.
+      | 0 Following
   .friends-list.sidebar-block#follow-me
     h3
-      | FOLLOWING ME
-      img(src='http://d3jzxruh9il70w.cloudfront.net/old_images/ico-collapse.png')
-    span.message You have no friends to display.
+      | 0 Followers
   .meeting-spots.sidebar-block
     h3
       | MY MEETING SPOTS
