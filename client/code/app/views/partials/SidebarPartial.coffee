@@ -10,7 +10,6 @@ class SidebarPartial extends Backbone.View
     @user = window.MainRouter.User
 
     if @user.name is undefined
-      console.log @user
       @user.name = { }
       @user.name.first = "Go to profile"
 
@@ -23,7 +22,6 @@ class SidebarPartial extends Backbone.View
             (a,b) ->
               a.id is b.id
         );
-      console.log friends
       @$('.friends-list#friends h3').html("#{_.size(friends)} Friends")
       @$('.friends-list#friends span').html("")
 

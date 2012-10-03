@@ -11,22 +11,59 @@ class ProfileView extends Backbone.View
     @user = window.MainRouter.User
     @$el.html @template.render {user: @user}
 
+    unless _.isEmpty @user.following or _.isEmpty @user.followers
+      friends = _.uniq(
+          _.union( @user.following, @user.followers),
+            false, #unordered list
+            (a,b) ->
+              a.id is b.id
+        );
+
+      _.each friends, (f) =>
+        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+          if res.status is yes
+            console.log res
+            @$('#put-friends-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+        )
+
+    following = []
+
+    _.each( friends, (a) =>
+      _.each( @user.following, (b) =>
+        if a.id isnt b.id
+          following.push b
+      )
+    )
+          
+
     # Manage Social profile-tab behaviour
     if _.isEmpty @user.following
-      @$('#put-follows-here').append("Apparently you don't like people.")
+      @$('#put-following-here').append("Apparently you don't follow anybody.")
+    else if _.isEmpty following
+      @$('#put-following-here').append("All your following are friends.")
     else
-      _.each @user.following, (f) =>
+      _.each following, (f) =>
         ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
         )
-        
+    
+    followers = []
+
+    _.each( friends, (a) =>
+      _.each( @user.followers, (b) =>
+        if a.id isnt b.id
+          followers.push b
+      )
+    )
 
     if _.isEmpty @user.followers
       @$('#put-followers-here').append("People doesn't like you.")
+    else if _.isEmpty followers
+      @$('#put-followers-here').append("All your followers are friends.")
     else
-      _.each @user.followers, (f) =>
+      _.each followers, (f) =>
         ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
