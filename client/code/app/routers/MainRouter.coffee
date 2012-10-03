@@ -5,7 +5,7 @@ class MainRouter extends Routerious
     "home"  : 'index'
     'profile': 'profile'
     'logout' : 'logout'
-    'users/:username' : 'profileByUsername'
+    'users/:username' : 'placeholder'
     'messages/:id'  : 'messages'
     
     #placeholder

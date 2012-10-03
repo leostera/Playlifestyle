@@ -32,19 +32,18 @@ class SidebarPartial extends Backbone.View
         )
 
     # Manage Social profile-tab behaviour
-    unless _.isEmpty @user.following
-      @$('.friends-list#i-follow h3').html("#{_.size(@user.following)} Following")
-        
-        
-    unless _.isEmpty @user.followers
-      @$('.friends-list#follow-me h3').html("#{_.size(@user.followers)} Followers")
+    @$('.friends-list#follows h3').html("#{_.size(@user.following)} Following | #{_.size(@user.followers)} Followers")
 
     @
 
   silentlyRoute: (e) =>
     e.preventDefault()
-    fragment = @$(e.srcElement).attr("href")
+    element = @$(e.srcElement)
+    if e.srcElement.nodeName is "IMG"
+      element = element.parent()
+    fragment = element.attr('href')
     if fragment isnt "#hide-sidebar"
+      console.log fragment
       window.MainRouter.navigate fragment, true
 
   events:
