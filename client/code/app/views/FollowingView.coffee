@@ -1,6 +1,6 @@
 class FollowingView extends Backbone.View
 
-  template: ss.tmpl['list']
+  template: ss.tmpl['views-list']
 
   initialize: (options) =>
     @$el = $(options.el)

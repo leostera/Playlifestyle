@@ -1,6 +1,6 @@
 class IndexView extends Backbone.View
 
-  template: ss.tmpl['home']
+  template: ss.tmpl['views-home']
 
   initialize: =>
     @render()

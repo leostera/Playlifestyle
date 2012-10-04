@@ -1,6 +1,6 @@
 class ProfileView extends Backbone.View
 
-  template: ss.tmpl['profile']
+  template: ss.tmpl['views-profile']
 
   initialize: (options) =>   
     # Initialize the user object

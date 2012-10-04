@@ -1,6 +1,6 @@
 class PlaceholderView extends Backbone.View
 
-  template: ss.tmpl['placeholder']
+  template: ss.tmpl['views-placeholder']
 
   initialize: =>
     @render()

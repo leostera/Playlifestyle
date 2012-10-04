@@ -1,6 +1,6 @@
 class ProfileEditView extends Backbone.View
 
-  template: ss.tmpl['profile-edit']
+  template: ss.tmpl['views-profileEdit']
 
   initialize: (options) =>
     @$el = $(options.el)
