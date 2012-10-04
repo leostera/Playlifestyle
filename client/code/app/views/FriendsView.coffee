@@ -11,13 +11,25 @@ class FollowingView extends Backbone.View
     @user = window.MainRouter.User
     @$el.html @template.render {user: @user}
 
-    unless _.isEmpty @user.following or _.isEmpty @user.followers
+    if _.isEmpty @user.following or _.isEmpty @user.followers
+      @$('ul.follows').append("You have no friends.")
+    else
+      friends_following = friends_followers = []
+
+      _.each( @user.following, (a) =>
+          _.each( @user.followers, (b) =>
+            if a.id is b.id
+              friends_following.push a
+              friends_followers.push b
+          )
+        )
+
       friends = _.uniq(
-          _.union( @user.following, @user.followers),
-            false, #unordered list
-            (a,b) ->
+            friends_following,
+            false,
+            (a,b) =>
               a.id is b.id
-        );
+        )
 
       _.each friends, (f) =>
         ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>

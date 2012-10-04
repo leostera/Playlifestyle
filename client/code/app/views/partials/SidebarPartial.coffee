@@ -16,12 +16,24 @@ class SidebarPartial extends Backbone.View
     @$el.html @template.render { user: @user }
 
     unless _.isEmpty @user.following or _.isEmpty @user.followers
+
+      friends_following = friends_followers = []
+
+      _.each( @user.following, (a) =>
+          _.each( @user.followers, (b) =>
+            if a.id is b.id
+              friends_following.push a
+              friends_followers.push b
+          )
+        )
+
       friends = _.uniq(
-          _.union( window.MainRouter.User.following, window.MainRouter.User.followers),
-            false, #unordered list
-            (a,b) ->
+            friends_following,
+            false,
+            (a,b) =>
               a.id is b.id
-        );
+        )
+
       @$('.friends-list#friends h3 a').html("#{_.size(friends)} Friends")
       @$('.friends-list#friends span').html("")
 
@@ -31,8 +43,8 @@ class SidebarPartial extends Backbone.View
             @$('.friends-list#friends span').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
         )
 
-    following = _.difference( @user.following, friends)
-    followers = _.difference( @user.followers, friends)
+    following = _.difference( @user.following, friends_following)
+    followers = _.difference( @user.followers, friends_followers)
 
     # Manage Social profile-tab behaviour
     @$('.friends-list#follows h3 a#following').html("#{_.size(following)} Following")
