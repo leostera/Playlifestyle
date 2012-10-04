@@ -487,8 +487,10 @@ ul.nav.pull-right {
     }
 
     .omnisearch input.search-query {
-      width: 280px;
-      margin-top: -193px;
+      width: 80%;
+      position: absolute;
+      left: 10px;
+      top: 10px;
     }
 
     #sidebar {
