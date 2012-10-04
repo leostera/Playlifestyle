@@ -474,6 +474,11 @@ ul.nav.pull-right {
 }
 
 @media (max-width: 480px) {
+    .omnisearch input.search-query {
+      width: 280px;
+      margin-top: -203px;
+    }
+
     #sidebar {
      width:92%;
     }
