@@ -31,7 +31,7 @@ class ProfileEditView extends Backbone.View
         )
 
       _.each friends, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-friends-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
@@ -48,7 +48,7 @@ class ProfileEditView extends Backbone.View
       @$('#put-following-here').append("All your following are friends.")
     else
       _.each following, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
@@ -60,7 +60,7 @@ class ProfileEditView extends Backbone.View
       @$('#put-followers-here').append("All your followers are friends.")
     else
       _.each followers, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
@@ -78,7 +78,7 @@ class ProfileEditView extends Backbone.View
       gender: @$('input[name=gender]:checked').val()
       bio: @$('textarea#bio').val()
 
-    ss.rpc('Users.Account.Update', obj, (res) => 
+    ss.rpc('users.account.update', obj, (res) => 
       if res.status is yes
         window.MainRouter.User = res.user
         @render()
@@ -94,7 +94,7 @@ class ProfileEditView extends Backbone.View
     file = e.target.files[0]
     reader = new FileReader()
     reader.onload = (event) =>
-      ss.rpc('Users.Account.UploadProfilePicture', {type: file.type, raw: event.target.result} , (res) =>        
+      ss.rpc('users.account.uploadProfilePicture', {type: file.type, raw: event.target.result} , (res) =>        
         if res.status
           cdn = $("img#avatar").attr('src').split('/')
           cdn.pop()

@@ -9,7 +9,12 @@ exports.actions = (req, res, ss) ->
   {
 
   search: (query) =>
-    ss.app.actions.omniSearch.search
+    ss.app.actions.omniSearch.search(query, (result) =>
+      if result.status is yes
+        res { status: yes, results: result.results }
+      else
+        res { status: no}
+    )
     
 
   }

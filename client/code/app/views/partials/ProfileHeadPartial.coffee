@@ -19,7 +19,7 @@ class ProfileHeadPartial extends Backbone.View
   lookupOnEnter: (e) =>
     if e.keyCode is 13
       e.preventDefault()
-      window.MainRouter.navigate "/users/#{@$('input.search-query').val()}", true
+      window.MainRouter.navigate "/search/#{@$('input.search-query').val()}", true
 
   events:
     "click a" : "silentlyRoute"

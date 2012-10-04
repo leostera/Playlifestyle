@@ -38,7 +38,7 @@ class SidebarPartial extends Backbone.View
       @$('.friends-list#friends span').html("")
 
       _.each friends, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             @$('.friends-list#friends span').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
         )

@@ -7,24 +7,27 @@ class IndexView extends Backbone.View
     @query = options.query
     @render()
     @$el = $('#main-content')
-    @search()
+    @search(@query)
 
   render: =>    
-    @$el.html @template.render {}
+    @$el.html @template.render { query: @query }
     
     @
 
   search: (query=@query) =>
-    ss.rpc('content.omniSearch',query, (res) =>
+    ss.rpc('content.omniSearch.search',query, (res) =>
+      console.log res
       if res.status is yes
+        @$('#results').html('')
         _.each res.results, (r) =>
           @showResult r
       else
+        @$('#results span h3').html('We found nothing in our databases. Try something else :)')
 
     )
   
   showResult: (r) =>
-    @$('#results').append ss.tmpl['partials-searchResult']
+    @$('#results').append ss.tmpl['partials-searchResult'].render { user: r }
 
 exports.init = (options={}) ->
   new IndexView(options)

@@ -32,7 +32,7 @@ class FollowingView extends Backbone.View
         )
 
       _.each friends, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('ul.follows').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )

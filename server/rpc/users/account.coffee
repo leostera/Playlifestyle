@@ -68,5 +68,5 @@ exports.actions = (req, res, ss) ->
             res { status: yes, user: req.session.user, followee: followee }
 
       else
-        res { status: no, message: "#$%\"& you ain't following this guy!"}
+        res { status: no, err: err, message: "#$%\"& you ain't following this guy!"}
   }

@@ -1,3 +1,2 @@
 module.exports =
-  Account: require('./Account')
-  Profile: require('./Profile')
+  Account: require('./Account').model

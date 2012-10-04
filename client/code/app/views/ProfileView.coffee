@@ -61,7 +61,7 @@ class ProfileView extends Backbone.View
         )
 
       _.each friends, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-friends-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
@@ -78,7 +78,7 @@ class ProfileView extends Backbone.View
       @$('#put-following-here').append("All your following are friends.")
     else
       _.each following, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
@@ -90,7 +90,7 @@ class ProfileView extends Backbone.View
       @$('#put-followers-here').append("All your followers are friends.")
     else
       _.each followers, (f) =>
-        ss.rpc("Users.Account.GetUser", {username: f.username}, (res) =>
+        ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
             @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
@@ -100,7 +100,7 @@ class ProfileView extends Backbone.View
 
   follow: (e)=>
     e.preventDefault()
-    ss.rpc("Users.Account.Follow", @user, (res) =>
+    ss.rpc("users.account.follow", @user, (res) =>
       console.log @user, window.MainRouter.User, res
       if res.status is yes
         @user = res.followee
@@ -112,7 +112,7 @@ class ProfileView extends Backbone.View
   unfollow: (e) =>
     e.preventDefault()
     if @startUnfollowing is false
-      ss.rpc("Users.Account.Unfollow", @user, (res) =>
+      ss.rpc("users.account.unfollow", @user, (res) =>
         console.log res
         if res.status is yes
           @user = res.followee

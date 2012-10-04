@@ -120,7 +120,7 @@ class RegistrationPartial extends Backbone.View
       id: e.srcElement?.id || e.target.id
       value: $(e.srcElement || e.target).val()
 
-    ss.rpc( 'Users.Utils.ValidateField', field_data, (result) =>
+    ss.rpc( 'utils.validateField', field_data, (result) =>
 
       @error["#{result.field_id}"] = not result.status
       @__toggleHints(result.field_id, result.messages)
@@ -146,7 +146,7 @@ class RegistrationPartial extends Backbone.View
     @$("form#register").fadeOut('fast')
     @$("#wait.hide").fadeIn('fast')
 
-    ss.rpc('Users.Auth.SignUp', @getModelData(), (res) =>
+    ss.rpc('auth.signUp', @getModelData(), (res) =>
       setTimeout( ()=>
         @$("#wait.hide").fadeOut('fast')
         if res.status is yes                    
