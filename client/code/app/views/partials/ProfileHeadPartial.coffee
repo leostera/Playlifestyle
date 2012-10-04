@@ -16,8 +16,14 @@ class ProfileHeadPartial extends Backbone.View
     if fragment isnt "#"
       window.MainRouter.navigate fragment, true
 
+  lookupOnEnter: (e) =>
+    if e.keyCode is 13
+      e.preventDefault()
+      window.MainRouter.navigate "/users/#{@$('input.search-query').val()}", true
+
   events:
     "click a" : "silentlyRoute"
+    "keypress input.search-query" : "lookupOnEnter"
   
 exports.init = (options) ->
   new ProfileHeadPartial(options)
