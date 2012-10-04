@@ -31,9 +31,12 @@ class SidebarPartial extends Backbone.View
             @$('.friends-list#friends span').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
         )
 
+    following = _.difference( @user.following, friends)
+    followers = _.difference( @user.followers, friends)
+
     # Manage Social profile-tab behaviour
-    @$('.friends-list#follows h3 a#following').html("#{_.size(@user.following)} Following")
-    @$('.friends-list#follows h3 a#followers').html("#{_.size(@user.followers)} Followers")
+    @$('.friends-list#follows h3 a#following').html("#{_.size(following)} Following")
+    @$('.friends-list#follows h3 a#followers').html("#{_.size(followers)} Followers")
 
     @
 
