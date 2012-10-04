@@ -17,8 +17,7 @@
         li
           a(data-target="section.tab-pane#companies", data-toggle="tab") Companies
       li
-        a#follow Follow
-        a#unfollow Unfollow
+        a#changePicture Change Picture
 
   section.tab-content#sections
     section.tab-pane.active#home
@@ -57,6 +56,9 @@
             label.control-label Hometown
             .controls
               input.input-xlarge(type="text", value="{{ user.hometown }}")#hometown
+
+      section#buttons.pull-right
+        button.btn.btn-primary#saveInfo Save 
 
     section.tab-pane#buddies
       h3 Friends

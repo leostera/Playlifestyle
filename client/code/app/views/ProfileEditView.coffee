@@ -1,45 +1,15 @@
-class ProfileView extends Backbone.View
+class ProfileEditView extends Backbone.View
 
-  template: ss.tmpl['profile']
+  template: ss.tmpl['profile-edit']
 
-  initialize: (options) =>   
-    # Initialize the user object
-    @user = options.user
-    # Get the view element from the parameters
+  initialize: (options) =>
     @$el = $(options.el)
-
-    @startFollowing = @startUnfollowing = false
-
     @render()
-    @$el = $('#main-content')
+    @$el = @$('#main-content')
 
   render: =>
-    # Render the template with the user
+    @user = window.MainRouter.User
     @$el.html @template.render {user: @user}
-
-    #@messageModal = require('../modals/ComposeMessage').init({el: ".modals", modal: 'hide'})
-    
-    if @user is {}
-      alert("Crap! User is gone!")
-    if window.MainRouter.User.username is @user.username
-      @$('a#follow').remove()
-      @$('a#message').remove()
-
-    # Try to find the user within the following list
-    findIt = (f) => f.username is @user.username
-    found = _.find window.MainRouter.User.following, findIt
-
-    # Manage unfollowing behaviour
-    if found
-      @$('a#follow').hide();
-      @$('a#unfollow').show().hover( (e) =>
-          @$('a#unfollow').html('Unfollow').removeClass('disabled').addClass('btn-warning')
-        , (e) =>
-          @$('a#unfollow').html('Following').addClass('disabled').removeClass('btn-warning')
-      )
-    else
-      @$('a#unfollow').hide()
-      @$('a#follow').show()
 
     unless _.isEmpty @user.following or _.isEmpty @user.followers
 
@@ -94,50 +64,61 @@ class ProfileView extends Backbone.View
           if res.status is yes
             console.log res
             @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
-        )     
-    # Return itself      
+        ) 
+
     @
 
-  follow: (e)=>
+  save: (e) =>
     e.preventDefault()
-    ss.rpc("Users.Account.Follow", @user, (res) =>
-      console.log @user, window.MainRouter.User, res
-      if res.status is yes
-        @user = res.followee
-        window.MainRouter.User = res.user
-        alert("Great, you are now following #{@user.username}!")
-        Backbone.history.loadUrl(Backbone.history.fragment);
-    )
+    obj =
+      name:
+        first: @$('#firstname').val()
+        last: @$('#lastname').val()      
+      hometown: @$('input#hometown').val()
+      gender: @$('input[name=gender]:checked').val()
+      bio: @$('textarea#bio').val()
 
-  unfollow: (e) =>
-    e.preventDefault()
-    if @startUnfollowing is false
-      ss.rpc("Users.Account.Unfollow", @user, (res) =>
-        console.log res
-        if res.status is yes
-          @user = res.followee
-          window.MainRouter.User = res.user
-          alert("How sad, you stopped following #{@user.username}!")
-          Backbone.history.loadUrl(Backbone.history.fragment);
-          @startUnfollowing = true
-        else
-          @startUnfollowing = false
+    ss.rpc('Users.Account.Update', obj, (res) => 
+      if res.status is yes
+        window.MainRouter.User = res.user
+        @render()
       )
+
+  changePicture: (e) =>
+    e.preventDefault();
+    @$('#new-picture').trigger('click')
+
+  uploadPicture: (e) =>
+    e.preventDefault()
+    console.log e
+    file = e.target.files[0]
+    reader = new FileReader()
+    reader.onload = (event) =>
+      ss.rpc('Users.Account.UploadProfilePicture', {type: file.type, raw: event.target.result} , (res) =>        
+        if res.status
+          cdn = $("img#avatar").attr('src').split('/')
+          cdn.pop()
+          avatar = cdn.join('/')+"/"+res.user.avatar.split('/').pop()
+          $("img#avatar").attr('src',avatar)
+          window.MainRouter.User.avatar = res.user.avatar          
+        else
+          console.log res.message
+      )
+
+    console.log file
+    reader.readAsDataURL(file)
 
   rerouteToUser: (e) =>
     e.preventDefault()
-    console.log @$(e.srcElement).attr('href')
-    window.MainRouter.navigate @$(e.srcElement).attr('href'), true
+    window.MainRouter.navigate @$(e.srcElement).parent().attr('href'), true
 
-  compose: (e) =>
-    e.preventDefault()
-    @messageModal.show()
 
   events:
-    'click a#follow' : "follow"
-    'click a#unfollow' : "unfollow"
+    'click button#saveInfo' : "save"
+    'click button#saveBio' : "save"
+    'click a#changePicture' : "changePicture"
+    'change #new-picture' : "uploadPicture"
     'click ul.follows li a img' : 'rerouteToUser'
-    'click a#message' : "compose"
     
 exports.init = (options={}) ->
-  new ProfileView(options)
+  new ProfileEditView(options)

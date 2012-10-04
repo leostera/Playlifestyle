@@ -5,11 +5,12 @@ class MainRouter extends Routerious
     "home"  : 'index'
     'profile': 'profile'
     'logout' : 'logout'
-    'users/:username' : 'placeholder'
+    'users/:username' : 'profileByUsername'
     'following': 'following'
     'followers': 'followers'
     'friends': 'friends'
-    'messages/:id'  : 'messages'
+
+    'messages/:id'  : 'placeholder'
     
     #placeholder
     'active': 'placeholder'  
@@ -28,7 +29,6 @@ class MainRouter extends Routerious
   # Main route
   index: =>
     ss.rpc( "Users.Auth.Status", (res) =>
-      console.log res
       # If the user is not logged in
       if res?.status is no
         # Let him login or register       
@@ -46,7 +46,6 @@ class MainRouter extends Routerious
   # Profile route
   profile: =>
     ss.rpc( "Users.Auth.Status", (res) =>
-      console.log res
       # If the user is not logged in
       if res?.status is no
         # Let him login or register        
@@ -56,7 +55,7 @@ class MainRouter extends Routerious
       else
         # Otherwise let's go to the home view
         @User = res.user
-        @__prepareView('ProfileView', {el: $('#page-content')})
+        @__prepareView('ProfileEditView', {el: $('#page-content')})
         @__prepareView('partials/SidebarPartial')
         @__prepareView('partials/ProfileHeadPartial')
         @__prepareView('partials/NavPartial')
@@ -64,7 +63,6 @@ class MainRouter extends Routerious
 
   following: =>
     ss.rpc( "Users.Auth.Status", (res) =>
-      console.log res
       # If the user is not logged in
       if res?.status is no
         # Let him login or register        
@@ -82,7 +80,6 @@ class MainRouter extends Routerious
 
   followers: =>
     ss.rpc( "Users.Auth.Status", (res) =>
-      console.log res
       # If the user is not logged in
       if res?.status is no
         # Let him login or register        
@@ -100,7 +97,6 @@ class MainRouter extends Routerious
 
   friends: =>
     ss.rpc( "Users.Auth.Status", (res) =>
-      console.log res
       # If the user is not logged in
       if res?.status is no
         # Let him login or register        
@@ -119,17 +115,25 @@ class MainRouter extends Routerious
   # Profile by Username route
   profileByUsername: (username) =>
     ss.rpc( "Users.Auth.Status", (res) =>
-      console.log res
       if res?.status is no
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
         @__prepareView("partials/LogoPartial")
       else
         @User = res.user
-        @__prepareView('ProfileView', {el: $('#page-content'), username: usernam})
-        @__prepareView('partials/SidebarPartial')
-        @__prepareView('partials/ProfileHeadPartial')
-        @__prepareView('partials/NavPartial')
+        # Make an RPC to get the user information
+        ss.rpc('Users.Account.GetUser', {username: username}, (res2) =>
+          # If the result status is true
+          if res2.status is yes
+            @__prepareView('ProfileView', {el: $('#page-content'), user: res2.user})
+            @__prepareView('partials/ProfileHeadPartial')
+            @__prepareView('partials/NavPartial')
+            @__prepareView('partials/SidebarPartial')
+          else #otherwise
+            alert('User not found! Going back to home...')
+            window.MainRouter.navigate '/home', true
+        )
+        
       )
 
   # Sign Out Route
@@ -145,7 +149,6 @@ class MainRouter extends Routerious
   # Messages route
   messages: (id) =>
     ss.rpc( "Users.Auth.Status", (res) =>
-      console.log res
       if res?.status is no
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
@@ -161,7 +164,6 @@ class MainRouter extends Routerious
   # Placeholder
   placeholder: ->
     ss.rpc( "Users.Auth.Status", (res) =>
-      console.log res
       if res?.status is no
         @navigate ''
         @__prepareView('IndexView', {el: $('#page-content')})
