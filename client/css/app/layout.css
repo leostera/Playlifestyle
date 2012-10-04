@@ -428,6 +428,10 @@ div.interface-section.span7 {
 }
 
 @media (max-width: 980px) {
+    .hide {
+        display: none;
+    }
+    
     #main-content {
      width:454px;
 }
@@ -440,6 +444,10 @@ div.interface-section.span7 {
 }
 
 @media (max-width: 768px) {
+    .hide {
+        display: none;
+    }
+
     #page-content {
         background: 0;
     }
@@ -474,6 +482,10 @@ ul.nav.pull-right {
 }
 
 @media (max-width: 480px) {
+    .hide {
+        display: none;
+    }
+
     .omnisearch input.search-query {
       width: 280px;
       margin-top: -203px;
@@ -520,5 +532,8 @@ ul.nav.pull-right li.dropdown i.caret {
     margin-left: 10px;
 }
 
+.hide {
+    display: none;
+}
 
 

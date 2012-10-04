@@ -27,7 +27,7 @@ class FollowingView extends Backbone.View
             a.id is b.id
       )
 
-    if _.isEmpty friends
+    if _.isEmpty @user.following
       @$('ul.follows').append("People doesn't like you.")
     else
       following = _.difference( @user.following, friends_following)
