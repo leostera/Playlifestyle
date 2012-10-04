@@ -1,3 +1,3 @@
 module.exports =
-  Actions: require('./actions')
-  Utils: require('./utils')
+  actions: require('./actions')
+  utils: require('./utils')
