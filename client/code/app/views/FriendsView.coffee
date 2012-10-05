@@ -9,7 +9,7 @@ class FollowingView extends Backbone.View
 
   render: =>
     @user = window.MainRouter.User
-    @$el.html @template.render {user: @user}
+    @$el.html @template.render {title: "Friends", user: @user}
 
     if _.isEmpty @user.following or _.isEmpty @user.followers
       @$('ul.follows').append("You have no friends.")

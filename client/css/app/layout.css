@@ -29,6 +29,10 @@ nav.navbar div div div ul.nav li a {
     text-shadow: 1px 1px 0 #FFDD76;
 }
 
+nav.navbar div div div ul.nav li a.disabled {
+    opacity: 0.4;
+}
+
 ul.dropdown-menu.user-ui-menu {
     margin-top: -15px;
 }
@@ -97,6 +101,13 @@ ul.dropdown-menu.user-ui-menu {
     background-image:url('http://d3jzxruh9il70w.cloudfront.net/old_images/nav-bg.png');
     background-position:top;
     background-repeat:repeat-x;
+}
+
+.fixed-home-button {
+    position: fixed;
+    top: 9px;
+    left: 13px;
+    display: none;
 }
 
 #header {
@@ -486,6 +497,11 @@ ul.nav.pull-right {
         display: none;
     }
 
+    ul.nav li.home a.hide-on-phone {
+        opacity: 0;
+    }
+
+
     .navbar {
         position: fixed;
         width: 101%;
@@ -498,6 +514,14 @@ ul.nav.pull-right {
       left: 35px;
       top: 7px;
       z-index: 11;
+    }
+
+    .move-active-button {
+        margin-top: 14px;
+    }
+
+    .fixed-home-button {
+        display: block;
     }
 
     header#header {

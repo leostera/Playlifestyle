@@ -1,5 +1,7 @@
 .navbar-inner
   .container
+    a.fixed-home-button(href='home')
+      img(src='http://d3jzxruh9il70w.cloudfront.net/old_images/ico-home.png')
 
     a.btn.btn-navbar.btn-widget(data-toggle='collapse', data-target='.nav-collapse')
       span.icon-bar
@@ -9,23 +11,23 @@
     .nav-collapse
       ul.nav
         li.home
-          a(href='#')
+          a(href='home').hide-on-phone
             img(src='http://d3jzxruh9il70w.cloudfront.net/old_images/ico-home.png')
         li
-          a(href='active') Active
+          a(href='active').disabled.move-active-button Active
         li
-          a(href='arts') Arts/Photography
+          a(href='arts').disabled Arts/Photography
         li
-          a(href='culinary') Culinary
+          a(href='culinary').disabled Culinary
         li
-          a(href='fashion') Fashion
+          a(href='fashion').disabled Fashion
         li
-          a(href='buzz') Buzz
+          a(href='buzz').disabled Buzz
         li
-          a(href='music') Music
+          a(href='music').disabled Music/Concerts
         li
-          a(href='nightlife') Nightlife/Concerts
+          a(href='nightlife') Nightlife
         li
-          a(href='sports') Sports
+          a(href='sports').disabled Sports
         li
-          a(href='travel') Travel
+          a(href='travel').disabled Travel

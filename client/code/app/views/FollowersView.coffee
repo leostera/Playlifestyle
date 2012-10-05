@@ -9,7 +9,7 @@ class FollowersView extends Backbone.View
 
   render: =>
     @user = window.MainRouter.User
-    @$el.html @template.render {user: @user}
+    @$el.html @template.render {title: "Followers", user: @user}
 
     friends_followers = []
 

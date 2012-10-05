@@ -12,9 +12,13 @@ class NavPartial extends Backbone.View
 
   silentlyRoute: (e) =>
     e.preventDefault()
-    fragment = @$(e.srcElement).attr("href")
-    if fragment isnt "#"
+    element = @$(e.srcElement)
+    if e.srcElement.nodeName is "IMG"
+      element = element.parent()
+    fragment = element.attr('href')
+    if fragment is "nightlife" or fragment is "home"
       window.MainRouter.navigate fragment, true
+
 
   events:
     "click li a" : "silentlyRoute"
