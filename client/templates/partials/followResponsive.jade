@@ -1,0 +1,7 @@
+.span3.content-block
+  h3
+    a(href="/users/{{ user.username }}") {{ user.name.first }} {{ user.name.last }} ( {{ user.username }} )
+
+  .content
+    a(href="/users/{{ user.username }}")
+      img(src="//d3jzxruh9il70w.cloudfront.net{{ user.avatar }}",width="64px",height="64px", title="{{ user.username }}")

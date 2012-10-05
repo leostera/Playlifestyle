@@ -34,7 +34,7 @@ class ProfileEditView extends Backbone.View
         ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
-            @$('#put-friends-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+            @$('#put-friends-here').append( ss.tmpl['partials-followResponsive'].render { user: res.user } )
         )
 
     following = _.difference( @user.following, friends_following)
@@ -51,7 +51,7 @@ class ProfileEditView extends Backbone.View
         ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
-            @$('#put-follows-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+            @$('#put-follows-here').append( ss.tmpl['partials-followResponsive'].render { user: res.user } )
         )
 
     if _.isEmpty @user.followers
@@ -63,7 +63,7 @@ class ProfileEditView extends Backbone.View
         ss.rpc("users.account.get", {username: f.username}, (res) =>
           if res.status is yes
             console.log res
-            @$('#put-followers-here').append( ss.tmpl['partials-follow'].render { username: res.user.username, avatar: res.user.avatar } )
+            @$('#put-followers-here').append( ss.tmpl['partials-followResponsive'].render { user: res.user } )
         ) 
 
     @
