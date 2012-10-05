@@ -124,11 +124,15 @@ class ProfileView extends Backbone.View
           @startUnfollowing = false
       )
 
-  rerouteToUser: (e) =>
+  silentlyRoute: (e) =>
     e.preventDefault()
-    console.log @$(e.srcElement).attr('href')
-    window.MainRouter.navigate @$(e.srcElement).attr('href'), true
-
+    element = @$(e.srcElement)
+    if e.srcElement.nodeName is "IMG"
+      element = element.parent()
+    fragment = element.attr('href')
+    if fragment isnt "#"
+      console.log fragment
+      window.MainRouter.navigate fragment, true
   compose: (e) =>
     e.preventDefault()
     @messageModal.show()
@@ -136,7 +140,7 @@ class ProfileView extends Backbone.View
   events:
     'click a#follow' : "follow"
     'click a#unfollow' : "unfollow"
-    'click ul.follows li a img' : 'rerouteToUser'
+    'click ul.follows a' : 'silentlyRoute'
     'click a#message' : "compose"
     
 exports.init = (options={}) ->

@@ -50,6 +50,8 @@ class SidebarPartial extends Backbone.View
     @$('.friends-list#follows h3 a#following').html("#{_.size(following)} Following")
     @$('.friends-list#follows h3 a#followers').html("#{_.size(followers)} Followers")
 
+    if $('.navbar').css('position') is 'fixed' and $('.sidebar-content').css('height') isnt '0' and Backbone.history.fragment isnt 'profile'
+      $('.sidebar-content').collapse('hide')
     @
 
   silentlyRoute: (e) =>

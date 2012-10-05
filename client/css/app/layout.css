@@ -486,11 +486,22 @@ ul.nav.pull-right {
         display: none;
     }
 
+    .navbar {
+        position: fixed;
+        width: 101%;
+        z-index: 10;
+    }
+
     .omnisearch input.search-query {
-      width: 80%;
-      position: absolute;
-      left: 10px;
-      top: 10px;
+      width: 70%;
+      position: fixed;
+      left: 35px;
+      top: 7px;
+      z-index: 11;
+    }
+
+    header#header {
+        padding-top: 60px;
     }
 
     #sidebar {

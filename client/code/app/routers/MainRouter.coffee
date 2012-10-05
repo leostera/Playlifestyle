@@ -139,6 +139,8 @@ class MainRouter extends Routerious
         @__prepareView("partials/LogoPartial")
       else
         @User = res.user
+        if username is res.user.username
+          @navigate 'profile', true
         # Make an RPC to get the user information
         ss.rpc('users.account.get', {username: username}, (res2) =>
           # If the result status is true
