@@ -60,8 +60,7 @@ class SidebarPartial extends Backbone.View
     if e.srcElement.nodeName is "IMG"
       element = element.parent()
     fragment = element.attr('href')
-    if fragment isnt "#hide-sidebar"
-      console.log fragment
+    if fragment isnt undefined
       window.MainRouter.navigate fragment, true
 
   events:
