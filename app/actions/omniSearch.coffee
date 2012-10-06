@@ -6,12 +6,17 @@ search = module.exports.search = (query, fn) =>
     status: no
     results: []
 
-  # Here we will add more model searches, right now is just users and usernames
-  models.Account.find {username: new RegExp("#{query}",'i')}, 'username name avatar', (err, results) =>
-    response.results = results
-    unless err
-      response.status = yes
-    else
-      response.error = err
+  regEx = new RegExp("#{query}",'i')
 
-    fn response
+  bringItOn = (err, results) =>
+      console.log results
+      response.results = results
+      unless err
+        response.status = yes
+      else
+        response.error = err
+
+      fn response
+
+  # Here we will add more model searches, right now is just users and usernames
+  models.Account.find().or([{'username': regEx},{'name.first': regEx},{'name.last': regEx},{'hometown': regEx}]).exec(bringItOn)
